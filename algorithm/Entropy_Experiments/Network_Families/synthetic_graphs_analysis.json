@@ -1,0 +1,6970 @@
+{
+  "ring": {
+    "ring_2500_0": {
+      "Name": "ring_2500_0",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "ring",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 2500,
+          "ave_degree": 2.0,
+          "entropy_arithmetic": {
+            "graph": 143482,
+            "random": 143591.9,
+            "normalized": 0.9992346364941198
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 17231,
+          "ave_degree": 17.222388805597202,
+          "entropy_arithmetic": {
+            "graph": 125797,
+            "random": 129423.7,
+            "normalized": 0.9719780843848538
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 16123,
+          "ave_degree": 21.497333333333334,
+          "entropy_arithmetic": {
+            "graph": 109459,
+            "random": 112140.5,
+            "normalized": 0.9760880324236114
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 15055,
+          "ave_degree": 30.11,
+          "entropy_arithmetic": {
+            "graph": 90000,
+            "random": 91053.1,
+            "normalized": 0.9884342213499595
+          }
+        },
+        "20": {
+          "number_nodes": 502,
+          "number_edges": 14199,
+          "ave_degree": 56.569721115537845,
+          "entropy_arithmetic": {
+            "graph": 60457,
+            "random": 60806.0,
+            "normalized": 0.9942604348255106
+          }
+        }
+      }
+    },
+    "ring_2500_1": {
+      "Name": "ring_2500_1",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "ring",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 2500,
+          "ave_degree": 2.0,
+          "entropy_arithmetic": {
+            "graph": 143718,
+            "random": 143795.1,
+            "normalized": 0.9994638203944363
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 17234,
+          "ave_degree": 17.22538730634683,
+          "entropy_arithmetic": {
+            "graph": 125753,
+            "random": 130040.2,
+            "normalized": 0.9670317332640215
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 16113,
+          "ave_degree": 21.484,
+          "entropy_arithmetic": {
+            "graph": 109193,
+            "random": 111673.5,
+            "normalized": 0.9777879264104734
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 14931,
+          "ave_degree": 29.862,
+          "entropy_arithmetic": {
+            "graph": 89076,
+            "random": 90591.5,
+            "normalized": 0.9832710574391638
+          }
+        },
+        "20": {
+          "number_nodes": 500,
+          "number_edges": 14161,
+          "ave_degree": 56.644,
+          "entropy_arithmetic": {
+            "graph": 60228,
+            "random": 60619.3,
+            "normalized": 0.9935449601034654
+          }
+        }
+      }
+    },
+    "ring_2500_2": {
+      "Name": "ring_2500_2",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "ring",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 2500,
+          "ave_degree": 2.0,
+          "entropy_arithmetic": {
+            "graph": 145022,
+            "random": 145241.4,
+            "normalized": 0.9984894114212615
+          }
+        },
+        "80": {
+          "number_nodes": 2002,
+          "number_edges": 17433,
+          "ave_degree": 17.415584415584416,
+          "entropy_arithmetic": {
+            "graph": 126616,
+            "random": 130765.5,
+            "normalized": 0.9682676241057465
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 16263,
+          "ave_degree": 21.684,
+          "entropy_arithmetic": {
+            "graph": 109672,
+            "random": 112745.8,
+            "normalized": 0.9727369001772128
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 14942,
+          "ave_degree": 29.884,
+          "entropy_arithmetic": {
+            "graph": 88899,
+            "random": 90709.5,
+            "normalized": 0.9800406793114282
+          }
+        },
+        "20": {
+          "number_nodes": 500,
+          "number_edges": 14179,
+          "ave_degree": 56.716,
+          "entropy_arithmetic": {
+            "graph": 60150,
+            "random": 60674.7,
+            "normalized": 0.9913522440160397
+          }
+        }
+      }
+    },
+    "ring_2500_3": {
+      "Name": "ring_2500_3",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "ring",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 2500,
+          "ave_degree": 2.0,
+          "entropy_arithmetic": {
+            "graph": 142763,
+            "random": 142695.7,
+            "normalized": 1.0004716329924446
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 17071,
+          "ave_degree": 17.06246876561719,
+          "entropy_arithmetic": {
+            "graph": 124316,
+            "random": 128859.8,
+            "normalized": 0.9647384211367703
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 16084,
+          "ave_degree": 21.445333333333334,
+          "entropy_arithmetic": {
+            "graph": 109004,
+            "random": 111757.1,
+            "normalized": 0.9753653235454391
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 15018,
+          "ave_degree": 30.036,
+          "entropy_arithmetic": {
+            "graph": 89817,
+            "random": 90940.3,
+            "normalized": 0.9876479404620393
+          }
+        },
+        "20": {
+          "number_nodes": 503,
+          "number_edges": 14072,
+          "ave_degree": 55.95228628230616,
+          "entropy_arithmetic": {
+            "graph": 60236,
+            "random": 60623.2,
+            "normalized": 0.9936130062418349
+          }
+        }
+      }
+    },
+    "ring_2500_4": {
+      "Name": "ring_2500_4",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "ring",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 2500,
+          "ave_degree": 2.0,
+          "entropy_arithmetic": {
+            "graph": 143086,
+            "random": 143073.4,
+            "normalized": 1.0000880666846528
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 17155,
+          "ave_degree": 17.146426786606696,
+          "entropy_arithmetic": {
+            "graph": 124984,
+            "random": 128784.4,
+            "normalized": 0.9704902146533276
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 16119,
+          "ave_degree": 21.492,
+          "entropy_arithmetic": {
+            "graph": 109670,
+            "random": 112096.8,
+            "normalized": 0.9783508539048393
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 14947,
+          "ave_degree": 29.894,
+          "entropy_arithmetic": {
+            "graph": 89236,
+            "random": 90410.9,
+            "normalized": 0.98700488547288
+          }
+        },
+        "20": {
+          "number_nodes": 500,
+          "number_edges": 14060,
+          "ave_degree": 56.24,
+          "entropy_arithmetic": {
+            "graph": 59839,
+            "random": 60354.8,
+            "normalized": 0.991453869451974
+          }
+        }
+      }
+    },
+    "ring_2500_5": {
+      "Name": "ring_2500_5",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "ring",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 2500,
+          "ave_degree": 2.0,
+          "entropy_arithmetic": {
+            "graph": 143344,
+            "random": 143258.1,
+            "normalized": 1.0005996170548122
+          }
+        },
+        "80": {
+          "number_nodes": 2002,
+          "number_edges": 17240,
+          "ave_degree": 17.22277722277722,
+          "entropy_arithmetic": {
+            "graph": 125192,
+            "random": 129698.3,
+            "normalized": 0.9652555199258587
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 16127,
+          "ave_degree": 21.502666666666666,
+          "entropy_arithmetic": {
+            "graph": 109369,
+            "random": 111990.0,
+            "normalized": 0.9765961246539869
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 15016,
+          "ave_degree": 30.032,
+          "entropy_arithmetic": {
+            "graph": 89538,
+            "random": 90982.2,
+            "normalized": 0.9841265654160924
+          }
+        },
+        "20": {
+          "number_nodes": 501,
+          "number_edges": 14014,
+          "ave_degree": 55.94411177644711,
+          "entropy_arithmetic": {
+            "graph": 60000,
+            "random": 60283.7,
+            "normalized": 0.9952939185882752
+          }
+        }
+      }
+    },
+    "ring_2500_6": {
+      "Name": "ring_2500_6",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "ring",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 2500,
+          "ave_degree": 2.0,
+          "entropy_arithmetic": {
+            "graph": 141906,
+            "random": 142031.0,
+            "normalized": 0.9991199104420866
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 17008,
+          "ave_degree": 16.999500249875062,
+          "entropy_arithmetic": {
+            "graph": 124582,
+            "random": 128173.1,
+            "normalized": 0.9719824206483263
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 15901,
+          "ave_degree": 21.201333333333334,
+          "entropy_arithmetic": {
+            "graph": 108106,
+            "random": 110556.6,
+            "normalized": 0.9778339782518637
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 14789,
+          "ave_degree": 29.578,
+          "entropy_arithmetic": {
+            "graph": 88778,
+            "random": 89860.8,
+            "normalized": 0.9879502519452308
+          }
+        },
+        "20": {
+          "number_nodes": 502,
+          "number_edges": 13605,
+          "ave_degree": 54.20318725099602,
+          "entropy_arithmetic": {
+            "graph": 58218,
+            "random": 59172.9,
+            "normalized": 0.9838625451853804
+          }
+        }
+      }
+    },
+    "ring_2500_7": {
+      "Name": "ring_2500_7",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "ring",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 2500,
+          "ave_degree": 2.0,
+          "entropy_arithmetic": {
+            "graph": 144289,
+            "random": 144007.5,
+            "normalized": 1.001954759300731
+          }
+        },
+        "80": {
+          "number_nodes": 2002,
+          "number_edges": 17307,
+          "ave_degree": 17.28971028971029,
+          "entropy_arithmetic": {
+            "graph": 124847,
+            "random": 130372.4,
+            "normalized": 0.9576183302600858
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 16184,
+          "ave_degree": 21.578666666666667,
+          "entropy_arithmetic": {
+            "graph": 109722,
+            "random": 112260.9,
+            "normalized": 0.9773839333196154
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 15053,
+          "ave_degree": 30.106,
+          "entropy_arithmetic": {
+            "graph": 89595,
+            "random": 91250.7,
+            "normalized": 0.9818554816565791
+          }
+        },
+        "20": {
+          "number_nodes": 501,
+          "number_edges": 13940,
+          "ave_degree": 55.64870259481038,
+          "entropy_arithmetic": {
+            "graph": 59416,
+            "random": 60122.0,
+            "normalized": 0.9882572103389774
+          }
+        }
+      }
+    },
+    "ring_2500_8": {
+      "Name": "ring_2500_8",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "ring",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 2500,
+          "ave_degree": 2.0,
+          "entropy_arithmetic": {
+            "graph": 143010,
+            "random": 142767.0,
+            "normalized": 1.0017020740086995
+          }
+        },
+        "80": {
+          "number_nodes": 2002,
+          "number_edges": 17141,
+          "ave_degree": 17.123876123876123,
+          "entropy_arithmetic": {
+            "graph": 125060,
+            "random": 129157.7,
+            "normalized": 0.968273668546281
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 16138,
+          "ave_degree": 21.517333333333333,
+          "entropy_arithmetic": {
+            "graph": 109205,
+            "random": 112283.9,
+            "normalized": 0.9725793279357059
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 14844,
+          "ave_degree": 29.688,
+          "entropy_arithmetic": {
+            "graph": 88630,
+            "random": 89957.7,
+            "normalized": 0.9852408409730351
+          }
+        },
+        "20": {
+          "number_nodes": 505,
+          "number_edges": 14105,
+          "ave_degree": 55.86138613861386,
+          "entropy_arithmetic": {
+            "graph": 60500,
+            "random": 60903.2,
+            "normalized": 0.9933796582117196
+          }
+        }
+      }
+    },
+    "ring_2500_9": {
+      "Name": "ring_2500_9",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "ring",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 2500,
+          "ave_degree": 2.0,
+          "entropy_arithmetic": {
+            "graph": 141734,
+            "random": 141809.5,
+            "normalized": 0.9994675956124237
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 16997,
+          "ave_degree": 16.988505747126435,
+          "entropy_arithmetic": {
+            "graph": 123871,
+            "random": 128076.0,
+            "normalized": 0.9671679315406477
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 15834,
+          "ave_degree": 21.112,
+          "entropy_arithmetic": {
+            "graph": 107102,
+            "random": 110175.3,
+            "normalized": 0.9721053629987846
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 14745,
+          "ave_degree": 29.49,
+          "entropy_arithmetic": {
+            "graph": 88320,
+            "random": 89349.5,
+            "normalized": 0.9884778314372212
+          }
+        },
+        "20": {
+          "number_nodes": 504,
+          "number_edges": 13931,
+          "ave_degree": 55.28174603174603,
+          "entropy_arithmetic": {
+            "graph": 59939,
+            "random": 60172.3,
+            "normalized": 0.9961228006906832
+          }
+        }
+      }
+    },
+    "ring_1500_0": {
+      "Name": "ring_1500_0",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "ring",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 1500,
+          "ave_degree": 2.0,
+          "entropy_arithmetic": {
+            "graph": 53463,
+            "random": 53324.0,
+            "normalized": 1.0026067061735804
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 6770,
+          "ave_degree": 11.273938384679434,
+          "entropy_arithmetic": {
+            "graph": 47270,
+            "random": 48251.4,
+            "normalized": 0.9796606937829783
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 6331,
+          "ave_degree": 14.068888888888889,
+          "entropy_arithmetic": {
+            "graph": 40675,
+            "random": 41826.7,
+            "normalized": 0.9724649565947111
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 5860,
+          "ave_degree": 19.533333333333335,
+          "entropy_arithmetic": {
+            "graph": 33252,
+            "random": 33817.9,
+            "normalized": 0.9832662584016156
+          }
+        },
+        "20": {
+          "number_nodes": 301,
+          "number_edges": 4784,
+          "ave_degree": 31.78737541528239,
+          "entropy_arithmetic": {
+            "graph": 19145,
+            "random": 20449.1,
+            "normalized": 0.9362270222161367
+          }
+        }
+      }
+    },
+    "ring_1500_1": {
+      "Name": "ring_1500_1",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "ring",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 1500,
+          "ave_degree": 2.0,
+          "entropy_arithmetic": {
+            "graph": 53220,
+            "random": 53264.7,
+            "normalized": 0.9991607950481276
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 6760,
+          "ave_degree": 11.257285595337219,
+          "entropy_arithmetic": {
+            "graph": 47276,
+            "random": 48191.4,
+            "normalized": 0.9810049095896778
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 6338,
+          "ave_degree": 14.084444444444445,
+          "entropy_arithmetic": {
+            "graph": 41192,
+            "random": 41799.0,
+            "normalized": 0.98547812148616
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 5869,
+          "ave_degree": 19.563333333333333,
+          "entropy_arithmetic": {
+            "graph": 33473,
+            "random": 33886.3,
+            "normalized": 0.9878033305495141
+          }
+        },
+        "20": {
+          "number_nodes": 300,
+          "number_edges": 4595,
+          "ave_degree": 30.633333333333333,
+          "entropy_arithmetic": {
+            "graph": 18242,
+            "random": 19767.9,
+            "normalized": 0.9228092007749937
+          }
+        }
+      }
+    },
+    "ring_1500_2": {
+      "Name": "ring_1500_2",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "ring",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 1500,
+          "ave_degree": 2.0,
+          "entropy_arithmetic": {
+            "graph": 51942,
+            "random": 51843.4,
+            "normalized": 1.0019018814352454
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 6574,
+          "ave_degree": 10.947543713572024,
+          "entropy_arithmetic": {
+            "graph": 46058,
+            "random": 46861.3,
+            "normalized": 0.9828579232757093
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 6140,
+          "ave_degree": 13.644444444444444,
+          "entropy_arithmetic": {
+            "graph": 39954,
+            "random": 40618.4,
+            "normalized": 0.9836428810588305
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 5725,
+          "ave_degree": 19.083333333333332,
+          "entropy_arithmetic": {
+            "graph": 32830,
+            "random": 33113.9,
+            "normalized": 0.9914265610514014
+          }
+        },
+        "20": {
+          "number_nodes": 301,
+          "number_edges": 4035,
+          "ave_degree": 26.81063122923588,
+          "entropy_arithmetic": {
+            "graph": 16310,
+            "random": 18014.5,
+            "normalized": 0.9053817757917233
+          }
+        }
+      }
+    },
+    "ring_1500_3": {
+      "Name": "ring_1500_3",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "ring",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 1500,
+          "ave_degree": 2.0,
+          "entropy_arithmetic": {
+            "graph": 53973,
+            "random": 53840.0,
+            "normalized": 1.0024702823179792
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 6839,
+          "ave_degree": 11.388842631140717,
+          "entropy_arithmetic": {
+            "graph": 47725,
+            "random": 48601.5,
+            "normalized": 0.9819655771941195
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 6392,
+          "ave_degree": 14.204444444444444,
+          "entropy_arithmetic": {
+            "graph": 41268,
+            "random": 42101.6,
+            "normalized": 0.980200277424136
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 5932,
+          "ave_degree": 19.773333333333333,
+          "entropy_arithmetic": {
+            "graph": 33804,
+            "random": 34107.2,
+            "normalized": 0.9911103813857486
+          }
+        },
+        "20": {
+          "number_nodes": 302,
+          "number_edges": 4325,
+          "ave_degree": 28.642384105960264,
+          "entropy_arithmetic": {
+            "graph": 17501,
+            "random": 19009.1,
+            "normalized": 0.920664313407789
+          }
+        }
+      }
+    },
+    "ring_1500_4": {
+      "Name": "ring_1500_4",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "ring",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 1500,
+          "ave_degree": 2.0,
+          "entropy_arithmetic": {
+            "graph": 53558,
+            "random": 53285.2,
+            "normalized": 1.0051196204574628
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 6770,
+          "ave_degree": 11.273938384679434,
+          "entropy_arithmetic": {
+            "graph": 47209,
+            "random": 48232.7,
+            "normalized": 0.9787758097722086
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 6350,
+          "ave_degree": 14.11111111111111,
+          "entropy_arithmetic": {
+            "graph": 41082,
+            "random": 41806.4,
+            "normalized": 0.9826725094722338
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 5880,
+          "ave_degree": 19.6,
+          "entropy_arithmetic": {
+            "graph": 33565,
+            "random": 33947.0,
+            "normalized": 0.9887471646979115
+          }
+        },
+        "20": {
+          "number_nodes": 300,
+          "number_edges": 4668,
+          "ave_degree": 31.12,
+          "entropy_arithmetic": {
+            "graph": 18663,
+            "random": 19970.0,
+            "normalized": 0.9345518277416124
+          }
+        }
+      }
+    },
+    "ring_1500_5": {
+      "Name": "ring_1500_5",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "ring",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 1500,
+          "ave_degree": 2.0,
+          "entropy_arithmetic": {
+            "graph": 53017,
+            "random": 52791.7,
+            "normalized": 1.0042677163266196
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 6714,
+          "ave_degree": 11.18068276436303,
+          "entropy_arithmetic": {
+            "graph": 47141,
+            "random": 47711.1,
+            "normalized": 0.9880509986145782
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 6287,
+          "ave_degree": 13.971111111111112,
+          "entropy_arithmetic": {
+            "graph": 40813,
+            "random": 41506.3,
+            "normalized": 0.9832965116138995
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 5844,
+          "ave_degree": 19.48,
+          "entropy_arithmetic": {
+            "graph": 33498,
+            "random": 33807.2,
+            "normalized": 0.9908540192621691
+          }
+        },
+        "20": {
+          "number_nodes": 300,
+          "number_edges": 4595,
+          "ave_degree": 30.633333333333333,
+          "entropy_arithmetic": {
+            "graph": 18281,
+            "random": 19731.9,
+            "normalized": 0.9264693212513746
+          }
+        }
+      }
+    },
+    "ring_1500_6": {
+      "Name": "ring_1500_6",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "ring",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 1500,
+          "ave_degree": 2.0,
+          "entropy_arithmetic": {
+            "graph": 54083,
+            "random": 54032.9,
+            "normalized": 1.0009272128647546
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 6861,
+          "ave_degree": 11.425478767693589,
+          "entropy_arithmetic": {
+            "graph": 48150,
+            "random": 48732.8,
+            "normalized": 0.9880409087924354
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 6412,
+          "ave_degree": 14.248888888888889,
+          "entropy_arithmetic": {
+            "graph": 41223,
+            "random": 42272.7,
+            "normalized": 0.9751683710763686
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 5994,
+          "ave_degree": 19.98,
+          "entropy_arithmetic": {
+            "graph": 34155,
+            "random": 34499.4,
+            "normalized": 0.9900172176907424
+          }
+        },
+        "20": {
+          "number_nodes": 300,
+          "number_edges": 4247,
+          "ave_degree": 28.313333333333333,
+          "entropy_arithmetic": {
+            "graph": 17319,
+            "random": 18684.3,
+            "normalized": 0.9269279555562692
+          }
+        }
+      }
+    },
+    "ring_1500_7": {
+      "Name": "ring_1500_7",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "ring",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 1500,
+          "ave_degree": 2.0,
+          "entropy_arithmetic": {
+            "graph": 53155,
+            "random": 53076.7,
+            "normalized": 1.0014752235915194
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 6727,
+          "ave_degree": 11.20233139050791,
+          "entropy_arithmetic": {
+            "graph": 46929,
+            "random": 48016.9,
+            "normalized": 0.9773433936801418
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 6316,
+          "ave_degree": 14.035555555555556,
+          "entropy_arithmetic": {
+            "graph": 40992,
+            "random": 41754.9,
+            "normalized": 0.9817290904780037
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 5819,
+          "ave_degree": 19.39666666666667,
+          "entropy_arithmetic": {
+            "graph": 33098,
+            "random": 33625.8,
+            "normalized": 0.9843037191680197
+          }
+        },
+        "20": {
+          "number_nodes": 302,
+          "number_edges": 4557,
+          "ave_degree": 30.178807947019866,
+          "entropy_arithmetic": {
+            "graph": 18501,
+            "random": 19719.5,
+            "normalized": 0.9382083724232358
+          }
+        }
+      }
+    },
+    "ring_1500_8": {
+      "Name": "ring_1500_8",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "ring",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 1500,
+          "ave_degree": 2.0,
+          "entropy_arithmetic": {
+            "graph": 52944,
+            "random": 52924.5,
+            "normalized": 1.0003684493948928
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 6694,
+          "ave_degree": 11.147377185678602,
+          "entropy_arithmetic": {
+            "graph": 46770,
+            "random": 47673.0,
+            "normalized": 0.9810584607639544
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 6290,
+          "ave_degree": 13.977777777777778,
+          "entropy_arithmetic": {
+            "graph": 40696,
+            "random": 41440.4,
+            "normalized": 0.9820368529261301
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 5860,
+          "ave_degree": 19.533333333333335,
+          "entropy_arithmetic": {
+            "graph": 33503,
+            "random": 33876.5,
+            "normalized": 0.9889746579487255
+          }
+        },
+        "20": {
+          "number_nodes": 300,
+          "number_edges": 3987,
+          "ave_degree": 26.58,
+          "entropy_arithmetic": {
+            "graph": 16184,
+            "random": 17818.1,
+            "normalized": 0.9082898850045741
+          }
+        }
+      }
+    },
+    "ring_1500_9": {
+      "Name": "ring_1500_9",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "ring",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 1500,
+          "ave_degree": 2.0,
+          "entropy_arithmetic": {
+            "graph": 53101,
+            "random": 53217.8,
+            "normalized": 0.9978052456133097
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 6721,
+          "ave_degree": 11.19233971690258,
+          "entropy_arithmetic": {
+            "graph": 46913,
+            "random": 47895.1,
+            "normalized": 0.9794947708638253
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 6276,
+          "ave_degree": 13.946666666666667,
+          "entropy_arithmetic": {
+            "graph": 40629,
+            "random": 41490.0,
+            "normalized": 0.9792480115690528
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 5876,
+          "ave_degree": 19.586666666666666,
+          "entropy_arithmetic": {
+            "graph": 33640,
+            "random": 33952.1,
+            "normalized": 0.9908076378191629
+          }
+        },
+        "20": {
+          "number_nodes": 302,
+          "number_edges": 4478,
+          "ave_degree": 29.655629139072847,
+          "entropy_arithmetic": {
+            "graph": 17708,
+            "random": 19513.8,
+            "normalized": 0.9074603613852761
+          }
+        }
+      }
+    },
+    "ring_500_0": {
+      "Name": "ring_500_0",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "ring",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 500,
+          "ave_degree": 2.0,
+          "entropy_arithmetic": {
+            "graph": 6852,
+            "random": 6733.7,
+            "normalized": 1.0175683502383535
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 992,
+          "ave_degree": 4.947630922693267,
+          "entropy_arithmetic": {
+            "graph": 5891,
+            "random": 5909.5,
+            "normalized": 0.9968694474997885
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 884,
+          "ave_degree": 5.8933333333333335,
+          "entropy_arithmetic": {
+            "graph": 4874,
+            "random": 4956.7,
+            "normalized": 0.983315512336837
+          }
+        },
+        "40": {
+          "number_nodes": 200,
+          "number_edges": 778,
+          "ave_degree": 7.78,
+          "entropy_arithmetic": {
+            "graph": 3889,
+            "random": 3906.4,
+            "normalized": 0.995545771042392
+          }
+        },
+        "20": {
+          "number_nodes": 101,
+          "number_edges": 557,
+          "ave_degree": 11.029702970297029,
+          "entropy_arithmetic": {
+            "graph": 1954,
+            "random": 2140.3,
+            "normalized": 0.912956127645657
+          }
+        }
+      }
+    },
+    "ring_500_1": {
+      "Name": "ring_500_1",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "ring",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 500,
+          "ave_degree": 2.0,
+          "entropy_arithmetic": {
+            "graph": 7437,
+            "random": 7358.9,
+            "normalized": 1.0106129992254278
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 1078,
+          "ave_degree": 5.376558603491272,
+          "entropy_arithmetic": {
+            "graph": 6426,
+            "random": 6433.1,
+            "normalized": 0.9988963330276227
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 969,
+          "ave_degree": 6.46,
+          "entropy_arithmetic": {
+            "graph": 5383,
+            "random": 5411.4,
+            "normalized": 0.9947518202313634
+          }
+        },
+        "40": {
+          "number_nodes": 200,
+          "number_edges": 853,
+          "ave_degree": 8.53,
+          "entropy_arithmetic": {
+            "graph": 4235,
+            "random": 4223.4,
+            "normalized": 1.0027466022635791
+          }
+        },
+        "20": {
+          "number_nodes": 101,
+          "number_edges": 615,
+          "ave_degree": 12.178217821782178,
+          "entropy_arithmetic": {
+            "graph": 2083,
+            "random": 2313.5,
+            "normalized": 0.9003674086881348
+          }
+        }
+      }
+    },
+    "ring_500_2": {
+      "Name": "ring_500_2",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "ring",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 500,
+          "ave_degree": 2.0,
+          "entropy_arithmetic": {
+            "graph": 6889,
+            "random": 6866.5,
+            "normalized": 1.0032767785625865
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 1008,
+          "ave_degree": 5.027431421446384,
+          "entropy_arithmetic": {
+            "graph": 5975,
+            "random": 5999.5,
+            "normalized": 0.9959163263605301
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 892,
+          "ave_degree": 5.946666666666666,
+          "entropy_arithmetic": {
+            "graph": 5007,
+            "random": 5018.6,
+            "normalized": 0.9976885984139002
+          }
+        },
+        "40": {
+          "number_nodes": 200,
+          "number_edges": 790,
+          "ave_degree": 7.9,
+          "entropy_arithmetic": {
+            "graph": 3961,
+            "random": 3948.9,
+            "normalized": 1.0030641444452886
+          }
+        },
+        "20": {
+          "number_nodes": 100,
+          "number_edges": 543,
+          "ave_degree": 10.86,
+          "entropy_arithmetic": {
+            "graph": 1861,
+            "random": 2093.9,
+            "normalized": 0.8887721476670327
+          }
+        }
+      }
+    },
+    "ring_500_3": {
+      "Name": "ring_500_3",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "ring",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 500,
+          "ave_degree": 2.0,
+          "entropy_arithmetic": {
+            "graph": 6860,
+            "random": 6762.0,
+            "normalized": 1.0144927536231885
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 988,
+          "ave_degree": 4.927680798004988,
+          "entropy_arithmetic": {
+            "graph": 5872,
+            "random": 5882.2,
+            "normalized": 0.9982659549148278
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 881,
+          "ave_degree": 5.873333333333333,
+          "entropy_arithmetic": {
+            "graph": 4915,
+            "random": 4930.7,
+            "normalized": 0.9968158679295029
+          }
+        },
+        "40": {
+          "number_nodes": 200,
+          "number_edges": 777,
+          "ave_degree": 7.77,
+          "entropy_arithmetic": {
+            "graph": 3890,
+            "random": 3876.1,
+            "normalized": 1.0035860787905369
+          }
+        },
+        "20": {
+          "number_nodes": 100,
+          "number_edges": 571,
+          "ave_degree": 11.42,
+          "entropy_arithmetic": {
+            "graph": 2033,
+            "random": 2159.2,
+            "normalized": 0.9415524268247499
+          }
+        }
+      }
+    },
+    "ring_500_4": {
+      "Name": "ring_500_4",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "ring",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 500,
+          "ave_degree": 2.0,
+          "entropy_arithmetic": {
+            "graph": 7438,
+            "random": 7401.3,
+            "normalized": 1.0049585883560996
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 1091,
+          "ave_degree": 5.44139650872818,
+          "entropy_arithmetic": {
+            "graph": 6521,
+            "random": 6481.0,
+            "normalized": 1.006171887054467
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 984,
+          "ave_degree": 6.56,
+          "entropy_arithmetic": {
+            "graph": 5418,
+            "random": 5452.3,
+            "normalized": 0.9937090769033252
+          }
+        },
+        "40": {
+          "number_nodes": 200,
+          "number_edges": 865,
+          "ave_degree": 8.65,
+          "entropy_arithmetic": {
+            "graph": 4268,
+            "random": 4274.0,
+            "normalized": 0.99859616284511
+          }
+        },
+        "20": {
+          "number_nodes": 101,
+          "number_edges": 609,
+          "ave_degree": 12.05940594059406,
+          "entropy_arithmetic": {
+            "graph": 2156,
+            "random": 2284.3,
+            "normalized": 0.9438339972858205
+          }
+        }
+      }
+    },
+    "ring_500_5": {
+      "Name": "ring_500_5",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "ring",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 500,
+          "ave_degree": 2.0,
+          "entropy_arithmetic": {
+            "graph": 7219,
+            "random": 7132.0,
+            "normalized": 1.0121985417835109
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 1049,
+          "ave_degree": 5.231920199501247,
+          "entropy_arithmetic": {
+            "graph": 6255,
+            "random": 6269.5,
+            "normalized": 0.9976872158864343
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 940,
+          "ave_degree": 6.266666666666667,
+          "entropy_arithmetic": {
+            "graph": 5180,
+            "random": 5252.0,
+            "normalized": 0.9862909367859863
+          }
+        },
+        "40": {
+          "number_nodes": 200,
+          "number_edges": 824,
+          "ave_degree": 8.24,
+          "entropy_arithmetic": {
+            "graph": 4089,
+            "random": 4100.4,
+            "normalized": 0.9972197834357625
+          }
+        },
+        "20": {
+          "number_nodes": 100,
+          "number_edges": 557,
+          "ave_degree": 11.14,
+          "entropy_arithmetic": {
+            "graph": 1942,
+            "random": 2133.7,
+            "normalized": 0.9101560669259972
+          }
+        }
+      }
+    },
+    "ring_500_6": {
+      "Name": "ring_500_6",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "ring",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 500,
+          "ave_degree": 2.0,
+          "entropy_arithmetic": {
+            "graph": 7004,
+            "random": 6914.5,
+            "normalized": 1.0129438137247813
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 1019,
+          "ave_degree": 5.082294264339152,
+          "entropy_arithmetic": {
+            "graph": 6078,
+            "random": 6066.3,
+            "normalized": 1.0019286879976261
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 913,
+          "ave_degree": 6.086666666666667,
+          "entropy_arithmetic": {
+            "graph": 5111,
+            "random": 5117.8,
+            "normalized": 0.9986713040759702
+          }
+        },
+        "40": {
+          "number_nodes": 200,
+          "number_edges": 801,
+          "ave_degree": 8.01,
+          "entropy_arithmetic": {
+            "graph": 3976,
+            "random": 3997.3,
+            "normalized": 0.9946714031971581
+          }
+        },
+        "20": {
+          "number_nodes": 100,
+          "number_edges": 582,
+          "ave_degree": 11.64,
+          "entropy_arithmetic": {
+            "graph": 2064,
+            "random": 2205.2,
+            "normalized": 0.9359695265735535
+          }
+        }
+      }
+    },
+    "ring_500_7": {
+      "Name": "ring_500_7",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "ring",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 500,
+          "ave_degree": 2.0,
+          "entropy_arithmetic": {
+            "graph": 7019,
+            "random": 7005.6,
+            "normalized": 1.0019127555098777
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 1027,
+          "ave_degree": 5.12219451371571,
+          "entropy_arithmetic": {
+            "graph": 6129,
+            "random": 6133.4,
+            "normalized": 0.9992826164932991
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 917,
+          "ave_degree": 6.113333333333333,
+          "entropy_arithmetic": {
+            "graph": 5164,
+            "random": 5121.4,
+            "normalized": 1.0083180380364745
+          }
+        },
+        "40": {
+          "number_nodes": 200,
+          "number_edges": 806,
+          "ave_degree": 8.06,
+          "entropy_arithmetic": {
+            "graph": 4009,
+            "random": 4024.4,
+            "normalized": 0.9961733426100785
+          }
+        },
+        "20": {
+          "number_nodes": 100,
+          "number_edges": 565,
+          "ave_degree": 11.3,
+          "entropy_arithmetic": {
+            "graph": 1970,
+            "random": 2164.4,
+            "normalized": 0.910182960635742
+          }
+        }
+      }
+    },
+    "ring_500_8": {
+      "Name": "ring_500_8",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "ring",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 500,
+          "ave_degree": 2.0,
+          "entropy_arithmetic": {
+            "graph": 7063,
+            "random": 7089.8,
+            "normalized": 0.9962199215774775
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 1041,
+          "ave_degree": 5.192019950124688,
+          "entropy_arithmetic": {
+            "graph": 6200,
+            "random": 6186.2,
+            "normalized": 1.0022307717176941
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 928,
+          "ave_degree": 6.1866666666666665,
+          "entropy_arithmetic": {
+            "graph": 5128,
+            "random": 5184.1,
+            "normalized": 0.9891784494897861
+          }
+        },
+        "40": {
+          "number_nodes": 200,
+          "number_edges": 818,
+          "ave_degree": 8.18,
+          "entropy_arithmetic": {
+            "graph": 4058,
+            "random": 4065.5,
+            "normalized": 0.9981552084614439
+          }
+        },
+        "20": {
+          "number_nodes": 100,
+          "number_edges": 580,
+          "ave_degree": 11.6,
+          "entropy_arithmetic": {
+            "graph": 2068,
+            "random": 2181.0,
+            "normalized": 0.948188904172398
+          }
+        }
+      }
+    },
+    "ring_500_9": {
+      "Name": "ring_500_9",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "ring",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 500,
+          "ave_degree": 2.0,
+          "entropy_arithmetic": {
+            "graph": 7055,
+            "random": 7029.6,
+            "normalized": 1.003613292363719
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 1032,
+          "ave_degree": 5.14713216957606,
+          "entropy_arithmetic": {
+            "graph": 6210,
+            "random": 6160.7,
+            "normalized": 1.0080023373967244
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 923,
+          "ave_degree": 6.153333333333333,
+          "entropy_arithmetic": {
+            "graph": 5107,
+            "random": 5147.9,
+            "normalized": 0.9920550127236349
+          }
+        },
+        "40": {
+          "number_nodes": 200,
+          "number_edges": 811,
+          "ave_degree": 8.11,
+          "entropy_arithmetic": {
+            "graph": 4027,
+            "random": 4040.7,
+            "normalized": 0.9966094983542456
+          }
+        },
+        "20": {
+          "number_nodes": 101,
+          "number_edges": 568,
+          "ave_degree": 11.247524752475247,
+          "entropy_arithmetic": {
+            "graph": 2036,
+            "random": 2169.1,
+            "normalized": 0.9386381448527039
+          }
+        }
+      }
+    }
+  },
+  "barabasi": {
+    "barabasi_2500_0": {
+      "Name": "barabasi_2500_0",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "barabasi",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 2499,
+          "ave_degree": 1.9992,
+          "entropy_arithmetic": {
+            "graph": 13022,
+            "random": 17458.9,
+            "normalized": 0.745866005303885
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 2000,
+          "ave_degree": 1.999000499750125,
+          "entropy_arithmetic": {
+            "graph": 9820,
+            "random": 13500.3,
+            "normalized": 0.7273912431575595
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 1499,
+          "ave_degree": 1.9986666666666666,
+          "entropy_arithmetic": {
+            "graph": 6946,
+            "random": 9741.6,
+            "normalized": 0.7130245544879691
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 999,
+          "ave_degree": 1.998,
+          "entropy_arithmetic": {
+            "graph": 5159,
+            "random": 6104.3,
+            "normalized": 0.8451419491178349
+          }
+        },
+        "20": {
+          "number_nodes": 500,
+          "number_edges": 499,
+          "ave_degree": 1.996,
+          "entropy_arithmetic": {
+            "graph": 2263,
+            "random": 2709.4,
+            "normalized": 0.8352402745995423
+          }
+        }
+      }
+    },
+    "barabasi_2500_1": {
+      "Name": "barabasi_2500_1",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "barabasi",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 2499,
+          "ave_degree": 1.9992,
+          "entropy_arithmetic": {
+            "graph": 13516,
+            "random": 17533.3,
+            "normalized": 0.7708759902585366
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 2000,
+          "ave_degree": 1.999000499750125,
+          "entropy_arithmetic": {
+            "graph": 9809,
+            "random": 13571.7,
+            "normalized": 0.7227539659733121
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 1499,
+          "ave_degree": 1.9986666666666666,
+          "entropy_arithmetic": {
+            "graph": 7193,
+            "random": 9669.3,
+            "normalized": 0.7439007994373947
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 999,
+          "ave_degree": 1.998,
+          "entropy_arithmetic": {
+            "graph": 5134,
+            "random": 6020.9,
+            "normalized": 0.8526964407314521
+          }
+        },
+        "20": {
+          "number_nodes": 501,
+          "number_edges": 500,
+          "ave_degree": 1.996007984031936,
+          "entropy_arithmetic": {
+            "graph": 2430,
+            "random": 2671.5,
+            "normalized": 0.909601347557552
+          }
+        }
+      }
+    },
+    "barabasi_2500_2": {
+      "Name": "barabasi_2500_2",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "barabasi",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 2499,
+          "ave_degree": 1.9992,
+          "entropy_arithmetic": {
+            "graph": 13319,
+            "random": 17464.3,
+            "normalized": 0.7626415029517358
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 2000,
+          "ave_degree": 1.999000499750125,
+          "entropy_arithmetic": {
+            "graph": 9541,
+            "random": 13514.1,
+            "normalized": 0.7060033594541997
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 1499,
+          "ave_degree": 1.9986666666666666,
+          "entropy_arithmetic": {
+            "graph": 7209,
+            "random": 9670.5,
+            "normalized": 0.7454630060493252
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 999,
+          "ave_degree": 1.998,
+          "entropy_arithmetic": {
+            "graph": 5088,
+            "random": 6065.2,
+            "normalized": 0.838884125832619
+          }
+        },
+        "20": {
+          "number_nodes": 500,
+          "number_edges": 499,
+          "ave_degree": 1.996,
+          "entropy_arithmetic": {
+            "graph": 2292,
+            "random": 2706.0,
+            "normalized": 0.8470066518847007
+          }
+        }
+      }
+    },
+    "barabasi_2500_3": {
+      "Name": "barabasi_2500_3",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "barabasi",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 2499,
+          "ave_degree": 1.9992,
+          "entropy_arithmetic": {
+            "graph": 13361,
+            "random": 17308.6,
+            "normalized": 0.77192840553251
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 2000,
+          "ave_degree": 1.999000499750125,
+          "entropy_arithmetic": {
+            "graph": 9876,
+            "random": 13502.7,
+            "normalized": 0.7314092737008153
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 1499,
+          "ave_degree": 1.9986666666666666,
+          "entropy_arithmetic": {
+            "graph": 7353,
+            "random": 9723.7,
+            "normalized": 0.7561936299968118
+          }
+        },
+        "40": {
+          "number_nodes": 1001,
+          "number_edges": 1000,
+          "ave_degree": 1.998001998001998,
+          "entropy_arithmetic": {
+            "graph": 5269,
+            "random": 6091.0,
+            "normalized": 0.8650467903464127
+          }
+        },
+        "20": {
+          "number_nodes": 501,
+          "number_edges": 500,
+          "ave_degree": 1.996007984031936,
+          "entropy_arithmetic": {
+            "graph": 2201,
+            "random": 2704.6,
+            "normalized": 0.8137987133032611
+          }
+        }
+      }
+    },
+    "barabasi_2500_4": {
+      "Name": "barabasi_2500_4",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "barabasi",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 2499,
+          "ave_degree": 1.9992,
+          "entropy_arithmetic": {
+            "graph": 12826,
+            "random": 17364.7,
+            "normalized": 0.7386249114583033
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 2000,
+          "ave_degree": 1.999000499750125,
+          "entropy_arithmetic": {
+            "graph": 9325,
+            "random": 13469.3,
+            "normalized": 0.692315116598487
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 1499,
+          "ave_degree": 1.9986666666666666,
+          "entropy_arithmetic": {
+            "graph": 6891,
+            "random": 9703.7,
+            "normalized": 0.7101414924204169
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 999,
+          "ave_degree": 1.998,
+          "entropy_arithmetic": {
+            "graph": 4874,
+            "random": 6082.7,
+            "normalized": 0.8012889013102734
+          }
+        },
+        "20": {
+          "number_nodes": 501,
+          "number_edges": 500,
+          "ave_degree": 1.996007984031936,
+          "entropy_arithmetic": {
+            "graph": 2099,
+            "random": 2713.6,
+            "normalized": 0.7735112028301887
+          }
+        }
+      }
+    },
+    "barabasi_2500_5": {
+      "Name": "barabasi_2500_5",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "barabasi",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 2499,
+          "ave_degree": 1.9992,
+          "entropy_arithmetic": {
+            "graph": 12868,
+            "random": 17370.5,
+            "normalized": 0.7407961774272473
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 2000,
+          "ave_degree": 1.999000499750125,
+          "entropy_arithmetic": {
+            "graph": 9220,
+            "random": 13525.4,
+            "normalized": 0.6816803939255032
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 1499,
+          "ave_degree": 1.9986666666666666,
+          "entropy_arithmetic": {
+            "graph": 6990,
+            "random": 9699.8,
+            "normalized": 0.7206334151219613
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 999,
+          "ave_degree": 1.998,
+          "entropy_arithmetic": {
+            "graph": 5086,
+            "random": 6041.8,
+            "normalized": 0.8418021119533914
+          }
+        },
+        "20": {
+          "number_nodes": 501,
+          "number_edges": 500,
+          "ave_degree": 1.996007984031936,
+          "entropy_arithmetic": {
+            "graph": 2246,
+            "random": 2687.4,
+            "normalized": 0.8357520279824365
+          }
+        }
+      }
+    },
+    "barabasi_2500_6": {
+      "Name": "barabasi_2500_6",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "barabasi",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 2499,
+          "ave_degree": 1.9992,
+          "entropy_arithmetic": {
+            "graph": 12901,
+            "random": 17406.3,
+            "normalized": 0.741168427523368
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 2000,
+          "ave_degree": 1.999000499750125,
+          "entropy_arithmetic": {
+            "graph": 9350,
+            "random": 13533.0,
+            "normalized": 0.6909037168403163
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 1499,
+          "ave_degree": 1.9986666666666666,
+          "entropy_arithmetic": {
+            "graph": 6945,
+            "random": 9666.0,
+            "normalized": 0.7184978274363749
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 999,
+          "ave_degree": 1.998,
+          "entropy_arithmetic": {
+            "graph": 5155,
+            "random": 6026.1,
+            "normalized": 0.8554454788337399
+          }
+        },
+        "20": {
+          "number_nodes": 500,
+          "number_edges": 499,
+          "ave_degree": 1.996,
+          "entropy_arithmetic": {
+            "graph": 2100,
+            "random": 2706.0,
+            "normalized": 0.7760532150776053
+          }
+        }
+      }
+    },
+    "barabasi_2500_7": {
+      "Name": "barabasi_2500_7",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "barabasi",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 2499,
+          "ave_degree": 1.9992,
+          "entropy_arithmetic": {
+            "graph": 13236,
+            "random": 17457.6,
+            "normalized": 0.758179818531757
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 2000,
+          "ave_degree": 1.999000499750125,
+          "entropy_arithmetic": {
+            "graph": 9616,
+            "random": 13539.2,
+            "normalized": 0.7102339872370598
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 1499,
+          "ave_degree": 1.9986666666666666,
+          "entropy_arithmetic": {
+            "graph": 7341,
+            "random": 9661.2,
+            "normalized": 0.7598434977021488
+          }
+        },
+        "40": {
+          "number_nodes": 1001,
+          "number_edges": 1000,
+          "ave_degree": 1.998001998001998,
+          "entropy_arithmetic": {
+            "graph": 5232,
+            "random": 6080.5,
+            "normalized": 0.860455554641888
+          }
+        },
+        "20": {
+          "number_nodes": 501,
+          "number_edges": 500,
+          "ave_degree": 1.996007984031936,
+          "entropy_arithmetic": {
+            "graph": 2280,
+            "random": 2714.4,
+            "normalized": 0.8399646330680813
+          }
+        }
+      }
+    },
+    "barabasi_2500_8": {
+      "Name": "barabasi_2500_8",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "barabasi",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 2499,
+          "ave_degree": 1.9992,
+          "entropy_arithmetic": {
+            "graph": 12898,
+            "random": 17502.0,
+            "normalized": 0.7369443492172323
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 2000,
+          "ave_degree": 1.999000499750125,
+          "entropy_arithmetic": {
+            "graph": 9193,
+            "random": 13540.7,
+            "normalized": 0.6789161564764007
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 1499,
+          "ave_degree": 1.9986666666666666,
+          "entropy_arithmetic": {
+            "graph": 6967,
+            "random": 9639.8,
+            "normalized": 0.7227328367808461
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 999,
+          "ave_degree": 1.998,
+          "entropy_arithmetic": {
+            "graph": 5070,
+            "random": 6063.5,
+            "normalized": 0.8361507380225942
+          }
+        },
+        "20": {
+          "number_nodes": 501,
+          "number_edges": 500,
+          "ave_degree": 1.996007984031936,
+          "entropy_arithmetic": {
+            "graph": 2257,
+            "random": 2681.7,
+            "normalized": 0.8416303091322669
+          }
+        }
+      }
+    },
+    "barabasi_2500_9": {
+      "Name": "barabasi_2500_9",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "barabasi",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 2499,
+          "ave_degree": 1.9992,
+          "entropy_arithmetic": {
+            "graph": 13250,
+            "random": 17481.6,
+            "normalized": 0.7579397766794802
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 2000,
+          "ave_degree": 1.999000499750125,
+          "entropy_arithmetic": {
+            "graph": 9512,
+            "random": 13494.6,
+            "normalized": 0.7048745424095564
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 1499,
+          "ave_degree": 1.9986666666666666,
+          "entropy_arithmetic": {
+            "graph": 7005,
+            "random": 9695.8,
+            "normalized": 0.7224777738814745
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 999,
+          "ave_degree": 1.998,
+          "entropy_arithmetic": {
+            "graph": 5070,
+            "random": 6096.1,
+            "normalized": 0.8316792703531766
+          }
+        },
+        "20": {
+          "number_nodes": 501,
+          "number_edges": 500,
+          "ave_degree": 1.996007984031936,
+          "entropy_arithmetic": {
+            "graph": 2263,
+            "random": 2684.5,
+            "normalized": 0.8429875209536226
+          }
+        }
+      }
+    },
+    "barabasi_1500_0": {
+      "Name": "barabasi_1500_0",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "barabasi",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 1499,
+          "ave_degree": 1.9986666666666666,
+          "entropy_arithmetic": {
+            "graph": 7537,
+            "random": 9766.7,
+            "normalized": 0.7717038508400995
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 1200,
+          "ave_degree": 1.9983347210657785,
+          "entropy_arithmetic": {
+            "graph": 5422,
+            "random": 7518.2,
+            "normalized": 0.7211832619509989
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 899,
+          "ave_degree": 1.9977777777777779,
+          "entropy_arithmetic": {
+            "graph": 3910,
+            "random": 5387.1,
+            "normalized": 0.7258079486179948
+          }
+        },
+        "40": {
+          "number_nodes": 601,
+          "number_edges": 600,
+          "ave_degree": 1.9966722129783694,
+          "entropy_arithmetic": {
+            "graph": 2913,
+            "random": 3324.2,
+            "normalized": 0.8763010649178751
+          }
+        },
+        "20": {
+          "number_nodes": 300,
+          "number_edges": 299,
+          "ave_degree": 1.9933333333333334,
+          "entropy_arithmetic": {
+            "graph": 1269,
+            "random": 1471.9,
+            "normalized": 0.8621509613424825
+          }
+        }
+      }
+    },
+    "barabasi_1500_1": {
+      "Name": "barabasi_1500_1",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "barabasi",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 1499,
+          "ave_degree": 1.9986666666666666,
+          "entropy_arithmetic": {
+            "graph": 7465,
+            "random": 9698.1,
+            "normalized": 0.769738402367474
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 1200,
+          "ave_degree": 1.9983347210657785,
+          "entropy_arithmetic": {
+            "graph": 5465,
+            "random": 7420.2,
+            "normalized": 0.7365030592167328
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 899,
+          "ave_degree": 1.9977777777777779,
+          "entropy_arithmetic": {
+            "graph": 3933,
+            "random": 5372.4,
+            "normalized": 0.7320750502568685
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 599,
+          "ave_degree": 1.9966666666666666,
+          "entropy_arithmetic": {
+            "graph": 2965,
+            "random": 3373.8,
+            "normalized": 0.8788309917600331
+          }
+        },
+        "20": {
+          "number_nodes": 301,
+          "number_edges": 300,
+          "ave_degree": 1.9933554817275747,
+          "entropy_arithmetic": {
+            "graph": 1335,
+            "random": 1484.2,
+            "normalized": 0.8994744643579032
+          }
+        }
+      }
+    },
+    "barabasi_1500_2": {
+      "Name": "barabasi_1500_2",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "barabasi",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 1499,
+          "ave_degree": 1.9986666666666666,
+          "entropy_arithmetic": {
+            "graph": 7485,
+            "random": 9704.7,
+            "normalized": 0.7712757735942378
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 1200,
+          "ave_degree": 1.9983347210657785,
+          "entropy_arithmetic": {
+            "graph": 5491,
+            "random": 7436.9,
+            "normalized": 0.7383452782745499
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 899,
+          "ave_degree": 1.9977777777777779,
+          "entropy_arithmetic": {
+            "graph": 4019,
+            "random": 5358.4,
+            "normalized": 0.7500373245744999
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 599,
+          "ave_degree": 1.9966666666666666,
+          "entropy_arithmetic": {
+            "graph": 2953,
+            "random": 3338.8,
+            "normalized": 0.8844495028153827
+          }
+        },
+        "20": {
+          "number_nodes": 300,
+          "number_edges": 299,
+          "ave_degree": 1.9933333333333334,
+          "entropy_arithmetic": {
+            "graph": 1275,
+            "random": 1470.2,
+            "normalized": 0.8672289484423887
+          }
+        }
+      }
+    },
+    "barabasi_1500_3": {
+      "Name": "barabasi_1500_3",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "barabasi",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 1499,
+          "ave_degree": 1.9986666666666666,
+          "entropy_arithmetic": {
+            "graph": 7494,
+            "random": 9741.2,
+            "normalized": 0.7693097359668213
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 1200,
+          "ave_degree": 1.9983347210657785,
+          "entropy_arithmetic": {
+            "graph": 5578,
+            "random": 7479.6,
+            "normalized": 0.7457618054441414
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 899,
+          "ave_degree": 1.9977777777777779,
+          "entropy_arithmetic": {
+            "graph": 4068,
+            "random": 5353.3,
+            "normalized": 0.7599051052621747
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 599,
+          "ave_degree": 1.9966666666666666,
+          "entropy_arithmetic": {
+            "graph": 2933,
+            "random": 3362.7,
+            "normalized": 0.8722157789871234
+          }
+        },
+        "20": {
+          "number_nodes": 301,
+          "number_edges": 300,
+          "ave_degree": 1.9933554817275747,
+          "entropy_arithmetic": {
+            "graph": 1305,
+            "random": 1480.2,
+            "normalized": 0.8816376165383056
+          }
+        }
+      }
+    },
+    "barabasi_1500_4": {
+      "Name": "barabasi_1500_4",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "barabasi",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 1499,
+          "ave_degree": 1.9986666666666666,
+          "entropy_arithmetic": {
+            "graph": 7355,
+            "random": 9717.8,
+            "normalized": 0.7568585482310811
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 1200,
+          "ave_degree": 1.9983347210657785,
+          "entropy_arithmetic": {
+            "graph": 5477,
+            "random": 7519.5,
+            "normalized": 0.728372897134118
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 899,
+          "ave_degree": 1.9977777777777779,
+          "entropy_arithmetic": {
+            "graph": 4018,
+            "random": 5321.0,
+            "normalized": 0.7551212178162
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 599,
+          "ave_degree": 1.9966666666666666,
+          "entropy_arithmetic": {
+            "graph": 2843,
+            "random": 3343.3,
+            "normalized": 0.8503574312804714
+          }
+        },
+        "20": {
+          "number_nodes": 300,
+          "number_edges": 299,
+          "ave_degree": 1.9933333333333334,
+          "entropy_arithmetic": {
+            "graph": 1290,
+            "random": 1480.9,
+            "normalized": 0.871091903572152
+          }
+        }
+      }
+    },
+    "barabasi_1500_5": {
+      "Name": "barabasi_1500_5",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "barabasi",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 1499,
+          "ave_degree": 1.9986666666666666,
+          "entropy_arithmetic": {
+            "graph": 7461,
+            "random": 9643.2,
+            "normalized": 0.7737058237929317
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 1200,
+          "ave_degree": 1.9983347210657785,
+          "entropy_arithmetic": {
+            "graph": 5521,
+            "random": 7511.4,
+            "normalized": 0.7350161088478846
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 899,
+          "ave_degree": 1.9977777777777779,
+          "entropy_arithmetic": {
+            "graph": 4023,
+            "random": 5381.4,
+            "normalized": 0.7475749804883488
+          }
+        },
+        "40": {
+          "number_nodes": 601,
+          "number_edges": 600,
+          "ave_degree": 1.9966722129783694,
+          "entropy_arithmetic": {
+            "graph": 3044,
+            "random": 3322.5,
+            "normalized": 0.9161775771256584
+          }
+        },
+        "20": {
+          "number_nodes": 300,
+          "number_edges": 299,
+          "ave_degree": 1.9933333333333334,
+          "entropy_arithmetic": {
+            "graph": 1304,
+            "random": 1474.6,
+            "normalized": 0.8843076088430761
+          }
+        }
+      }
+    },
+    "barabasi_1500_6": {
+      "Name": "barabasi_1500_6",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "barabasi",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 1499,
+          "ave_degree": 1.9986666666666666,
+          "entropy_arithmetic": {
+            "graph": 7667,
+            "random": 9673.7,
+            "normalized": 0.7925612743831212
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 1200,
+          "ave_degree": 1.9983347210657785,
+          "entropy_arithmetic": {
+            "graph": 5734,
+            "random": 7467.5,
+            "normalized": 0.7678607298292601
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 899,
+          "ave_degree": 1.9977777777777779,
+          "entropy_arithmetic": {
+            "graph": 4153,
+            "random": 5398.7,
+            "normalized": 0.7692592661196214
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 599,
+          "ave_degree": 1.9966666666666666,
+          "entropy_arithmetic": {
+            "graph": 3108,
+            "random": 3329.1,
+            "normalized": 0.933585653780301
+          }
+        },
+        "20": {
+          "number_nodes": 300,
+          "number_edges": 299,
+          "ave_degree": 1.9933333333333334,
+          "entropy_arithmetic": {
+            "graph": 1259,
+            "random": 1466.8,
+            "normalized": 0.8583310608126534
+          }
+        }
+      }
+    },
+    "barabasi_1500_7": {
+      "Name": "barabasi_1500_7",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "barabasi",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 1499,
+          "ave_degree": 1.9986666666666666,
+          "entropy_arithmetic": {
+            "graph": 7486,
+            "random": 9702.2,
+            "normalized": 0.7715775803426026
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 1200,
+          "ave_degree": 1.9983347210657785,
+          "entropy_arithmetic": {
+            "graph": 5439,
+            "random": 7507.3,
+            "normalized": 0.724494825036964
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 899,
+          "ave_degree": 1.9977777777777779,
+          "entropy_arithmetic": {
+            "graph": 4045,
+            "random": 5349.2,
+            "normalized": 0.7561878411725118
+          }
+        },
+        "40": {
+          "number_nodes": 601,
+          "number_edges": 600,
+          "ave_degree": 1.9966722129783694,
+          "entropy_arithmetic": {
+            "graph": 2897,
+            "random": 3359.5,
+            "normalized": 0.8623307039738056
+          }
+        },
+        "20": {
+          "number_nodes": 300,
+          "number_edges": 299,
+          "ave_degree": 1.9933333333333334,
+          "entropy_arithmetic": {
+            "graph": 1245,
+            "random": 1462.4,
+            "normalized": 0.8513402625820569
+          }
+        }
+      }
+    },
+    "barabasi_1500_8": {
+      "Name": "barabasi_1500_8",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "barabasi",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 1499,
+          "ave_degree": 1.9986666666666666,
+          "entropy_arithmetic": {
+            "graph": 7210,
+            "random": 9652.6,
+            "normalized": 0.7469490085572799
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 1200,
+          "ave_degree": 1.9983347210657785,
+          "entropy_arithmetic": {
+            "graph": 5242,
+            "random": 7462.2,
+            "normalized": 0.7024738012918442
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 899,
+          "ave_degree": 1.9977777777777779,
+          "entropy_arithmetic": {
+            "graph": 3862,
+            "random": 5380.9,
+            "normalized": 0.7177238008511587
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 599,
+          "ave_degree": 1.9966666666666666,
+          "entropy_arithmetic": {
+            "graph": 2834,
+            "random": 3346.2,
+            "normalized": 0.846930846930847
+          }
+        },
+        "20": {
+          "number_nodes": 300,
+          "number_edges": 299,
+          "ave_degree": 1.9933333333333334,
+          "entropy_arithmetic": {
+            "graph": 1238,
+            "random": 1483.5,
+            "normalized": 0.8345129760701044
+          }
+        }
+      }
+    },
+    "barabasi_1500_9": {
+      "Name": "barabasi_1500_9",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "barabasi",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 1499,
+          "ave_degree": 1.9986666666666666,
+          "entropy_arithmetic": {
+            "graph": 7847,
+            "random": 9634.1,
+            "normalized": 0.814502652038073
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 1200,
+          "ave_degree": 1.9983347210657785,
+          "entropy_arithmetic": {
+            "graph": 5829,
+            "random": 7501.0,
+            "normalized": 0.7770963871483803
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 899,
+          "ave_degree": 1.9977777777777779,
+          "entropy_arithmetic": {
+            "graph": 4355,
+            "random": 5394.1,
+            "normalized": 0.8073636009714317
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 599,
+          "ave_degree": 1.9966666666666666,
+          "entropy_arithmetic": {
+            "graph": 3133,
+            "random": 3315.5,
+            "normalized": 0.944955511989142
+          }
+        },
+        "20": {
+          "number_nodes": 301,
+          "number_edges": 300,
+          "ave_degree": 1.9933554817275747,
+          "entropy_arithmetic": {
+            "graph": 1318,
+            "random": 1497.0,
+            "normalized": 0.8804275217100869
+          }
+        }
+      }
+    },
+    "barabasi_500_0": {
+      "Name": "barabasi_500_0",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "barabasi",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 499,
+          "ave_degree": 1.996,
+          "entropy_arithmetic": {
+            "graph": 2228,
+            "random": 2695.1,
+            "normalized": 0.826685466216467
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 400,
+          "ave_degree": 1.9950124688279303,
+          "entropy_arithmetic": {
+            "graph": 1645,
+            "random": 2109.6,
+            "normalized": 0.7797686765263557
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 299,
+          "ave_degree": 1.9933333333333334,
+          "entropy_arithmetic": {
+            "graph": 1171,
+            "random": 1472.9,
+            "normalized": 0.7950302125059406
+          }
+        },
+        "40": {
+          "number_nodes": 201,
+          "number_edges": 200,
+          "ave_degree": 1.9900497512437811,
+          "entropy_arithmetic": {
+            "graph": 848,
+            "random": 911.875,
+            "normalized": 0.9299520219328307
+          }
+        },
+        "20": {
+          "number_nodes": 100,
+          "number_edges": 99,
+          "ave_degree": 1.98,
+          "entropy_arithmetic": {
+            "graph": 381,
+            "random": 394.4,
+            "normalized": 0.9660243407707911
+          }
+        }
+      }
+    },
+    "barabasi_500_1": {
+      "Name": "barabasi_500_1",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "barabasi",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 499,
+          "ave_degree": 1.996,
+          "entropy_arithmetic": {
+            "graph": 2089,
+            "random": 2702.0,
+            "normalized": 0.7731310140636566
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 400,
+          "ave_degree": 1.9950124688279303,
+          "entropy_arithmetic": {
+            "graph": 1522,
+            "random": 2092.6,
+            "normalized": 0.7273248590270477
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 299,
+          "ave_degree": 1.9933333333333334,
+          "entropy_arithmetic": {
+            "graph": 1091,
+            "random": 1475.3,
+            "normalized": 0.7395106080119298
+          }
+        },
+        "40": {
+          "number_nodes": 200,
+          "number_edges": 199,
+          "ave_degree": 1.99,
+          "entropy_arithmetic": {
+            "graph": 787,
+            "random": 911.75,
+            "normalized": 0.8631752125034274
+          }
+        },
+        "20": {
+          "number_nodes": 100,
+          "number_edges": 99,
+          "ave_degree": 1.98,
+          "entropy_arithmetic": {
+            "graph": 359,
+            "random": 401.5,
+            "normalized": 0.8941469489414695
+          }
+        }
+      }
+    },
+    "barabasi_500_2": {
+      "Name": "barabasi_500_2",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "barabasi",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 499,
+          "ave_degree": 1.996,
+          "entropy_arithmetic": {
+            "graph": 2149,
+            "random": 2711.9,
+            "normalized": 0.7924333493122903
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 400,
+          "ave_degree": 1.9950124688279303,
+          "entropy_arithmetic": {
+            "graph": 1567,
+            "random": 2080.8,
+            "normalized": 0.7530757400999615
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 299,
+          "ave_degree": 1.9933333333333334,
+          "entropy_arithmetic": {
+            "graph": 1154,
+            "random": 1488.0,
+            "normalized": 0.7755376344086021
+          }
+        },
+        "40": {
+          "number_nodes": 201,
+          "number_edges": 200,
+          "ave_degree": 1.9900497512437811,
+          "entropy_arithmetic": {
+            "graph": 861,
+            "random": 923.5,
+            "normalized": 0.932322685435842
+          }
+        },
+        "20": {
+          "number_nodes": 101,
+          "number_edges": 100,
+          "ave_degree": 1.9801980198019802,
+          "entropy_arithmetic": {
+            "graph": 361,
+            "random": 414.22222222222223,
+            "normalized": 0.8715128755364807
+          }
+        }
+      }
+    },
+    "barabasi_500_3": {
+      "Name": "barabasi_500_3",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "barabasi",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 499,
+          "ave_degree": 1.996,
+          "entropy_arithmetic": {
+            "graph": 2149,
+            "random": 2711.7,
+            "normalized": 0.7924917948150607
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 400,
+          "ave_degree": 1.9950124688279303,
+          "entropy_arithmetic": {
+            "graph": 1517,
+            "random": 2088.4,
+            "normalized": 0.7263934112239034
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 299,
+          "ave_degree": 1.9933333333333334,
+          "entropy_arithmetic": {
+            "graph": 1109,
+            "random": 1484.6,
+            "normalized": 0.7470025596120168
+          }
+        },
+        "40": {
+          "number_nodes": 200,
+          "number_edges": 199,
+          "ave_degree": 1.99,
+          "entropy_arithmetic": {
+            "graph": 807,
+            "random": 926.4,
+            "normalized": 0.8711139896373057
+          }
+        },
+        "20": {
+          "number_nodes": 100,
+          "number_edges": 99,
+          "ave_degree": 1.98,
+          "entropy_arithmetic": {
+            "graph": 335,
+            "random": 394.6666666666667,
+            "normalized": 0.8488175675675675
+          }
+        }
+      }
+    },
+    "barabasi_500_4": {
+      "Name": "barabasi_500_4",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "barabasi",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 499,
+          "ave_degree": 1.996,
+          "entropy_arithmetic": {
+            "graph": 2058,
+            "random": 2723.2,
+            "normalized": 0.7557285546415982
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 400,
+          "ave_degree": 1.9950124688279303,
+          "entropy_arithmetic": {
+            "graph": 1486,
+            "random": 2063.2,
+            "normalized": 0.7202404032570765
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 299,
+          "ave_degree": 1.9933333333333334,
+          "entropy_arithmetic": {
+            "graph": 1115,
+            "random": 1479.9,
+            "normalized": 0.7534292857625515
+          }
+        },
+        "40": {
+          "number_nodes": 200,
+          "number_edges": 199,
+          "ave_degree": 1.99,
+          "entropy_arithmetic": {
+            "graph": 828,
+            "random": 902.8571428571429,
+            "normalized": 0.9170886075949367
+          }
+        },
+        "20": {
+          "number_nodes": 100,
+          "number_edges": 99,
+          "ave_degree": 1.98,
+          "entropy_arithmetic": {
+            "graph": 379,
+            "random": 410.5,
+            "normalized": 0.9232643118148599
+          }
+        }
+      }
+    },
+    "barabasi_500_5": {
+      "Name": "barabasi_500_5",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "barabasi",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 499,
+          "ave_degree": 1.996,
+          "entropy_arithmetic": {
+            "graph": 2159,
+            "random": 2686.4,
+            "normalized": 0.8036777843954734
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 400,
+          "ave_degree": 1.9950124688279303,
+          "entropy_arithmetic": {
+            "graph": 1548,
+            "random": 2105.9,
+            "normalized": 0.7350776390141982
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 299,
+          "ave_degree": 1.9933333333333334,
+          "entropy_arithmetic": {
+            "graph": 1159,
+            "random": 1489.4,
+            "normalized": 0.7781657043104605
+          }
+        },
+        "40": {
+          "number_nodes": 200,
+          "number_edges": 199,
+          "ave_degree": 1.99,
+          "entropy_arithmetic": {
+            "graph": 866,
+            "random": 915.5,
+            "normalized": 0.9459311851447296
+          }
+        },
+        "20": {
+          "number_nodes": 101,
+          "number_edges": 100,
+          "ave_degree": 1.9801980198019802,
+          "entropy_arithmetic": {
+            "graph": 363,
+            "random": 406.0,
+            "normalized": 0.8940886699507389
+          }
+        }
+      }
+    },
+    "barabasi_500_6": {
+      "Name": "barabasi_500_6",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "barabasi",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 499,
+          "ave_degree": 1.996,
+          "entropy_arithmetic": {
+            "graph": 2047,
+            "random": 2695.9,
+            "normalized": 0.7593011610222931
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 400,
+          "ave_degree": 1.9950124688279303,
+          "entropy_arithmetic": {
+            "graph": 1557,
+            "random": 2091.9,
+            "normalized": 0.7442994406998422
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 299,
+          "ave_degree": 1.9933333333333334,
+          "entropy_arithmetic": {
+            "graph": 1114,
+            "random": 1488.8,
+            "normalized": 0.7482536270822139
+          }
+        },
+        "40": {
+          "number_nodes": 201,
+          "number_edges": 200,
+          "ave_degree": 1.9900497512437811,
+          "entropy_arithmetic": {
+            "graph": 803,
+            "random": 918.5,
+            "normalized": 0.874251497005988
+          }
+        },
+        "20": {
+          "number_nodes": 101,
+          "number_edges": 100,
+          "ave_degree": 1.9801980198019802,
+          "entropy_arithmetic": {
+            "graph": 340,
+            "random": 405.7,
+            "normalized": 0.8380576780872566
+          }
+        }
+      }
+    },
+    "barabasi_500_7": {
+      "Name": "barabasi_500_7",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "barabasi",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 499,
+          "ave_degree": 1.996,
+          "entropy_arithmetic": {
+            "graph": 2117,
+            "random": 2702.8,
+            "normalized": 0.7832618025751072
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 400,
+          "ave_degree": 1.9950124688279303,
+          "entropy_arithmetic": {
+            "graph": 1570,
+            "random": 2097.2,
+            "normalized": 0.7486172038909022
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 299,
+          "ave_degree": 1.9933333333333334,
+          "entropy_arithmetic": {
+            "graph": 1114,
+            "random": 1475.7,
+            "normalized": 0.7548959815680694
+          }
+        },
+        "40": {
+          "number_nodes": 200,
+          "number_edges": 199,
+          "ave_degree": 1.99,
+          "entropy_arithmetic": {
+            "graph": 874,
+            "random": 909.8571428571429,
+            "normalized": 0.9605903595540901
+          }
+        },
+        "20": {
+          "number_nodes": 100,
+          "number_edges": 99,
+          "ave_degree": 1.98,
+          "entropy_arithmetic": {
+            "graph": 400,
+            "random": 407.5,
+            "normalized": 0.9815950920245399
+          }
+        }
+      }
+    },
+    "barabasi_500_8": {
+      "Name": "barabasi_500_8",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "barabasi",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 499,
+          "ave_degree": 1.996,
+          "entropy_arithmetic": {
+            "graph": 2179,
+            "random": 2665.6,
+            "normalized": 0.817451980792317
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 400,
+          "ave_degree": 1.9950124688279303,
+          "entropy_arithmetic": {
+            "graph": 1544,
+            "random": 2090.3,
+            "normalized": 0.7386499545519781
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 299,
+          "ave_degree": 1.9933333333333334,
+          "entropy_arithmetic": {
+            "graph": 1160,
+            "random": 1495.4444444444443,
+            "normalized": 0.7756891299502192
+          }
+        },
+        "40": {
+          "number_nodes": 200,
+          "number_edges": 199,
+          "ave_degree": 1.99,
+          "entropy_arithmetic": {
+            "graph": 882,
+            "random": 903.2,
+            "normalized": 0.9765279007971656
+          }
+        },
+        "20": {
+          "number_nodes": 101,
+          "number_edges": 100,
+          "ave_degree": 1.9801980198019802,
+          "entropy_arithmetic": {
+            "graph": 387,
+            "random": 405.2,
+            "normalized": 0.9550839091806516
+          }
+        }
+      }
+    },
+    "barabasi_500_9": {
+      "Name": "barabasi_500_9",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "barabasi",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 499,
+          "ave_degree": 1.996,
+          "entropy_arithmetic": {
+            "graph": 2073,
+            "random": 2702.6,
+            "normalized": 0.7670391474876046
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 400,
+          "ave_degree": 1.9950124688279303,
+          "entropy_arithmetic": {
+            "graph": 1562,
+            "random": 2096.3,
+            "normalized": 0.7451223584410628
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 299,
+          "ave_degree": 1.9933333333333334,
+          "entropy_arithmetic": {
+            "graph": 1088,
+            "random": 1485.8,
+            "normalized": 0.7322654462242563
+          }
+        },
+        "40": {
+          "number_nodes": 201,
+          "number_edges": 200,
+          "ave_degree": 1.9900497512437811,
+          "entropy_arithmetic": {
+            "graph": 784,
+            "random": 929.5,
+            "normalized": 0.8434642280796127
+          }
+        },
+        "20": {
+          "number_nodes": 100,
+          "number_edges": 99,
+          "ave_degree": 1.98,
+          "entropy_arithmetic": {
+            "graph": 344,
+            "random": 405.22222222222223,
+            "normalized": 0.8489169180148067
+          }
+        }
+      }
+    }
+  },
+  "regular": {
+    "regular_2500_0": {
+      "Name": "regular_2500_0",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "regular",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 6250,
+          "ave_degree": 5.0,
+          "entropy_arithmetic": {
+            "graph": 50682,
+            "random": 50587.8,
+            "normalized": 1.0018621090460544
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 5738,
+          "ave_degree": 5.735132433783108,
+          "entropy_arithmetic": {
+            "graph": 44367,
+            "random": 45195.7,
+            "normalized": 0.9816641848671445
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 5211,
+          "ave_degree": 6.948,
+          "entropy_arithmetic": {
+            "graph": 38769,
+            "random": 39341.5,
+            "normalized": 0.9854479366572195
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 4684,
+          "ave_degree": 9.368,
+          "entropy_arithmetic": {
+            "graph": 32380,
+            "random": 32650.4,
+            "normalized": 0.991718325043491
+          }
+        },
+        "20": {
+          "number_nodes": 500,
+          "number_edges": 3768,
+          "ave_degree": 15.072,
+          "entropy_arithmetic": {
+            "graph": 20585,
+            "random": 21671.4,
+            "normalized": 0.9498694131435901
+          }
+        }
+      }
+    },
+    "regular_2500_1": {
+      "Name": "regular_2500_1",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "regular",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 6250,
+          "ave_degree": 5.0,
+          "entropy_arithmetic": {
+            "graph": 50814,
+            "random": 50809.7,
+            "normalized": 1.0000846295097197
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 5740,
+          "ave_degree": 5.737131434282858,
+          "entropy_arithmetic": {
+            "graph": 44790,
+            "random": 45128.5,
+            "normalized": 0.9924991967382031
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 5223,
+          "ave_degree": 6.964,
+          "entropy_arithmetic": {
+            "graph": 38851,
+            "random": 39272.5,
+            "normalized": 0.989267299000573
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 4684,
+          "ave_degree": 9.368,
+          "entropy_arithmetic": {
+            "graph": 32505,
+            "random": 32564.5,
+            "normalized": 0.9981728569454468
+          }
+        },
+        "20": {
+          "number_nodes": 500,
+          "number_edges": 3677,
+          "ave_degree": 14.708,
+          "entropy_arithmetic": {
+            "graph": 19647,
+            "random": 21234.2,
+            "normalized": 0.9252526584472219
+          }
+        }
+      }
+    },
+    "regular_2500_2": {
+      "Name": "regular_2500_2",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "regular",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 6250,
+          "ave_degree": 5.0,
+          "entropy_arithmetic": {
+            "graph": 50932,
+            "random": 50719.7,
+            "normalized": 1.0041857503100373
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 5732,
+          "ave_degree": 5.729135432283858,
+          "entropy_arithmetic": {
+            "graph": 44809,
+            "random": 45242.1,
+            "normalized": 0.9904270579836038
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 5211,
+          "ave_degree": 6.948,
+          "entropy_arithmetic": {
+            "graph": 38987,
+            "random": 39385.7,
+            "normalized": 0.9898770365894222
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 4670,
+          "ave_degree": 9.34,
+          "entropy_arithmetic": {
+            "graph": 32395,
+            "random": 32436.4,
+            "normalized": 0.998723656139399
+          }
+        },
+        "20": {
+          "number_nodes": 500,
+          "number_edges": 3759,
+          "ave_degree": 15.036,
+          "entropy_arithmetic": {
+            "graph": 20208,
+            "random": 21655.3,
+            "normalized": 0.9331664765669374
+          }
+        }
+      }
+    },
+    "regular_2500_3": {
+      "Name": "regular_2500_3",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "regular",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 6250,
+          "ave_degree": 5.0,
+          "entropy_arithmetic": {
+            "graph": 50881,
+            "random": 50537.8,
+            "normalized": 1.006790956472185
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 5741,
+          "ave_degree": 5.738130934532734,
+          "entropy_arithmetic": {
+            "graph": 44649,
+            "random": 45155.3,
+            "normalized": 0.9887875841817018
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 5218,
+          "ave_degree": 6.957333333333334,
+          "entropy_arithmetic": {
+            "graph": 38846,
+            "random": 39260.7,
+            "normalized": 0.9894372744245519
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 4691,
+          "ave_degree": 9.382,
+          "entropy_arithmetic": {
+            "graph": 32400,
+            "random": 32692.5,
+            "normalized": 0.9910529938059188
+          }
+        },
+        "20": {
+          "number_nodes": 500,
+          "number_edges": 3801,
+          "ave_degree": 15.204,
+          "entropy_arithmetic": {
+            "graph": 20765,
+            "random": 21899.3,
+            "normalized": 0.9482038238665164
+          }
+        }
+      }
+    },
+    "regular_2500_4": {
+      "Name": "regular_2500_4",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "regular",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 6250,
+          "ave_degree": 5.0,
+          "entropy_arithmetic": {
+            "graph": 51088,
+            "random": 50487.0,
+            "normalized": 1.0119040545090816
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 5739,
+          "ave_degree": 5.736131934032984,
+          "entropy_arithmetic": {
+            "graph": 44587,
+            "random": 45271.9,
+            "normalized": 0.9848714103008709
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 5215,
+          "ave_degree": 6.953333333333333,
+          "entropy_arithmetic": {
+            "graph": 38792,
+            "random": 39318.7,
+            "normalized": 0.9866043383936907
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 4693,
+          "ave_degree": 9.386,
+          "entropy_arithmetic": {
+            "graph": 32472,
+            "random": 32669.2,
+            "normalized": 0.9939637334247547
+          }
+        },
+        "20": {
+          "number_nodes": 500,
+          "number_edges": 3807,
+          "ave_degree": 15.228,
+          "entropy_arithmetic": {
+            "graph": 20741,
+            "random": 21911.7,
+            "normalized": 0.946571922762725
+          }
+        }
+      }
+    },
+    "regular_2500_5": {
+      "Name": "regular_2500_5",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "regular",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 6250,
+          "ave_degree": 5.0,
+          "entropy_arithmetic": {
+            "graph": 50765,
+            "random": 50563.7,
+            "normalized": 1.0039811168882025
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 5742,
+          "ave_degree": 5.739130434782608,
+          "entropy_arithmetic": {
+            "graph": 44685,
+            "random": 45170.4,
+            "normalized": 0.989254024759577
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 5223,
+          "ave_degree": 6.964,
+          "entropy_arithmetic": {
+            "graph": 38855,
+            "random": 39482.2,
+            "normalized": 0.9841143603953174
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 4691,
+          "ave_degree": 9.382,
+          "entropy_arithmetic": {
+            "graph": 32436,
+            "random": 32564.0,
+            "normalized": 0.996069278958359
+          }
+        },
+        "20": {
+          "number_nodes": 500,
+          "number_edges": 3762,
+          "ave_degree": 15.048,
+          "entropy_arithmetic": {
+            "graph": 20029,
+            "random": 21671.8,
+            "normalized": 0.9241964211556032
+          }
+        }
+      }
+    },
+    "regular_2500_6": {
+      "Name": "regular_2500_6",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "regular",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 6250,
+          "ave_degree": 5.0,
+          "entropy_arithmetic": {
+            "graph": 51004,
+            "random": 50561.6,
+            "normalized": 1.0087497231100282
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 5736,
+          "ave_degree": 5.733133433283358,
+          "entropy_arithmetic": {
+            "graph": 44714,
+            "random": 45301.9,
+            "normalized": 0.9870226193603359
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 5210,
+          "ave_degree": 6.946666666666666,
+          "entropy_arithmetic": {
+            "graph": 38658,
+            "random": 39235.9,
+            "normalized": 0.9852711419898613
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 4680,
+          "ave_degree": 9.36,
+          "entropy_arithmetic": {
+            "graph": 32508,
+            "random": 32659.7,
+            "normalized": 0.9953551318597538
+          }
+        },
+        "20": {
+          "number_nodes": 500,
+          "number_edges": 3732,
+          "ave_degree": 14.928,
+          "entropy_arithmetic": {
+            "graph": 20210,
+            "random": 21506.3,
+            "normalized": 0.9397246388267624
+          }
+        }
+      }
+    },
+    "regular_2500_7": {
+      "Name": "regular_2500_7",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "regular",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 6250,
+          "ave_degree": 5.0,
+          "entropy_arithmetic": {
+            "graph": 50760,
+            "random": 50561.7,
+            "normalized": 1.0039219409157525
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 5740,
+          "ave_degree": 5.737131434282858,
+          "entropy_arithmetic": {
+            "graph": 44771,
+            "random": 45337.3,
+            "normalized": 0.9875091811819406
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 5216,
+          "ave_degree": 6.954666666666666,
+          "entropy_arithmetic": {
+            "graph": 38773,
+            "random": 39293.1,
+            "normalized": 0.986763579356172
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 4690,
+          "ave_degree": 9.38,
+          "entropy_arithmetic": {
+            "graph": 32462,
+            "random": 32570.3,
+            "normalized": 0.9966748847876746
+          }
+        },
+        "20": {
+          "number_nodes": 500,
+          "number_edges": 3749,
+          "ave_degree": 14.996,
+          "entropy_arithmetic": {
+            "graph": 20544,
+            "random": 21623.7,
+            "normalized": 0.9500686746486494
+          }
+        }
+      }
+    },
+    "regular_2500_8": {
+      "Name": "regular_2500_8",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "regular",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 6250,
+          "ave_degree": 5.0,
+          "entropy_arithmetic": {
+            "graph": 50723,
+            "random": 50661.6,
+            "normalized": 1.0012119633015935
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 5734,
+          "ave_degree": 5.731134432783608,
+          "entropy_arithmetic": {
+            "graph": 44664,
+            "random": 45227.2,
+            "normalized": 0.9875473166590018
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 5216,
+          "ave_degree": 6.954666666666666,
+          "entropy_arithmetic": {
+            "graph": 38946,
+            "random": 39320.6,
+            "normalized": 0.990473187082598
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 4683,
+          "ave_degree": 9.366,
+          "entropy_arithmetic": {
+            "graph": 32428,
+            "random": 32499.8,
+            "normalized": 0.9977907556354193
+          }
+        },
+        "20": {
+          "number_nodes": 501,
+          "number_edges": 3781,
+          "ave_degree": 15.0938123752495,
+          "entropy_arithmetic": {
+            "graph": 20061,
+            "random": 21811.5,
+            "normalized": 0.9197441716525686
+          }
+        }
+      }
+    },
+    "regular_2500_9": {
+      "Name": "regular_2500_9",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "regular",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 6250,
+          "ave_degree": 5.0,
+          "entropy_arithmetic": {
+            "graph": 50888,
+            "random": 50680.2,
+            "normalized": 1.0041002205989717
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 5734,
+          "ave_degree": 5.731134432783608,
+          "entropy_arithmetic": {
+            "graph": 44472,
+            "random": 45391.4,
+            "normalized": 0.979745061839908
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 5217,
+          "ave_degree": 6.956,
+          "entropy_arithmetic": {
+            "graph": 39019,
+            "random": 39410.0,
+            "normalized": 0.9900786602385181
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 4699,
+          "ave_degree": 9.398,
+          "entropy_arithmetic": {
+            "graph": 32583,
+            "random": 32689.9,
+            "normalized": 0.996729876812104
+          }
+        },
+        "20": {
+          "number_nodes": 500,
+          "number_edges": 3781,
+          "ave_degree": 15.124,
+          "entropy_arithmetic": {
+            "graph": 20664,
+            "random": 21802.6,
+            "normalized": 0.9477768706484548
+          }
+        }
+      }
+    },
+    "regular_1500_0": {
+      "Name": "regular_1500_0",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "regular",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 3750,
+          "ave_degree": 5.0,
+          "entropy_arithmetic": {
+            "graph": 28464,
+            "random": 28139.3,
+            "normalized": 1.0115390219372906
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 3441,
+          "ave_degree": 5.73022481265612,
+          "entropy_arithmetic": {
+            "graph": 24757,
+            "random": 24984.6,
+            "normalized": 0.9908903884793033
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 3123,
+          "ave_degree": 6.94,
+          "entropy_arithmetic": {
+            "graph": 21265,
+            "random": 21593.9,
+            "normalized": 0.9847688467576491
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 2796,
+          "ave_degree": 9.32,
+          "entropy_arithmetic": {
+            "graph": 17479,
+            "random": 17639.9,
+            "normalized": 0.990878633098827
+          }
+        },
+        "20": {
+          "number_nodes": 300,
+          "number_edges": 2118,
+          "ave_degree": 14.12,
+          "entropy_arithmetic": {
+            "graph": 10166,
+            "random": 10834.4,
+            "normalized": 0.9383076127888946
+          }
+        }
+      }
+    },
+    "regular_1500_1": {
+      "Name": "regular_1500_1",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "regular",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 3750,
+          "ave_degree": 5.0,
+          "entropy_arithmetic": {
+            "graph": 28305,
+            "random": 28044.3,
+            "normalized": 1.0092960066751533
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 3437,
+          "ave_degree": 5.723563696919234,
+          "entropy_arithmetic": {
+            "graph": 24752,
+            "random": 24966.0,
+            "normalized": 0.9914283425458623
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 3116,
+          "ave_degree": 6.924444444444444,
+          "entropy_arithmetic": {
+            "graph": 21210,
+            "random": 21500.5,
+            "normalized": 0.9864886863096207
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 2795,
+          "ave_degree": 9.316666666666666,
+          "entropy_arithmetic": {
+            "graph": 17470,
+            "random": 17654.7,
+            "normalized": 0.989538196627527
+          }
+        },
+        "20": {
+          "number_nodes": 300,
+          "number_edges": 2156,
+          "ave_degree": 14.373333333333333,
+          "entropy_arithmetic": {
+            "graph": 10437,
+            "random": 11008.5,
+            "normalized": 0.9480855702411772
+          }
+        }
+      }
+    },
+    "regular_1500_2": {
+      "Name": "regular_1500_2",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "regular",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 3750,
+          "ave_degree": 5.0,
+          "entropy_arithmetic": {
+            "graph": 28150,
+            "random": 28066.9,
+            "normalized": 1.0029607829863647
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 3430,
+          "ave_degree": 5.711906744379683,
+          "entropy_arithmetic": {
+            "graph": 24615,
+            "random": 24925.5,
+            "normalized": 0.9875428777757718
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 3103,
+          "ave_degree": 6.895555555555555,
+          "entropy_arithmetic": {
+            "graph": 21139,
+            "random": 21458.8,
+            "normalized": 0.9850970231327009
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 2776,
+          "ave_degree": 9.253333333333334,
+          "entropy_arithmetic": {
+            "graph": 17412,
+            "random": 17537.5,
+            "normalized": 0.9928439059158946
+          }
+        },
+        "20": {
+          "number_nodes": 300,
+          "number_edges": 2180,
+          "ave_degree": 14.533333333333333,
+          "entropy_arithmetic": {
+            "graph": 10288,
+            "random": 11088.4,
+            "normalized": 0.9278164568377765
+          }
+        }
+      }
+    },
+    "regular_1500_3": {
+      "Name": "regular_1500_3",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "regular",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 3750,
+          "ave_degree": 5.0,
+          "entropy_arithmetic": {
+            "graph": 28280,
+            "random": 28123.4,
+            "normalized": 1.0055683167753542
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 3434,
+          "ave_degree": 5.718567860116569,
+          "entropy_arithmetic": {
+            "graph": 24614,
+            "random": 24942.2,
+            "normalized": 0.9868415777277064
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 3110,
+          "ave_degree": 6.911111111111111,
+          "entropy_arithmetic": {
+            "graph": 21228,
+            "random": 21464.5,
+            "normalized": 0.9889818071699783
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 2786,
+          "ave_degree": 9.286666666666667,
+          "entropy_arithmetic": {
+            "graph": 17370,
+            "random": 17595.6,
+            "normalized": 0.9871786128350271
+          }
+        },
+        "20": {
+          "number_nodes": 300,
+          "number_edges": 2166,
+          "ave_degree": 14.44,
+          "entropy_arithmetic": {
+            "graph": 10288,
+            "random": 11013.2,
+            "normalized": 0.934151745178513
+          }
+        }
+      }
+    },
+    "regular_1500_4": {
+      "Name": "regular_1500_4",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "regular",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 3750,
+          "ave_degree": 5.0,
+          "entropy_arithmetic": {
+            "graph": 28190,
+            "random": 28075.8,
+            "normalized": 1.0040675599626725
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 3437,
+          "ave_degree": 5.723563696919234,
+          "entropy_arithmetic": {
+            "graph": 24765,
+            "random": 24927.1,
+            "normalized": 0.9934970373609445
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 3112,
+          "ave_degree": 6.915555555555556,
+          "entropy_arithmetic": {
+            "graph": 21263,
+            "random": 21554.0,
+            "normalized": 0.9864990257028857
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 2785,
+          "ave_degree": 9.283333333333333,
+          "entropy_arithmetic": {
+            "graph": 17396,
+            "random": 17584.5,
+            "normalized": 0.9892803321106657
+          }
+        },
+        "20": {
+          "number_nodes": 300,
+          "number_edges": 2169,
+          "ave_degree": 14.46,
+          "entropy_arithmetic": {
+            "graph": 10078,
+            "random": 11085.9,
+            "normalized": 0.9090827086659631
+          }
+        }
+      }
+    },
+    "regular_1500_5": {
+      "Name": "regular_1500_5",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "regular",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 3750,
+          "ave_degree": 5.0,
+          "entropy_arithmetic": {
+            "graph": 28300,
+            "random": 28237.8,
+            "normalized": 1.0022027211751623
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 3432,
+          "ave_degree": 5.715237302248126,
+          "entropy_arithmetic": {
+            "graph": 24744,
+            "random": 24952.6,
+            "normalized": 0.9916401497238765
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 3111,
+          "ave_degree": 6.913333333333333,
+          "entropy_arithmetic": {
+            "graph": 21182,
+            "random": 21486.5,
+            "normalized": 0.9858283107998045
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 2770,
+          "ave_degree": 9.233333333333333,
+          "entropy_arithmetic": {
+            "graph": 17365,
+            "random": 17519.2,
+            "normalized": 0.9911982282295995
+          }
+        },
+        "20": {
+          "number_nodes": 301,
+          "number_edges": 2165,
+          "ave_degree": 14.385382059800664,
+          "entropy_arithmetic": {
+            "graph": 9951,
+            "random": 11064.7,
+            "normalized": 0.8993465706255027
+          }
+        }
+      }
+    },
+    "regular_1500_6": {
+      "Name": "regular_1500_6",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "regular",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 3750,
+          "ave_degree": 5.0,
+          "entropy_arithmetic": {
+            "graph": 28351,
+            "random": 28163.7,
+            "normalized": 1.0066504045988276
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 3438,
+          "ave_degree": 5.725228975853455,
+          "entropy_arithmetic": {
+            "graph": 24730,
+            "random": 24933.1,
+            "normalized": 0.991854201844135
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 3110,
+          "ave_degree": 6.911111111111111,
+          "entropy_arithmetic": {
+            "graph": 21274,
+            "random": 21546.7,
+            "normalized": 0.9873437695795644
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 2781,
+          "ave_degree": 9.27,
+          "entropy_arithmetic": {
+            "graph": 17432,
+            "random": 17528.9,
+            "normalized": 0.9944719862626861
+          }
+        },
+        "20": {
+          "number_nodes": 300,
+          "number_edges": 2112,
+          "ave_degree": 14.08,
+          "entropy_arithmetic": {
+            "graph": 9655,
+            "random": 10802.6,
+            "normalized": 0.8937663155166349
+          }
+        }
+      }
+    },
+    "regular_1500_7": {
+      "Name": "regular_1500_7",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "regular",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 3750,
+          "ave_degree": 5.0,
+          "entropy_arithmetic": {
+            "graph": 28049,
+            "random": 28054.2,
+            "normalized": 0.9998146445095565
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 3438,
+          "ave_degree": 5.725228975853455,
+          "entropy_arithmetic": {
+            "graph": 24679,
+            "random": 25090.1,
+            "normalized": 0.9836150513549169
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 3109,
+          "ave_degree": 6.908888888888889,
+          "entropy_arithmetic": {
+            "graph": 21198,
+            "random": 21566.2,
+            "normalized": 0.9829269876009682
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 2783,
+          "ave_degree": 9.276666666666667,
+          "entropy_arithmetic": {
+            "graph": 17538,
+            "random": 17591.6,
+            "normalized": 0.9969530912480957
+          }
+        },
+        "20": {
+          "number_nodes": 301,
+          "number_edges": 2206,
+          "ave_degree": 14.6578073089701,
+          "entropy_arithmetic": {
+            "graph": 10591,
+            "random": 11221.3,
+            "normalized": 0.9438300375179347
+          }
+        }
+      }
+    },
+    "regular_1500_8": {
+      "Name": "regular_1500_8",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "regular",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 3750,
+          "ave_degree": 5.0,
+          "entropy_arithmetic": {
+            "graph": 28390,
+            "random": 28119.6,
+            "normalized": 1.0096160685073756
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 3435,
+          "ave_degree": 5.720233139050791,
+          "entropy_arithmetic": {
+            "graph": 24777,
+            "random": 25019.9,
+            "normalized": 0.9902917277846833
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 3113,
+          "ave_degree": 6.917777777777777,
+          "entropy_arithmetic": {
+            "graph": 21290,
+            "random": 21481.1,
+            "normalized": 0.9911038075331339
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 2784,
+          "ave_degree": 9.28,
+          "entropy_arithmetic": {
+            "graph": 17433,
+            "random": 17545.9,
+            "normalized": 0.9935654483383581
+          }
+        },
+        "20": {
+          "number_nodes": 300,
+          "number_edges": 2168,
+          "ave_degree": 14.453333333333333,
+          "entropy_arithmetic": {
+            "graph": 10308,
+            "random": 11055.3,
+            "normalized": 0.9324034625926026
+          }
+        }
+      }
+    },
+    "regular_1500_9": {
+      "Name": "regular_1500_9",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "regular",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 3750,
+          "ave_degree": 5.0,
+          "entropy_arithmetic": {
+            "graph": 28264,
+            "random": 28104.5,
+            "normalized": 1.0056752477361277
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 3429,
+          "ave_degree": 5.7102414654454625,
+          "entropy_arithmetic": {
+            "graph": 24553,
+            "random": 24901.3,
+            "normalized": 0.9860127784493179
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 3105,
+          "ave_degree": 6.9,
+          "entropy_arithmetic": {
+            "graph": 21259,
+            "random": 21486.1,
+            "normalized": 0.9894303759174536
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 2776,
+          "ave_degree": 9.253333333333334,
+          "entropy_arithmetic": {
+            "graph": 17450,
+            "random": 17536.0,
+            "normalized": 0.995095802919708
+          }
+        },
+        "20": {
+          "number_nodes": 300,
+          "number_edges": 2159,
+          "ave_degree": 14.393333333333333,
+          "entropy_arithmetic": {
+            "graph": 10208,
+            "random": 10990.0,
+            "normalized": 0.9288444040036397
+          }
+        }
+      }
+    },
+    "regular_500_0": {
+      "Name": "regular_500_0",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "regular",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 1250,
+          "ave_degree": 5.0,
+          "entropy_arithmetic": {
+            "graph": 7800,
+            "random": 7760.4,
+            "normalized": 1.0051028297510438
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 1135,
+          "ave_degree": 5.660847880299252,
+          "entropy_arithmetic": {
+            "graph": 6639,
+            "random": 6754.6,
+            "normalized": 0.982885737127291
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 1007,
+          "ave_degree": 6.713333333333333,
+          "entropy_arithmetic": {
+            "graph": 5469,
+            "random": 5621.7,
+            "normalized": 0.9728373979401249
+          }
+        },
+        "40": {
+          "number_nodes": 200,
+          "number_edges": 883,
+          "ave_degree": 8.83,
+          "entropy_arithmetic": {
+            "graph": 4303,
+            "random": 4349.5,
+            "normalized": 0.9893091159903438
+          }
+        },
+        "20": {
+          "number_nodes": 100,
+          "number_edges": 593,
+          "ave_degree": 11.86,
+          "entropy_arithmetic": {
+            "graph": 2048,
+            "random": 2238.5,
+            "normalized": 0.914898369443824
+          }
+        }
+      }
+    },
+    "regular_500_1": {
+      "Name": "regular_500_1",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "regular",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 1250,
+          "ave_degree": 5.0,
+          "entropy_arithmetic": {
+            "graph": 7758,
+            "random": 7768.9,
+            "normalized": 0.9985969699700087
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 1137,
+          "ave_degree": 5.670822942643391,
+          "entropy_arithmetic": {
+            "graph": 6694,
+            "random": 6776.8,
+            "normalized": 0.9877818439381418
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 1018,
+          "ave_degree": 6.786666666666667,
+          "entropy_arithmetic": {
+            "graph": 5602,
+            "random": 5654.4,
+            "normalized": 0.9907328805885682
+          }
+        },
+        "40": {
+          "number_nodes": 200,
+          "number_edges": 900,
+          "ave_degree": 9.0,
+          "entropy_arithmetic": {
+            "graph": 4353,
+            "random": 4443.7,
+            "normalized": 0.9795890811710962
+          }
+        },
+        "20": {
+          "number_nodes": 100,
+          "number_edges": 646,
+          "ave_degree": 12.92,
+          "entropy_arithmetic": {
+            "graph": 2159,
+            "random": 2373.2,
+            "normalized": 0.9097421203438396
+          }
+        }
+      }
+    },
+    "regular_500_2": {
+      "Name": "regular_500_2",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "regular",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 1250,
+          "ave_degree": 5.0,
+          "entropy_arithmetic": {
+            "graph": 7789,
+            "random": 7761.6,
+            "normalized": 1.0035301999587714
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 1140,
+          "ave_degree": 5.685785536159601,
+          "entropy_arithmetic": {
+            "graph": 6660,
+            "random": 6797.7,
+            "normalized": 0.9797431484178473
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 1020,
+          "ave_degree": 6.8,
+          "entropy_arithmetic": {
+            "graph": 5520,
+            "random": 5676.7,
+            "normalized": 0.9723959342575793
+          }
+        },
+        "40": {
+          "number_nodes": 200,
+          "number_edges": 896,
+          "ave_degree": 8.96,
+          "entropy_arithmetic": {
+            "graph": 4356,
+            "random": 4409.3,
+            "normalized": 0.9879119134556505
+          }
+        },
+        "20": {
+          "number_nodes": 100,
+          "number_edges": 617,
+          "ave_degree": 12.34,
+          "entropy_arithmetic": {
+            "graph": 2069,
+            "random": 2297.6,
+            "normalized": 0.9005048746518106
+          }
+        }
+      }
+    },
+    "regular_500_3": {
+      "Name": "regular_500_3",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "regular",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 1250,
+          "ave_degree": 5.0,
+          "entropy_arithmetic": {
+            "graph": 7788,
+            "random": 7770.2,
+            "normalized": 1.0022908033255258
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 1139,
+          "ave_degree": 5.6807980049875315,
+          "entropy_arithmetic": {
+            "graph": 6750,
+            "random": 6776.0,
+            "normalized": 0.9961629279811098
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 1023,
+          "ave_degree": 6.82,
+          "entropy_arithmetic": {
+            "graph": 5649,
+            "random": 5708.9,
+            "normalized": 0.9895076109232953
+          }
+        },
+        "40": {
+          "number_nodes": 200,
+          "number_edges": 894,
+          "ave_degree": 8.94,
+          "entropy_arithmetic": {
+            "graph": 4336,
+            "random": 4394.0,
+            "normalized": 0.9868001820664543
+          }
+        },
+        "20": {
+          "number_nodes": 100,
+          "number_edges": 609,
+          "ave_degree": 12.18,
+          "entropy_arithmetic": {
+            "graph": 2042,
+            "random": 2278.6,
+            "normalized": 0.8961643114192925
+          }
+        }
+      }
+    },
+    "regular_500_4": {
+      "Name": "regular_500_4",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "regular",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 1250,
+          "ave_degree": 5.0,
+          "entropy_arithmetic": {
+            "graph": 7889,
+            "random": 7795.2,
+            "normalized": 1.0120330459770115
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 1133,
+          "ave_degree": 5.650872817955112,
+          "entropy_arithmetic": {
+            "graph": 6659,
+            "random": 6753.0,
+            "normalized": 0.9860802606249075
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 1009,
+          "ave_degree": 6.726666666666667,
+          "entropy_arithmetic": {
+            "graph": 5508,
+            "random": 5625.9,
+            "normalized": 0.9790433530635099
+          }
+        },
+        "40": {
+          "number_nodes": 200,
+          "number_edges": 876,
+          "ave_degree": 8.76,
+          "entropy_arithmetic": {
+            "graph": 4281,
+            "random": 4305.2,
+            "normalized": 0.9943788906438725
+          }
+        },
+        "20": {
+          "number_nodes": 100,
+          "number_edges": 602,
+          "ave_degree": 12.04,
+          "entropy_arithmetic": {
+            "graph": 2076,
+            "random": 2256.7,
+            "normalized": 0.9199273275136262
+          }
+        }
+      }
+    },
+    "regular_500_5": {
+      "Name": "regular_500_5",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "regular",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 1250,
+          "ave_degree": 5.0,
+          "entropy_arithmetic": {
+            "graph": 7769,
+            "random": 7737.3,
+            "normalized": 1.0040970364338981
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 1139,
+          "ave_degree": 5.6807980049875315,
+          "entropy_arithmetic": {
+            "graph": 6764,
+            "random": 6754.7,
+            "normalized": 1.001376819103735
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 1014,
+          "ave_degree": 6.76,
+          "entropy_arithmetic": {
+            "graph": 5567,
+            "random": 5647.2,
+            "normalized": 0.985798271709874
+          }
+        },
+        "40": {
+          "number_nodes": 200,
+          "number_edges": 892,
+          "ave_degree": 8.92,
+          "entropy_arithmetic": {
+            "graph": 4322,
+            "random": 4374.0,
+            "normalized": 0.9881115683584819
+          }
+        },
+        "20": {
+          "number_nodes": 100,
+          "number_edges": 605,
+          "ave_degree": 12.1,
+          "entropy_arithmetic": {
+            "graph": 2139,
+            "random": 2267.6,
+            "normalized": 0.9432880578585289
+          }
+        }
+      }
+    },
+    "regular_500_6": {
+      "Name": "regular_500_6",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "regular",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 1250,
+          "ave_degree": 5.0,
+          "entropy_arithmetic": {
+            "graph": 7823,
+            "random": 7756.6,
+            "normalized": 1.008560451744321
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 1136,
+          "ave_degree": 5.665835411471321,
+          "entropy_arithmetic": {
+            "graph": 6709,
+            "random": 6777.6,
+            "normalized": 0.9898784230406042
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 1017,
+          "ave_degree": 6.78,
+          "entropy_arithmetic": {
+            "graph": 5584,
+            "random": 5659.4,
+            "normalized": 0.9866770329010143
+          }
+        },
+        "40": {
+          "number_nodes": 200,
+          "number_edges": 896,
+          "ave_degree": 8.96,
+          "entropy_arithmetic": {
+            "graph": 4366,
+            "random": 4407.2,
+            "normalized": 0.9906516609184971
+          }
+        },
+        "20": {
+          "number_nodes": 101,
+          "number_edges": 617,
+          "ave_degree": 12.217821782178218,
+          "entropy_arithmetic": {
+            "graph": 2061,
+            "random": 2311.9,
+            "normalized": 0.891474544746745
+          }
+        }
+      }
+    },
+    "regular_500_7": {
+      "Name": "regular_500_7",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "regular",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 1250,
+          "ave_degree": 5.0,
+          "entropy_arithmetic": {
+            "graph": 7863,
+            "random": 7751.1,
+            "normalized": 1.014436660603011
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 1140,
+          "ave_degree": 5.685785536159601,
+          "entropy_arithmetic": {
+            "graph": 6697,
+            "random": 6789.7,
+            "normalized": 0.986346966729016
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 1016,
+          "ave_degree": 6.773333333333333,
+          "entropy_arithmetic": {
+            "graph": 5536,
+            "random": 5678.1,
+            "normalized": 0.9749740230006516
+          }
+        },
+        "40": {
+          "number_nodes": 200,
+          "number_edges": 889,
+          "ave_degree": 8.89,
+          "entropy_arithmetic": {
+            "graph": 4364,
+            "random": 4382.3,
+            "normalized": 0.9958241106268397
+          }
+        },
+        "20": {
+          "number_nodes": 101,
+          "number_edges": 624,
+          "ave_degree": 12.356435643564357,
+          "entropy_arithmetic": {
+            "graph": 2196,
+            "random": 2331.0,
+            "normalized": 0.9420849420849421
+          }
+        }
+      }
+    },
+    "regular_500_8": {
+      "Name": "regular_500_8",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "regular",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 1250,
+          "ave_degree": 5.0,
+          "entropy_arithmetic": {
+            "graph": 7813,
+            "random": 7774.7,
+            "normalized": 1.004926235095888
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 1137,
+          "ave_degree": 5.670822942643391,
+          "entropy_arithmetic": {
+            "graph": 6674,
+            "random": 6774.7,
+            "normalized": 0.985135873175196
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 1017,
+          "ave_degree": 6.78,
+          "entropy_arithmetic": {
+            "graph": 5520,
+            "random": 5665.7,
+            "normalized": 0.9742838484212013
+          }
+        },
+        "40": {
+          "number_nodes": 200,
+          "number_edges": 884,
+          "ave_degree": 8.84,
+          "entropy_arithmetic": {
+            "graph": 4299,
+            "random": 4354.1,
+            "normalized": 0.9873452607886819
+          }
+        },
+        "20": {
+          "number_nodes": 101,
+          "number_edges": 598,
+          "ave_degree": 11.841584158415841,
+          "entropy_arithmetic": {
+            "graph": 2065,
+            "random": 2255.3,
+            "normalized": 0.9156209816875803
+          }
+        }
+      }
+    },
+    "regular_500_9": {
+      "Name": "regular_500_9",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "regular",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 1250,
+          "ave_degree": 5.0,
+          "entropy_arithmetic": {
+            "graph": 7835,
+            "random": 7746.0,
+            "normalized": 1.0114898011877098
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 1130,
+          "ave_degree": 5.635910224438903,
+          "entropy_arithmetic": {
+            "graph": 6684,
+            "random": 6724.5,
+            "normalized": 0.9939772473789873
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 1008,
+          "ave_degree": 6.72,
+          "entropy_arithmetic": {
+            "graph": 5545,
+            "random": 5582.8,
+            "normalized": 0.9932292039836641
+          }
+        },
+        "40": {
+          "number_nodes": 200,
+          "number_edges": 881,
+          "ave_degree": 8.81,
+          "entropy_arithmetic": {
+            "graph": 4282,
+            "random": 4330.4,
+            "normalized": 0.9888232033992241
+          }
+        },
+        "20": {
+          "number_nodes": 101,
+          "number_edges": 625,
+          "ave_degree": 12.376237623762377,
+          "entropy_arithmetic": {
+            "graph": 2183,
+            "random": 2337.0,
+            "normalized": 0.9341035515618314
+          }
+        }
+      }
+    }
+  },
+  "grid": {
+    "grid_2500_0": {
+      "Name": "grid_2500_0",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "grid",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 4900,
+          "ave_degree": 3.92,
+          "entropy_arithmetic": {
+            "graph": 28400,
+            "random": 38956.0,
+            "normalized": 0.7290276209056371
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 4153,
+          "ave_degree": 4.150924537731134,
+          "entropy_arithmetic": {
+            "graph": 24805,
+            "random": 32229.2,
+            "normalized": 0.7696436771623248
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 3504,
+          "ave_degree": 4.672,
+          "entropy_arithmetic": {
+            "graph": 19495,
+            "random": 26163.7,
+            "normalized": 0.7451163252903832
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 2683,
+          "ave_degree": 5.366,
+          "entropy_arithmetic": {
+            "graph": 13557,
+            "random": 18888.2,
+            "normalized": 0.7177497061657543
+          }
+        },
+        "20": {
+          "number_nodes": 500,
+          "number_edges": 1341,
+          "ave_degree": 5.364,
+          "entropy_arithmetic": {
+            "graph": 6181,
+            "random": 8350.8,
+            "normalized": 0.7401686066005653
+          }
+        }
+      }
+    },
+    "grid_2500_1": {
+      "Name": "grid_2500_1",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "grid",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 4900,
+          "ave_degree": 3.92,
+          "entropy_arithmetic": {
+            "graph": 28400,
+            "random": 38915.9,
+            "normalized": 0.7297788307606916
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 4156,
+          "ave_degree": 4.15392303848076,
+          "entropy_arithmetic": {
+            "graph": 24973,
+            "random": 32089.6,
+            "normalized": 0.7782272138013563
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 3464,
+          "ave_degree": 4.618666666666667,
+          "entropy_arithmetic": {
+            "graph": 18945,
+            "random": 25927.4,
+            "normalized": 0.7306941691029567
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 2652,
+          "ave_degree": 5.304,
+          "entropy_arithmetic": {
+            "graph": 12940,
+            "random": 18645.7,
+            "normalized": 0.6939937894527961
+          }
+        },
+        "20": {
+          "number_nodes": 500,
+          "number_edges": 1312,
+          "ave_degree": 5.248,
+          "entropy_arithmetic": {
+            "graph": 6001,
+            "random": 8116.3,
+            "normalized": 0.7393763167945985
+          }
+        }
+      }
+    },
+    "grid_2500_2": {
+      "Name": "grid_2500_2",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "grid",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 4900,
+          "ave_degree": 3.92,
+          "entropy_arithmetic": {
+            "graph": 28400,
+            "random": 39022.9,
+            "normalized": 0.7277777920144325
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 4195,
+          "ave_degree": 4.192903548225887,
+          "entropy_arithmetic": {
+            "graph": 25074,
+            "random": 32571.8,
+            "normalized": 0.7698070109726819
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 3459,
+          "ave_degree": 4.612,
+          "entropy_arithmetic": {
+            "graph": 18393,
+            "random": 25860.0,
+            "normalized": 0.7112529002320186
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 2687,
+          "ave_degree": 5.374,
+          "entropy_arithmetic": {
+            "graph": 13069,
+            "random": 19014.5,
+            "normalized": 0.6873175734308028
+          }
+        },
+        "20": {
+          "number_nodes": 500,
+          "number_edges": 1347,
+          "ave_degree": 5.388,
+          "entropy_arithmetic": {
+            "graph": 6284,
+            "random": 8374.3,
+            "normalized": 0.750391077463191
+          }
+        }
+      }
+    },
+    "grid_2500_3": {
+      "Name": "grid_2500_3",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "grid",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 4900,
+          "ave_degree": 3.92,
+          "entropy_arithmetic": {
+            "graph": 28400,
+            "random": 38991.0,
+            "normalized": 0.7283732143315124
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 4147,
+          "ave_degree": 4.144927536231884,
+          "entropy_arithmetic": {
+            "graph": 24342,
+            "random": 32019.3,
+            "normalized": 0.7602289868922806
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 3472,
+          "ave_degree": 4.629333333333333,
+          "entropy_arithmetic": {
+            "graph": 18618,
+            "random": 25897.2,
+            "normalized": 0.718919419860062
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 2697,
+          "ave_degree": 5.394,
+          "entropy_arithmetic": {
+            "graph": 13834,
+            "random": 18999.3,
+            "normalized": 0.728132089076966
+          }
+        },
+        "20": {
+          "number_nodes": 500,
+          "number_edges": 1305,
+          "ave_degree": 5.22,
+          "entropy_arithmetic": {
+            "graph": 5805,
+            "random": 8151.8,
+            "normalized": 0.7121126622341077
+          }
+        }
+      }
+    },
+    "grid_2500_4": {
+      "Name": "grid_2500_4",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "grid",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 4900,
+          "ave_degree": 3.92,
+          "entropy_arithmetic": {
+            "graph": 28400,
+            "random": 38958.6,
+            "normalized": 0.7289789674166937
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 4170,
+          "ave_degree": 4.1679160419790104,
+          "entropy_arithmetic": {
+            "graph": 24850,
+            "random": 32465.7,
+            "normalized": 0.7654232004854353
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 3438,
+          "ave_degree": 4.584,
+          "entropy_arithmetic": {
+            "graph": 19329,
+            "random": 25715.2,
+            "normalized": 0.7516566077650573
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 2657,
+          "ave_degree": 5.314,
+          "entropy_arithmetic": {
+            "graph": 12922,
+            "random": 18646.1,
+            "normalized": 0.6930135524318759
+          }
+        },
+        "20": {
+          "number_nodes": 500,
+          "number_edges": 1329,
+          "ave_degree": 5.316,
+          "entropy_arithmetic": {
+            "graph": 6059,
+            "random": 8251.9,
+            "normalized": 0.7342551412401993
+          }
+        }
+      }
+    },
+    "grid_2500_5": {
+      "Name": "grid_2500_5",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "grid",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 4900,
+          "ave_degree": 3.92,
+          "entropy_arithmetic": {
+            "graph": 28400,
+            "random": 38825.5,
+            "normalized": 0.7314780234639605
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 4234,
+          "ave_degree": 4.231884057971015,
+          "entropy_arithmetic": {
+            "graph": 25431,
+            "random": 32717.5,
+            "normalized": 0.7772904408955452
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 3413,
+          "ave_degree": 4.550666666666666,
+          "entropy_arithmetic": {
+            "graph": 18969,
+            "random": 25463.7,
+            "normalized": 0.7449428009283804
+          }
+        },
+        "40": {
+          "number_nodes": 1001,
+          "number_edges": 2701,
+          "ave_degree": 5.396603396603396,
+          "entropy_arithmetic": {
+            "graph": 13500,
+            "random": 19009.0,
+            "normalized": 0.7101899100426114
+          }
+        },
+        "20": {
+          "number_nodes": 500,
+          "number_edges": 1340,
+          "ave_degree": 5.36,
+          "entropy_arithmetic": {
+            "graph": 6024,
+            "random": 8335.6,
+            "normalized": 0.7226834301070109
+          }
+        }
+      }
+    },
+    "grid_2500_6": {
+      "Name": "grid_2500_6",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "grid",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 4900,
+          "ave_degree": 3.92,
+          "entropy_arithmetic": {
+            "graph": 28400,
+            "random": 39013.3,
+            "normalized": 0.7279568762447678
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 4115,
+          "ave_degree": 4.112943528235882,
+          "entropy_arithmetic": {
+            "graph": 24599,
+            "random": 31740.1,
+            "normalized": 0.7750133112372047
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 3555,
+          "ave_degree": 4.74,
+          "entropy_arithmetic": {
+            "graph": 19655,
+            "random": 26598.6,
+            "normalized": 0.7389486664711677
+          }
+        },
+        "40": {
+          "number_nodes": 1001,
+          "number_edges": 2748,
+          "ave_degree": 5.49050949050949,
+          "entropy_arithmetic": {
+            "graph": 13565,
+            "random": 19404.0,
+            "normalized": 0.6990826633683777
+          }
+        },
+        "20": {
+          "number_nodes": 500,
+          "number_edges": 1336,
+          "ave_degree": 5.344,
+          "entropy_arithmetic": {
+            "graph": 6157,
+            "random": 8309.7,
+            "normalized": 0.7409413095538948
+          }
+        }
+      }
+    },
+    "grid_2500_7": {
+      "Name": "grid_2500_7",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "grid",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 4900,
+          "ave_degree": 3.92,
+          "entropy_arithmetic": {
+            "graph": 28400,
+            "random": 38852.1,
+            "normalized": 0.7309772187346373
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 4200,
+          "ave_degree": 4.197901049475262,
+          "entropy_arithmetic": {
+            "graph": 24951,
+            "random": 32560.6,
+            "normalized": 0.7662942329072561
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 3536,
+          "ave_degree": 4.714666666666667,
+          "entropy_arithmetic": {
+            "graph": 18940,
+            "random": 26428.4,
+            "normalized": 0.7166532972105765
+          }
+        },
+        "40": {
+          "number_nodes": 1001,
+          "number_edges": 2730,
+          "ave_degree": 5.454545454545454,
+          "entropy_arithmetic": {
+            "graph": 13618,
+            "random": 19160.8,
+            "normalized": 0.7107218905264916
+          }
+        },
+        "20": {
+          "number_nodes": 500,
+          "number_edges": 1341,
+          "ave_degree": 5.364,
+          "entropy_arithmetic": {
+            "graph": 6358,
+            "random": 8329.6,
+            "normalized": 0.7633019592777563
+          }
+        }
+      }
+    },
+    "grid_2500_8": {
+      "Name": "grid_2500_8",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "grid",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 4900,
+          "ave_degree": 3.92,
+          "entropy_arithmetic": {
+            "graph": 28400,
+            "random": 38881.3,
+            "normalized": 0.7304282521417751
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 4166,
+          "ave_degree": 4.16391804097951,
+          "entropy_arithmetic": {
+            "graph": 23924,
+            "random": 32378.1,
+            "normalized": 0.738894499677251
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 3437,
+          "ave_degree": 4.582666666666666,
+          "entropy_arithmetic": {
+            "graph": 19418,
+            "random": 25651.4,
+            "normalized": 0.7569957195318774
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 2750,
+          "ave_degree": 5.5,
+          "entropy_arithmetic": {
+            "graph": 13732,
+            "random": 19403.1,
+            "normalized": 0.7077219619545331
+          }
+        },
+        "20": {
+          "number_nodes": 500,
+          "number_edges": 1322,
+          "ave_degree": 5.288,
+          "entropy_arithmetic": {
+            "graph": 5972,
+            "random": 8240.7,
+            "normalized": 0.7246957175968061
+          }
+        }
+      }
+    },
+    "grid_2500_9": {
+      "Name": "grid_2500_9",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "grid",
+      "reductions": {
+        "100": {
+          "number_nodes": 2500,
+          "number_edges": 4900,
+          "ave_degree": 3.92,
+          "entropy_arithmetic": {
+            "graph": 28400,
+            "random": 39076.8,
+            "normalized": 0.7267739425950948
+          }
+        },
+        "80": {
+          "number_nodes": 2001,
+          "number_edges": 4140,
+          "ave_degree": 4.137931034482759,
+          "entropy_arithmetic": {
+            "graph": 24373,
+            "random": 32044.7,
+            "normalized": 0.7605937955418525
+          }
+        },
+        "60": {
+          "number_nodes": 1500,
+          "number_edges": 3404,
+          "ave_degree": 4.538666666666667,
+          "entropy_arithmetic": {
+            "graph": 19120,
+            "random": 25377.3,
+            "normalized": 0.7534292458220536
+          }
+        },
+        "40": {
+          "number_nodes": 1000,
+          "number_edges": 2692,
+          "ave_degree": 5.384,
+          "entropy_arithmetic": {
+            "graph": 13618,
+            "random": 18934.7,
+            "normalized": 0.7192086486714867
+          }
+        },
+        "20": {
+          "number_nodes": 501,
+          "number_edges": 1322,
+          "ave_degree": 5.277445109780439,
+          "entropy_arithmetic": {
+            "graph": 6096,
+            "random": 8243.8,
+            "normalized": 0.7394648099177564
+          }
+        }
+      }
+    },
+    "grid_1500_0": {
+      "Name": "grid_1500_0",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "grid",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 2920,
+          "ave_degree": 3.8933333333333335,
+          "entropy_arithmetic": {
+            "graph": 15791,
+            "random": 21573.1,
+            "normalized": 0.7319763965308649
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 2483,
+          "ave_degree": 4.13488759367194,
+          "entropy_arithmetic": {
+            "graph": 13498,
+            "random": 17788.7,
+            "normalized": 0.7587963145142702
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 2075,
+          "ave_degree": 4.611111111111111,
+          "entropy_arithmetic": {
+            "graph": 10469,
+            "random": 14212.0,
+            "normalized": 0.7366310160427807
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 1624,
+          "ave_degree": 5.413333333333333,
+          "entropy_arithmetic": {
+            "graph": 7305,
+            "random": 10438.3,
+            "normalized": 0.6998266001168774
+          }
+        },
+        "20": {
+          "number_nodes": 300,
+          "number_edges": 784,
+          "ave_degree": 5.226666666666667,
+          "entropy_arithmetic": {
+            "graph": 3229,
+            "random": 4402.7,
+            "normalized": 0.7334135871169964
+          }
+        }
+      }
+    },
+    "grid_1500_1": {
+      "Name": "grid_1500_1",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "grid",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 2920,
+          "ave_degree": 3.8933333333333335,
+          "entropy_arithmetic": {
+            "graph": 15791,
+            "random": 21554.8,
+            "normalized": 0.7325978436357563
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 2483,
+          "ave_degree": 4.13488759367194,
+          "entropy_arithmetic": {
+            "graph": 13498,
+            "random": 17740.1,
+            "normalized": 0.7608750796218736
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 2063,
+          "ave_degree": 4.584444444444444,
+          "entropy_arithmetic": {
+            "graph": 10360,
+            "random": 14212.1,
+            "normalized": 0.7289563118750924
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 1624,
+          "ave_degree": 5.413333333333333,
+          "entropy_arithmetic": {
+            "graph": 7386,
+            "random": 10405.2,
+            "normalized": 0.7098373889978088
+          }
+        },
+        "20": {
+          "number_nodes": 300,
+          "number_edges": 786,
+          "ave_degree": 5.24,
+          "entropy_arithmetic": {
+            "graph": 3227,
+            "random": 4411.0,
+            "normalized": 0.7315801405576967
+          }
+        }
+      }
+    },
+    "grid_1500_2": {
+      "Name": "grid_1500_2",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "grid",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 2920,
+          "ave_degree": 3.8933333333333335,
+          "entropy_arithmetic": {
+            "graph": 15791,
+            "random": 21568.7,
+            "normalized": 0.7321257192134899
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 2483,
+          "ave_degree": 4.13488759367194,
+          "entropy_arithmetic": {
+            "graph": 13522,
+            "random": 17714.8,
+            "normalized": 0.7633165488743876
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 2063,
+          "ave_degree": 4.584444444444444,
+          "entropy_arithmetic": {
+            "graph": 10406,
+            "random": 14180.5,
+            "normalized": 0.7338246183138818
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 1628,
+          "ave_degree": 5.426666666666667,
+          "entropy_arithmetic": {
+            "graph": 7429,
+            "random": 10473.1,
+            "normalized": 0.7093410737985888
+          }
+        },
+        "20": {
+          "number_nodes": 300,
+          "number_edges": 784,
+          "ave_degree": 5.226666666666667,
+          "entropy_arithmetic": {
+            "graph": 3252,
+            "random": 4411.3,
+            "normalized": 0.7371976514859565
+          }
+        }
+      }
+    },
+    "grid_1500_3": {
+      "Name": "grid_1500_3",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "grid",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 2920,
+          "ave_degree": 3.8933333333333335,
+          "entropy_arithmetic": {
+            "graph": 15791,
+            "random": 21540.6,
+            "normalized": 0.7330807869790071
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 2478,
+          "ave_degree": 4.126561199000832,
+          "entropy_arithmetic": {
+            "graph": 13480,
+            "random": 17756.5,
+            "normalized": 0.7591586179708839
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 2063,
+          "ave_degree": 4.584444444444444,
+          "entropy_arithmetic": {
+            "graph": 10399,
+            "random": 14261.7,
+            "normalized": 0.7291557107497704
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 1624,
+          "ave_degree": 5.413333333333333,
+          "entropy_arithmetic": {
+            "graph": 7310,
+            "random": 10429.6,
+            "normalized": 0.7008897752550434
+          }
+        },
+        "20": {
+          "number_nodes": 300,
+          "number_edges": 786,
+          "ave_degree": 5.24,
+          "entropy_arithmetic": {
+            "graph": 3185,
+            "random": 4432.6,
+            "normalized": 0.7185399088571042
+          }
+        }
+      }
+    },
+    "grid_1500_4": {
+      "Name": "grid_1500_4",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "grid",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 2920,
+          "ave_degree": 3.8933333333333335,
+          "entropy_arithmetic": {
+            "graph": 15791,
+            "random": 21476.3,
+            "normalized": 0.7352756294147502
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 2478,
+          "ave_degree": 4.126561199000832,
+          "entropy_arithmetic": {
+            "graph": 13533,
+            "random": 17792.4,
+            "normalized": 0.7606056518513522
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 2075,
+          "ave_degree": 4.611111111111111,
+          "entropy_arithmetic": {
+            "graph": 10396,
+            "random": 14311.4,
+            "normalized": 0.7264139077937868
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 1628,
+          "ave_degree": 5.426666666666667,
+          "entropy_arithmetic": {
+            "graph": 7301,
+            "random": 10495.3,
+            "normalized": 0.6956447171591094
+          }
+        },
+        "20": {
+          "number_nodes": 300,
+          "number_edges": 786,
+          "ave_degree": 5.24,
+          "entropy_arithmetic": {
+            "graph": 3179,
+            "random": 4402.1,
+            "normalized": 0.722155334953772
+          }
+        }
+      }
+    },
+    "grid_1500_5": {
+      "Name": "grid_1500_5",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "grid",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 2920,
+          "ave_degree": 3.8933333333333335,
+          "entropy_arithmetic": {
+            "graph": 15791,
+            "random": 21513.9,
+            "normalized": 0.7339905828324943
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 2478,
+          "ave_degree": 4.126561199000832,
+          "entropy_arithmetic": {
+            "graph": 13551,
+            "random": 17790.7,
+            "normalized": 0.7616900965110984
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 2063,
+          "ave_degree": 4.584444444444444,
+          "entropy_arithmetic": {
+            "graph": 10406,
+            "random": 14233.3,
+            "normalized": 0.7311024147597536
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 1624,
+          "ave_degree": 5.413333333333333,
+          "entropy_arithmetic": {
+            "graph": 7296,
+            "random": 10500.3,
+            "normalized": 0.6948372903631326
+          }
+        },
+        "20": {
+          "number_nodes": 300,
+          "number_edges": 784,
+          "ave_degree": 5.226666666666667,
+          "entropy_arithmetic": {
+            "graph": 3208,
+            "random": 4394.4,
+            "normalized": 0.7300200254869835
+          }
+        }
+      }
+    },
+    "grid_1500_6": {
+      "Name": "grid_1500_6",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "grid",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 2920,
+          "ave_degree": 3.8933333333333335,
+          "entropy_arithmetic": {
+            "graph": 15791,
+            "random": 21529.7,
+            "normalized": 0.7334519291954834
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 2483,
+          "ave_degree": 4.13488759367194,
+          "entropy_arithmetic": {
+            "graph": 13498,
+            "random": 17727.0,
+            "normalized": 0.761437355446494
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 2063,
+          "ave_degree": 4.584444444444444,
+          "entropy_arithmetic": {
+            "graph": 10368,
+            "random": 14171.9,
+            "normalized": 0.7315885661061678
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 1624,
+          "ave_degree": 5.413333333333333,
+          "entropy_arithmetic": {
+            "graph": 7384,
+            "random": 10456.1,
+            "normalized": 0.7061906446954409
+          }
+        },
+        "20": {
+          "number_nodes": 300,
+          "number_edges": 785,
+          "ave_degree": 5.233333333333333,
+          "entropy_arithmetic": {
+            "graph": 3262,
+            "random": 4400.7,
+            "normalized": 0.7412457109096281
+          }
+        }
+      }
+    },
+    "grid_1500_7": {
+      "Name": "grid_1500_7",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "grid",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 2920,
+          "ave_degree": 3.8933333333333335,
+          "entropy_arithmetic": {
+            "graph": 15791,
+            "random": 21605.5,
+            "normalized": 0.7308787114392169
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 2483,
+          "ave_degree": 4.13488759367194,
+          "entropy_arithmetic": {
+            "graph": 13535,
+            "random": 17751.6,
+            "normalized": 0.7624664818945899
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 2063,
+          "ave_degree": 4.584444444444444,
+          "entropy_arithmetic": {
+            "graph": 10406,
+            "random": 14165.7,
+            "normalized": 0.734591301524104
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 1628,
+          "ave_degree": 5.426666666666667,
+          "entropy_arithmetic": {
+            "graph": 7429,
+            "random": 10508.2,
+            "normalized": 0.7069716982927617
+          }
+        },
+        "20": {
+          "number_nodes": 300,
+          "number_edges": 787,
+          "ave_degree": 5.246666666666667,
+          "entropy_arithmetic": {
+            "graph": 3174,
+            "random": 4434.6,
+            "normalized": 0.7157353538086861
+          }
+        }
+      }
+    },
+    "grid_1500_8": {
+      "Name": "grid_1500_8",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "grid",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 2920,
+          "ave_degree": 3.8933333333333335,
+          "entropy_arithmetic": {
+            "graph": 15791,
+            "random": 21534.7,
+            "normalized": 0.7332816338281936
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 2478,
+          "ave_degree": 4.126561199000832,
+          "entropy_arithmetic": {
+            "graph": 13498,
+            "random": 17764.1,
+            "normalized": 0.7598471073682315
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 2075,
+          "ave_degree": 4.611111111111111,
+          "entropy_arithmetic": {
+            "graph": 10462,
+            "random": 14237.0,
+            "normalized": 0.7348458242607291
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 1624,
+          "ave_degree": 5.413333333333333,
+          "entropy_arithmetic": {
+            "graph": 7296,
+            "random": 10436.0,
+            "normalized": 0.6991184361824454
+          }
+        },
+        "20": {
+          "number_nodes": 300,
+          "number_edges": 786,
+          "ave_degree": 5.24,
+          "entropy_arithmetic": {
+            "graph": 3222,
+            "random": 4410.9,
+            "normalized": 0.7304631707814733
+          }
+        }
+      }
+    },
+    "grid_1500_9": {
+      "Name": "grid_1500_9",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "grid",
+      "reductions": {
+        "100": {
+          "number_nodes": 1500,
+          "number_edges": 2920,
+          "ave_degree": 3.8933333333333335,
+          "entropy_arithmetic": {
+            "graph": 15791,
+            "random": 21470.0,
+            "normalized": 0.7354913833255705
+          }
+        },
+        "80": {
+          "number_nodes": 1201,
+          "number_edges": 2478,
+          "ave_degree": 4.126561199000832,
+          "entropy_arithmetic": {
+            "graph": 13555,
+            "random": 17773.2,
+            "normalized": 0.7626651362725901
+          }
+        },
+        "60": {
+          "number_nodes": 900,
+          "number_edges": 2063,
+          "ave_degree": 4.584444444444444,
+          "entropy_arithmetic": {
+            "graph": 10409,
+            "random": 14173.2,
+            "normalized": 0.734414246606271
+          }
+        },
+        "40": {
+          "number_nodes": 600,
+          "number_edges": 1624,
+          "ave_degree": 5.413333333333333,
+          "entropy_arithmetic": {
+            "graph": 7384,
+            "random": 10475.7,
+            "normalized": 0.7048693643384213
+          }
+        },
+        "20": {
+          "number_nodes": 300,
+          "number_edges": 788,
+          "ave_degree": 5.253333333333333,
+          "entropy_arithmetic": {
+            "graph": 3249,
+            "random": 4452.1,
+            "normalized": 0.7297679746636418
+          }
+        }
+      }
+    },
+    "grid_500_0": {
+      "Name": "grid_500_0",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "grid",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 955,
+          "ave_degree": 3.82,
+          "entropy_arithmetic": {
+            "graph": 4568,
+            "random": 5858.3,
+            "normalized": 0.7797483911715002
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 804,
+          "ave_degree": 4.0099750623441395,
+          "entropy_arithmetic": {
+            "graph": 3775,
+            "random": 4743.3,
+            "normalized": 0.7958594227647419
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 667,
+          "ave_degree": 4.446666666666666,
+          "entropy_arithmetic": {
+            "graph": 2992,
+            "random": 3751.5,
+            "normalized": 0.7975476476076236
+          }
+        },
+        "40": {
+          "number_nodes": 201,
+          "number_edges": 523,
+          "ave_degree": 5.203980099502488,
+          "entropy_arithmetic": {
+            "graph": 2097,
+            "random": 2701.2,
+            "normalized": 0.776321634828965
+          }
+        },
+        "20": {
+          "number_nodes": 100,
+          "number_edges": 246,
+          "ave_degree": 4.92,
+          "entropy_arithmetic": {
+            "graph": 885,
+            "random": 1066.0,
+            "normalized": 0.8302063789868668
+          }
+        }
+      }
+    },
+    "grid_500_1": {
+      "Name": "grid_500_1",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "grid",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 955,
+          "ave_degree": 3.82,
+          "entropy_arithmetic": {
+            "graph": 4568,
+            "random": 5813.6,
+            "normalized": 0.7857437732214119
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 804,
+          "ave_degree": 4.0099750623441395,
+          "entropy_arithmetic": {
+            "graph": 3798,
+            "random": 4731.6,
+            "normalized": 0.8026883083946234
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 673,
+          "ave_degree": 4.486666666666666,
+          "entropy_arithmetic": {
+            "graph": 3005,
+            "random": 3791.5,
+            "normalized": 0.7925623104312277
+          }
+        },
+        "40": {
+          "number_nodes": 202,
+          "number_edges": 523,
+          "ave_degree": 5.178217821782178,
+          "entropy_arithmetic": {
+            "graph": 2075,
+            "random": 2693.4,
+            "normalized": 0.7704017227296354
+          }
+        },
+        "20": {
+          "number_nodes": 100,
+          "number_edges": 257,
+          "ave_degree": 5.14,
+          "entropy_arithmetic": {
+            "graph": 931,
+            "random": 1112.1,
+            "normalized": 0.8371549321104218
+          }
+        }
+      }
+    },
+    "grid_500_2": {
+      "Name": "grid_500_2",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "grid",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 955,
+          "ave_degree": 3.82,
+          "entropy_arithmetic": {
+            "graph": 4568,
+            "random": 5832.1,
+            "normalized": 0.7832513159925241
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 804,
+          "ave_degree": 4.0099750623441395,
+          "entropy_arithmetic": {
+            "graph": 3775,
+            "random": 4774.6,
+            "normalized": 0.7906421480333431
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 667,
+          "ave_degree": 4.446666666666666,
+          "entropy_arithmetic": {
+            "graph": 2959,
+            "random": 3748.3,
+            "normalized": 0.789424539124403
+          }
+        },
+        "40": {
+          "number_nodes": 203,
+          "number_edges": 532,
+          "ave_degree": 5.241379310344827,
+          "entropy_arithmetic": {
+            "graph": 2156,
+            "random": 2751.7,
+            "normalized": 0.7835156448740779
+          }
+        },
+        "20": {
+          "number_nodes": 100,
+          "number_edges": 247,
+          "ave_degree": 4.94,
+          "entropy_arithmetic": {
+            "graph": 891,
+            "random": 1072.5,
+            "normalized": 0.8307692307692308
+          }
+        }
+      }
+    },
+    "grid_500_3": {
+      "Name": "grid_500_3",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "grid",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 955,
+          "ave_degree": 3.82,
+          "entropy_arithmetic": {
+            "graph": 4568,
+            "random": 5876.0,
+            "normalized": 0.7773995915588836
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 804,
+          "ave_degree": 4.0099750623441395,
+          "entropy_arithmetic": {
+            "graph": 3756,
+            "random": 4768.4,
+            "normalized": 0.7876855968459022
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 667,
+          "ave_degree": 4.446666666666666,
+          "entropy_arithmetic": {
+            "graph": 3015,
+            "random": 3747.5,
+            "normalized": 0.8045363575717145
+          }
+        },
+        "40": {
+          "number_nodes": 201,
+          "number_edges": 523,
+          "ave_degree": 5.203980099502488,
+          "entropy_arithmetic": {
+            "graph": 2053,
+            "random": 2696.5,
+            "normalized": 0.7613573150380122
+          }
+        },
+        "20": {
+          "number_nodes": 100,
+          "number_edges": 246,
+          "ave_degree": 4.92,
+          "entropy_arithmetic": {
+            "graph": 909,
+            "random": 1070.8,
+            "normalized": 0.8488980201718341
+          }
+        }
+      }
+    },
+    "grid_500_4": {
+      "Name": "grid_500_4",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "grid",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 955,
+          "ave_degree": 3.82,
+          "entropy_arithmetic": {
+            "graph": 4568,
+            "random": 5840.2,
+            "normalized": 0.7821649943495086
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 807,
+          "ave_degree": 4.024937655860349,
+          "entropy_arithmetic": {
+            "graph": 3786,
+            "random": 4764.7,
+            "normalized": 0.7945935735723131
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 673,
+          "ave_degree": 4.486666666666666,
+          "entropy_arithmetic": {
+            "graph": 2954,
+            "random": 3760.5,
+            "normalized": 0.7855338385852945
+          }
+        },
+        "40": {
+          "number_nodes": 202,
+          "number_edges": 523,
+          "ave_degree": 5.178217821782178,
+          "entropy_arithmetic": {
+            "graph": 2052,
+            "random": 2698.7,
+            "normalized": 0.7603661021973543
+          }
+        },
+        "20": {
+          "number_nodes": 100,
+          "number_edges": 247,
+          "ave_degree": 4.94,
+          "entropy_arithmetic": {
+            "graph": 906,
+            "random": 1071.9,
+            "normalized": 0.84522809963616
+          }
+        }
+      }
+    },
+    "grid_500_5": {
+      "Name": "grid_500_5",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "grid",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 955,
+          "ave_degree": 3.82,
+          "entropy_arithmetic": {
+            "graph": 4568,
+            "random": 5856.7,
+            "normalized": 0.7799614117164957
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 807,
+          "ave_degree": 4.024937655860349,
+          "entropy_arithmetic": {
+            "graph": 3811,
+            "random": 4775.3,
+            "normalized": 0.7980650430339454
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 667,
+          "ave_degree": 4.446666666666666,
+          "entropy_arithmetic": {
+            "graph": 2992,
+            "random": 3757.8,
+            "normalized": 0.7962105487253179
+          }
+        },
+        "40": {
+          "number_nodes": 202,
+          "number_edges": 532,
+          "ave_degree": 5.267326732673268,
+          "entropy_arithmetic": {
+            "graph": 2120,
+            "random": 2738.0,
+            "normalized": 0.7742878013148283
+          }
+        },
+        "20": {
+          "number_nodes": 101,
+          "number_edges": 253,
+          "ave_degree": 5.00990099009901,
+          "entropy_arithmetic": {
+            "graph": 892,
+            "random": 1100.5,
+            "normalized": 0.8105406633348478
+          }
+        }
+      }
+    },
+    "grid_500_6": {
+      "Name": "grid_500_6",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "grid",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 955,
+          "ave_degree": 3.82,
+          "entropy_arithmetic": {
+            "graph": 4568,
+            "random": 5851.9,
+            "normalized": 0.7806011722688359
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 804,
+          "ave_degree": 4.0099750623441395,
+          "entropy_arithmetic": {
+            "graph": 3785,
+            "random": 4761.3,
+            "normalized": 0.794950958771764
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 672,
+          "ave_degree": 4.48,
+          "entropy_arithmetic": {
+            "graph": 2945,
+            "random": 3787.3,
+            "normalized": 0.7775988170992527
+          }
+        },
+        "40": {
+          "number_nodes": 202,
+          "number_edges": 523,
+          "ave_degree": 5.178217821782178,
+          "entropy_arithmetic": {
+            "graph": 2052,
+            "random": 2692.1,
+            "normalized": 0.7622302291891089
+          }
+        },
+        "20": {
+          "number_nodes": 100,
+          "number_edges": 246,
+          "ave_degree": 4.92,
+          "entropy_arithmetic": {
+            "graph": 885,
+            "random": 1057.4,
+            "normalized": 0.8369585776432759
+          }
+        }
+      }
+    },
+    "grid_500_7": {
+      "Name": "grid_500_7",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "grid",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 955,
+          "ave_degree": 3.82,
+          "entropy_arithmetic": {
+            "graph": 4568,
+            "random": 5872.6,
+            "normalized": 0.7778496747607533
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 804,
+          "ave_degree": 4.0099750623441395,
+          "entropy_arithmetic": {
+            "graph": 3756,
+            "random": 4750.1,
+            "normalized": 0.790720195364308
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 674,
+          "ave_degree": 4.493333333333333,
+          "entropy_arithmetic": {
+            "graph": 3003,
+            "random": 3773.4,
+            "normalized": 0.7958339958657974
+          }
+        },
+        "40": {
+          "number_nodes": 200,
+          "number_edges": 523,
+          "ave_degree": 5.23,
+          "entropy_arithmetic": {
+            "graph": 2087,
+            "random": 2688.0,
+            "normalized": 0.7764136904761905
+          }
+        },
+        "20": {
+          "number_nodes": 100,
+          "number_edges": 257,
+          "ave_degree": 5.14,
+          "entropy_arithmetic": {
+            "graph": 931,
+            "random": 1117.5,
+            "normalized": 0.8331096196868009
+          }
+        }
+      }
+    },
+    "grid_500_8": {
+      "Name": "grid_500_8",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "grid",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 955,
+          "ave_degree": 3.82,
+          "entropy_arithmetic": {
+            "graph": 4568,
+            "random": 5846.9,
+            "normalized": 0.7812687064940397
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 804,
+          "ave_degree": 4.0099750623441395,
+          "entropy_arithmetic": {
+            "graph": 3785,
+            "random": 4733.1,
+            "normalized": 0.7996873085292936
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 667,
+          "ave_degree": 4.446666666666666,
+          "entropy_arithmetic": {
+            "graph": 2943,
+            "random": 3726.0,
+            "normalized": 0.7898550724637681
+          }
+        },
+        "40": {
+          "number_nodes": 202,
+          "number_edges": 523,
+          "ave_degree": 5.178217821782178,
+          "entropy_arithmetic": {
+            "graph": 2052,
+            "random": 2694.0,
+            "normalized": 0.7616926503340757
+          }
+        },
+        "20": {
+          "number_nodes": 100,
+          "number_edges": 246,
+          "ave_degree": 4.92,
+          "entropy_arithmetic": {
+            "graph": 904,
+            "random": 1059.7,
+            "normalized": 0.8530716240445408
+          }
+        }
+      }
+    },
+    "grid_500_9": {
+      "Name": "grid_500_9",
+      "Subdomain": "Synthetic",
+      "Node_Type": "Vertex",
+      "Edge_Type": "grid",
+      "reductions": {
+        "100": {
+          "number_nodes": 500,
+          "number_edges": 955,
+          "ave_degree": 3.82,
+          "entropy_arithmetic": {
+            "graph": 4568,
+            "random": 5851.5,
+            "normalized": 0.7806545330257199
+          }
+        },
+        "80": {
+          "number_nodes": 401,
+          "number_edges": 804,
+          "ave_degree": 4.0099750623441395,
+          "entropy_arithmetic": {
+            "graph": 3798,
+            "random": 4744.5,
+            "normalized": 0.8005058488776478
+          }
+        },
+        "60": {
+          "number_nodes": 300,
+          "number_edges": 667,
+          "ave_degree": 4.446666666666666,
+          "entropy_arithmetic": {
+            "graph": 2947,
+            "random": 3726.7,
+            "normalized": 0.7907800466901012
+          }
+        },
+        "40": {
+          "number_nodes": 200,
+          "number_edges": 522,
+          "ave_degree": 5.22,
+          "entropy_arithmetic": {
+            "graph": 2040,
+            "random": 2680.5,
+            "normalized": 0.7610520425293789
+          }
+        },
+        "20": {
+          "number_nodes": 100,
+          "number_edges": 245,
+          "ave_degree": 4.9,
+          "entropy_arithmetic": {
+            "graph": 883,
+            "random": 1064.2,
+            "normalized": 0.8297312535237736
+          }
+        }
+      }
+    }
+  }
+}
