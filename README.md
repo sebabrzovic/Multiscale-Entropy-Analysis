@@ -4,7 +4,7 @@ Official code for analysis of multiscale entropy in various real and not real gr
 
 This repository contains the complete code and experiments for the paper **"Networks Multiscale Entropy Analysis"**, which presents a theoretical framework for analyzing the structural complexity and predictability of complex networks through multiscale entropy.
 
-## 📄 Overview
+## Overview
 
 The project extends compression-based entropy analysis to the multiscale domain through spectral graph reduction techniques. This allows quantifying how structural complexity evolves as the network is gradually reduced, capturing hierarchical patterns at multiple scales.
 
@@ -14,7 +14,7 @@ The project extends compression-based entropy analysis to the multiscale domain 
 - Identification of characteristic entropy profiles by network families
 - Reduced computational costs by enabling analysis at reduced scales
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 .
@@ -36,7 +36,7 @@ The project extends compression-based entropy analysis to the multiscale domain 
 
 ---
 
-## 📂 Folder Descriptions
+## Folder Descriptions
 
 ### `algorithm/Entropy_Experiments/`
 
@@ -126,7 +126,7 @@ Analysis and processing folder for real networks from the ICON dataset (Index of
 
 ---
 
-## 🐍 Main Python Modules
+## Main Python Modules
 
 These files contain the fundamental functions used in all experiments.
 
@@ -221,7 +221,7 @@ Used by `coarsening_utils.py` when `algorithm='optimal'`:
 
 ---
 
-## 📊 JSON Data Structure
+## JSON Data Structure
 
 ### Multiscale results format
 
