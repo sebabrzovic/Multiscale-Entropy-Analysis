@@ -196,7 +196,7 @@ def coarsen_at_reduction_levels(G, reduction_levels, method="variation_neighborh
                                       max_levels=max_levels, algorithm=algorithm)
             graphs_at_levels.append(Gc)
         except Exception as e:
-            print(f"Warning: Could not coarsen at reduction level {r}: {e}")
+            pass  # Could not coarsen at reduction level {r}
             # Add None or the last successful graph
             graphs_at_levels.append(graphs_at_levels[-1] if graphs_at_levels else G)
     
@@ -501,7 +501,7 @@ def coarsening_quality(G, C, kmax=30, Uk=None, lk=None):
         lc, Uc = sp.sparse.linalg.eigsh(Lc, k=kmax, which="SM", tol=1e-3)
 
     if not sp.sparse.issparse(Lc):
-        print("warning: Lc should be sparse.")
+        pass  # Lc should be sparse
 
     metrics = {"r": 1 - n / N, "m": int((Lc.nnz - n) / 2)}
 
@@ -872,13 +872,13 @@ def get_entropy_metadata_aritmethicEncoding(G):
     while not random_graphs and error <= 10:  # Set upper limit of 10%
         random_graphs = create_filtered_random_graphs(e, error)
         if not random_graphs:
-            print(f"No valid graphs found at ±{error}% error, increasing threshold...")
+            pass  # No valid graphs found at this error threshold, increasing
             error += 1
     
     if not random_graphs:
         raise ValueError("Could not generate valid random graphs even at 10% error margin")
     
-    print(f"Generated {len(random_graphs)} random graphs with ±{error}% error margin ({e} target edges)")
+    # Generated random graphs for entropy normalization
     
     compresion_G, compresion_G_random, compressionB1B2, avg_compressionB1B2_random = ce.entropiaArithmeticEncoding(G, random_graphs)
     

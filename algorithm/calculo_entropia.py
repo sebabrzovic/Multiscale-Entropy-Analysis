@@ -104,8 +104,6 @@ def M_adyacencia(G):
    n=len(G.nodes)
    M = np.zeros([n,n])
    E = np.array(G.edges) #aristas
-   print(n)
-   print(len(E))
    
    for e in G.edges: # Agregamos 1 para vértices vecinos
       i = node_to_index[e[0]]
@@ -259,12 +257,10 @@ def entropiaArithmeticEncoding(Gra, ListaGrafosRandom):
         compressionB2 = get_optimized_compression_length(B2)
         compressionB1B2 = compressionB1 + compressionB2
     except ValueError as e:
-        print(f"Warning: Error calculating separate B1+B2 compression: {str(e)}")
-        print("Using total compression length for all calculations")
+        pass  # Error calculating separate B1+B2 compression, use total
         compressionB1B2 = compression_original
         use_total_compression = True
         
-    print(f"Entropia de grafo: {compression_original}, Entropía B1 +B2 : {compressionB1B2} y tamaño de la codificación: {len(B_arr)}")
     
     # Calculate average entropy for random graphs
     compression_random_total = 0
@@ -290,7 +286,7 @@ def entropiaArithmeticEncoding(Gra, ListaGrafosRandom):
                 compressionB1B2_r = compressionB1_r + compressionB2_r
                 compressionB1B2_random_total += compressionB1B2_r
             except ValueError as e:
-                print(f"Warning: Error calculating separate B1+B2 compression for random graph {idx}: {str(e)}")
+                pass  # Error calculating separate B1+B2 compression for random graph
                 use_total_compression = True
         
         codification_lengths.append(len(B_arr_r))
@@ -303,7 +299,6 @@ def entropiaArithmeticEncoding(Gra, ListaGrafosRandom):
     avg_compressionB1B2_random = compressionB1B2_random_total / len(ListaGrafosRandom)
     avg_codification_length = sum(codification_lengths) / len(codification_lengths)
     
-    print(f"Entropia promedio de grafos random: {avg_compression_random:.2f}, Entropia B1+B2 promedio: {avg_compressionB1B2_random:.2f} y tamaño promedio de la codificación: {avg_codification_length:.2f}")
     
     return compression_original, avg_compression_random, compressionB1B2, avg_compressionB1B2_random
 
@@ -318,7 +313,6 @@ def entropiaArithmeticTheoretic(Gra):
     for i in B:
         B_arr.append(i)
     compression_original = get_optimized_compression_length(B)
-    print(f"Entropia de grafo: {compression_original} y tamaño de la codificación: {len(B_arr)}")
     
     return compression_original
     
