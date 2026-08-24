@@ -1,50 +1,52 @@
 """
-Batch companion to algorithm/Entropy_Experiments/multiscale_entropy_regression.ipynb.
+Regression analysis behind Table 3 and the predictability claims of Section sec:seal.
 
-The notebook is the primary path for the regression and for the predicted-vs-actual
-figure: its merge is sound and yields all 431 networks across six domains when run
-against the current result files. This script exists for the parts that are awkward
-in a notebook, and it reproduces the notebook's merge so the two cannot diverge:
+Rebuilds, from results/real_networks_results*.csv, the Model 1..5 ladder for three
+targets (SEAL AUC, SEAL prediction entropy, Adamic-Adar entropy) on the full corpus,
+Every number quoted in the manuscript for these analyses should be reproducible by
+running this script. The k=3 clustering behind Table 2 and Figure 4 is NOT duplicated
+here -- experiments/clustering_analysis.py owns it, and labels clusters canonically by
+increasing mean H_100. Two implementations would give two versions of the same table.
 
-  1. Repairing the Adamic-Adar ER baseline. run_real_networks_experiment.py normalises
-     AA entropy by a SINGLE Erdos-Renyi draw (the paper specifies ten). When that draw
-     yields a near-zero baseline entropy the ratio explodes: of 320 networks with an AA
-     value, 119 exceed 2.0 and the maximum is 102, against a median of 1.11. SEAL is
-     unaffected (all 431 values below 1.18). `--fix-aa-baseline` recomputes the
-     baseline as the mean of ten draws; without it, degenerate rows are flagged and
-     excluded, and the count is reported.
+What it reports beyond the plain ladder
+---------------------------------------
+  * Coarse-scale-only models. H_40 and H_60 alone, and H_100+H_80+H_60 — the scales at
+    which the two coarsening algorithms agree (see coarsening_robustness.py). These
+    support the cost argument in sec:cost: a coarse scale alone outperforms the
+    uncoarsened graph, and the three shallowest scales recover almost all of the
+    five-scale fit.
 
-  2. Emitting drop-in LaTeX tables for the manuscript, for three targets
-     (SEAL AUC, SEAL prediction entropy, Adamic-Adar entropy).
+  * The stratum split. Networks flagged Directed in the source metadata were absent
+    from the original corpus and have flatter, higher-entropy trajectories. The
+    entropy-predictability relationship is markedly weaker among them, so the ladder is
+    also fitted separately per stratum: a relationship holding in only one stratum is
+    not a corpus-wide result.
 
-  3. Reporting the R^2 attainable from coarsened scales alone (H_40, H_40+H_20),
-     which Section sec:cost pairs with the measured speedup.
+  * Adamic-Adar baseline repair. run_real_networks_experiment.py normalises AA entropy
+    by a SINGLE Erdos-Renyi draw where the paper specifies ten, and a near-zero baseline
+    makes the ratio explode. `--fix-aa-baseline` recomputes it as the mean of ten draws;
+    without it, degenerate rows are excluded and counted. SEAL is unaffected.
 
-  4. Rebuilding the k=3 clustering and Table 2 composition on all 431 networks.
-
-A guard asserts n >= MIN_EXPECTED_N, so an incomplete set of result files cannot
-quietly produce an underpowered regression the way a stale notebook run can.
+A guard warns if n < MIN_EXPECTED_N, so an incomplete link-prediction run cannot quietly
+produce an underpowered regression.
 
 Usage
 -----
     source ~/venvs/research/bin/activate
 
-    # optional but recommended: recompute the AA baseline properly (slow, no GPU needed)
+    # optional: recompute the AA baseline properly (slow, CPU only)
     python experiments/rebuild_regression.py --fix-aa-baseline
 
-    # main analysis; emits LaTeX tables ready to paste into the manuscript
+    # main analysis; emits LaTeX tables ready to include in the manuscript
     python experiments/rebuild_regression.py
 
 Outputs
 -------
-    results/multiscale_panel.csv           — one row per network, all predictors + targets
+    results/multiscale_panel.csv           — one row per network, predictors + targets
     results/regression_<target>.csv        — Model 1..5 ladder per target
-    results/cluster_composition.csv        — Table 2 (k=3 composition by family)
     results/aa_baseline_fixed.csv          — from --fix-aa-baseline
     tables/table_regression_<target>.tex   — LaTeX, drop-in for the manuscript
-    tables/table_cluster_composition.tex
     figures/predicted_vs_actual_<target>.pdf
-    figures/kmeans_pca.pdf
 """
 
 import argparse
@@ -68,12 +70,9 @@ FIGURES_DIR = os.path.join(PROJECT_ROOT, 'figures')
 LEVELS = [100, 80, 60, 40, 20]
 PREDICTORS = [f'H_{lv}' for lv in LEVELS]
 
-# All 431 networks have complete records; anything far below this means the merge broke.
-MIN_EXPECTED_N = 400
-
-# An ER-normalised entropy far above 1 means the baseline collapsed, not that the
-# graph is more random than random. Rows beyond this are excluded and counted.
-AA_SANITY_MAX = 2.0
+# The full corpus is 558 networks (all_networks.pkl); anything far below this means the
+# merge broke or the link-prediction run is incomplete.
+MIN_EXPECTED_N = 550
 
 TARGETS = {
     'seal_entropy': 'SEAL prediction entropy',
@@ -86,7 +85,19 @@ TARGETS = {
 
 def load_panel(verbose=True):
     """One row per network: H_100..H_20 plus each link-prediction target."""
-    files = sorted(glob.glob(os.path.join(RESULTS_DIR, 'real_networks_results*.csv')))
+    # Prefer the consolidated all-domain file. Globbing real_networks_results*.csv
+    # also picks up the per-domain files, whose link-prediction rows still carry the
+    # OLD simulated-ER normalisation; deduplication then depends on filename sort
+    # order to keep the right ones, which is not something to rely on.
+    consolidated = os.path.join(RESULTS_DIR, 'real_networks_results_all.csv')
+    if os.path.exists(consolidated):
+        files = [consolidated]
+        print(f'Reading {os.path.basename(consolidated)} (analytic H* normalisation)')
+    else:
+        files = sorted(glob.glob(os.path.join(RESULTS_DIR,
+                                              'real_networks_results*.csv')))
+        print(f'{os.path.basename(consolidated)} absent; falling back to '
+              f'{len(files)} per-domain file(s) -- check which normalisation these use')
     if not files:
         sys.exit(f'No result files in {RESULTS_DIR}')
     df = pd.concat([pd.read_csv(f) for f in files], ignore_index=True)
@@ -111,17 +122,19 @@ def load_panel(verbose=True):
                   .reset_index())
         panel = panel.merge(agg, on=['domain', 'name'], how='left')
 
-    # AA baseline override, if it has been recomputed
-    fixed_path = os.path.join(RESULTS_DIR, 'aa_baseline_fixed.csv')
-    if os.path.exists(fixed_path):
-        fixed = pd.read_csv(fixed_path)[['domain', 'name', 'adamic_adar_entropy_fixed']]
-        panel = panel.merge(fixed, on=['domain', 'name'], how='left')
-        n_fixed = panel['adamic_adar_entropy_fixed'].notna().sum()
-        panel['adamic_adar_entropy'] = panel['adamic_adar_entropy_fixed'].fillna(
-            panel['adamic_adar_entropy'])
-        if verbose:
-            print(f'Applied recomputed AA baseline to {n_fixed} networks '
-                  f'(from {fixed_path})')
+    # Stratum flag: networks flagged Directed in the source metadata were absent from
+    # the original corpus. They behave differently enough (flat, high-entropy
+    # trajectories) that pooling them without checking would hide a real effect.
+    full_pkl = os.path.join(PROJECT_ROOT, 'algorithm', 'Entropy_Experiments',
+                            'Real_World_Networks', 'all_networks.pkl')
+    if os.path.exists(full_pkl):
+        allnet = pd.read_pickle(full_pkl)
+        ncol = 'network_name' if 'network_name' in allnet.columns else 'title'
+        wd = {str(r[ncol]): bool(r.get('was_directed', False))
+              for _, r in allnet.iterrows()}
+        panel['newly_included'] = [wd.get(str(n), False) for n in panel['name']]
+    else:
+        panel['newly_included'] = False
 
     panel = panel.dropna(subset=PREDICTORS)
 
@@ -135,17 +148,22 @@ def load_panel(verbose=True):
 
 
 def clean_target(panel, target, verbose=True):
-    """Subset to rows usable for one target, excluding degenerate ER normalisations."""
+    """Rows usable for one target.
+
+    Under the analytic normalisation H* = H/(log2 N - 1) every entropy target is in
+    [0, 1] by construction, so there is nothing to filter -- an out-of-range value
+    would be a bug and is raised rather than quietly dropped. The old simulated-ER
+    ratio needed a sanity bound because its denominator could collapse toward zero;
+    that normalisation is gone.
+    """
     sub = panel.dropna(subset=[target]).copy()
-    if target.endswith('_entropy'):
-        n_before = len(sub)
-        sub = sub[(sub[target] > 0) & (sub[target] <= AA_SANITY_MAX)]
-        dropped = n_before - len(sub)
-        if dropped and verbose:
-            pct = 100 * dropped / n_before
-            print(f'  {target}: dropped {dropped}/{n_before} ({pct:.1f}%) rows with '
-                  f'normalised entropy outside (0, {AA_SANITY_MAX}] '
-                  f'— degenerate ER baseline')
+    if target.endswith('_entropy') and len(sub):
+        bad = sub[(sub[target] < -1e-9) | (sub[target] > 1 + 1e-9)]
+        if len(bad):
+            raise AssertionError(
+                f'{target}: {len(bad)} value(s) outside [0,1] — '
+                f'range {sub[target].min():.3f} to {sub[target].max():.3f}. '
+                f'Are these still ER-normalised?')
     return sub
 
 
@@ -154,6 +172,7 @@ def clean_target(panel, target, verbose=True):
 def model_ladder(sub, target, label):
     """Fit Models 1..5 (adding one coarser scale at a time) and report the F-test."""
     import statsmodels.api as sm
+    from scipy import stats
     from sklearn.linear_model import LinearRegression
     from sklearn.model_selection import KFold, cross_val_score
 
@@ -179,11 +198,16 @@ def model_ladder(sub, target, label):
     from scipy import stats
     f_p = 1 - stats.f.cdf(f_stat, df_num, m5.df_resid)
 
-    # Scales below 100% only: the scalability claim depends on this working.
-    X40 = sm.add_constant(sub[['H_40']])
-    m40 = sm.OLS(y, X40).fit()
-    X4020 = sm.add_constant(sub[['H_40', 'H_20']])
-    m4020 = sm.OLS(y, X4020).fit()
+    # Subsets that matter for the manuscript's claims:
+    #   H_40 / H_60 alone  -> the scalability argument in sec:cost
+    #   H_100+H_80+H_60    -> the scales where the two coarsening algorithms agree
+    subsets = {'H_40 alone': ['H_40'],
+               'H_60 alone': ['H_60'],
+               'H_40 + H_20': ['H_40', 'H_20'],
+               'H_100+H_80+H_60': ['H_100', 'H_80', 'H_60']}
+    sub_r2 = {k: sm.OLS(y, sm.add_constant(sub[c])).fit().rsquared
+              for k, c in subsets.items()}
+    m40 = sm.OLS(y, sm.add_constant(sub[['H_40']])).fit()
 
     cv = cross_val_score(LinearRegression(), sub[PREDICTORS].values, y,
                          cv=KFold(5, shuffle=True, random_state=42), scoring='r2')
@@ -193,18 +217,35 @@ def model_ladder(sub, target, label):
     print(f'  Model 5 (all five scales) R2={m5.rsquared:.4f}  adj={m5.rsquared_adj:.4f}')
     print(f'  F({int(df_num)},{int(m5.df_resid)}) = {f_stat:.2f}   p = {f_p:.3e}')
     print(f'  5-fold CV R2: {cv.mean():.4f} +/- {cv.std():.4f}')
-    print(f'  H_40 alone                R2={m40.rsquared:.4f}   '
-          f'(never touches the full graph)')
-    print(f'  H_40 + H_20               R2={m4020.rsquared:.4f}')
-    print(f'  --> retains {100 * m40.rsquared / m5.rsquared:.0f}% of Model 5 R2 '
-          f'from the 40% graph alone')
+    for k, v in sub_r2.items():
+        note = '  (never touches the full graph)' if 'H_100' not in k else ''
+        print(f'  {k:22s} R2={v:.4f}{note}')
+    print(f'  --> H_40 alone retains {100 * m40.rsquared / m5.rsquared:.0f}% of Model 5 '
+          f'R2, against {m1.rsquared:.4f} from the uncoarsened graph')
+
+    # Stratum split. Reported whenever both strata are large enough to fit; a
+    # relationship that holds only in one of them is not a corpus-wide result.
+    if 'newly_included' in sub.columns and sub['newly_included'].nunique() > 1:
+        print('  by stratum:')
+        for label, mask in [('originally included', ~sub['newly_included']),
+                            ('newly included', sub['newly_included'])]:
+            g = sub[mask.values]
+            if len(g) < 20:
+                continue
+            a1 = sm.OLS(g[target], sm.add_constant(g[PREDICTORS[:1]])).fit()
+            a5 = sm.OLS(g[target], sm.add_constant(g[PREDICTORS])).fit()
+            dfn = a5.df_model - a1.df_model
+            f = ((a1.ssr - a5.ssr) / dfn) / (a5.ssr / a5.df_resid)
+            pv = 1 - stats.f.cdf(f, dfn, a5.df_resid)
+            print(f'    {label:22s} n={len(g):4d}  M1={a1.rsquared:.4f} '
+                  f'M5={a5.rsquared:.4f}  F={f:.1f} p={pv:.2e}')
 
     out.attrs['f_stat'] = f_stat
     out.attrs['f_p'] = f_p
     out.attrs['cv_mean'] = cv.mean()
     out.attrs['cv_std'] = cv.std()
     out.attrs['r2_h40'] = m40.rsquared
-    out.attrs['r2_h40_h20'] = m4020.rsquared
+    out.attrs.update({f'r2_{k}': v for k, v in sub_r2.items()})
     return out, fitted
 
 
@@ -238,56 +279,6 @@ def latex_regression_table(out, target, label):
     return '\n'.join(lines)
 
 
-# ── clustering (Table 2 / Figure 4) ──────────────────────────────────────────
-
-def clustering(panel):
-    from sklearn.cluster import KMeans
-    from sklearn.decomposition import PCA
-    from sklearn.preprocessing import StandardScaler
-    import matplotlib
-    matplotlib.use('Agg')
-    import matplotlib.pyplot as plt
-
-    X = StandardScaler().fit_transform(panel[PREDICTORS].values)
-    km = KMeans(n_clusters=3, random_state=42, n_init=10).fit(X)
-    panel = panel.assign(cluster=km.labels_ + 1)
-
-    comp = (pd.crosstab(panel['domain'], panel['cluster'])
-              .rename(columns=lambda c: f'Cluster {c}'))
-    comp.to_csv(os.path.join(RESULTS_DIR, 'cluster_composition.csv'))
-    print('\nCluster composition (k=3):')
-    print(comp.to_string())
-
-    # Label clusters by their mean trajectory slope so the names in the manuscript
-    # (stable / increasing / hybrid) follow the data rather than the cluster index.
-    means = panel.groupby('cluster')[PREDICTORS].mean()
-    slope = (means['H_20'] - means['H_100'])
-    print('\nMean entropy change H_20 - H_100 per cluster '
-          '(larger = more "increasing"):')
-    print(slope.round(4).to_string())
-
-    os.makedirs(TABLES_DIR, exist_ok=True)
-    with open(os.path.join(TABLES_DIR, 'table_cluster_composition.tex'), 'w') as fh:
-        fh.write(comp.to_latex(column_format='l' + 'c' * comp.shape[1]))
-
-    os.makedirs(FIGURES_DIR, exist_ok=True)
-    coords = PCA(n_components=2, random_state=42).fit_transform(X)
-    fig, ax = plt.subplots(figsize=(6.5, 5))
-    for c in sorted(panel['cluster'].unique()):
-        m = panel['cluster'] == c
-        ax.scatter(coords[m.values, 0], coords[m.values, 1], s=18, alpha=0.75,
-                   label=f'Cluster {c}')
-    ax.set_xlabel('PC1')
-    ax.set_ylabel('PC2')
-    ax.set_title('K-means (k=3) on five-dimensional entropy vectors', fontsize=10)
-    ax.legend(fontsize=8)
-    fig.tight_layout()
-    fig.savefig(os.path.join(FIGURES_DIR, 'kmeans_pca.pdf'),
-                format='pdf', bbox_inches='tight')
-    print(f'Figure → {FIGURES_DIR}/kmeans_pca.pdf')
-    return panel
-
-
 # ── AA baseline repair ───────────────────────────────────────────────────────
 
 def fix_aa_baseline(args):
@@ -303,7 +294,7 @@ def fix_aa_baseline(args):
     import algorithm.entropia_link_prediction as elp
 
     pkl = os.path.join(PROJECT_ROOT, 'algorithm', 'Entropy_Experiments',
-                       'Real_World_Networks', 'undirected_networks.pkl')
+                       'Real_World_Networks', 'all_networks.pkl')
     networks_df = pd.read_pickle(pkl)
 
     def build_graph(row):
@@ -402,36 +393,69 @@ def main(args):
             fh.write(latex_regression_table(out, target, label))
         plot_predicted_vs_actual(sub, target, label, fitted)
 
-    clustering(panel)
     print(f'\nLaTeX tables → {TABLES_DIR}/')
     print(f'Figures      → {FIGURES_DIR}/')
 
 
-def plot_predicted_vs_actual(sub, target, label, fitted):
+def plot_predicted_vs_actual(sub, target, label, fitted, clip_q=0.005):
+    """Predicted vs actual, one panel per model.
+
+    Axis limits are set from the `clip_q` / 1-clip_q quantiles of the pooled actual and
+    predicted values rather than from their extremes. A single network can otherwise
+    stretch the axis far past the bulk of the data and compress the region where all
+    the structure is -- for SEAL AUC one graph sits at 0.286 while the 1st percentile
+    is 0.546. Outlying points are drawn, not dropped: matplotlib clips them at the
+    spine, and the count is reported in the axis label so the reader knows they exist.
+    """
     import matplotlib
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
     import statsmodels.api as sm
 
+    preds = {k: fitted[k].predict(sm.add_constant(sub[PREDICTORS[:k]]))
+             for k in (1, 5)}
+    # Tukey far fence (3 x IQR) on the ACTUAL values. A quantile cut on the pooled
+    # actual-and-predicted values is too blunt: predictions occupy a narrower band, so
+    # pooling pulls the lower quantile up and clips genuine low observations along with
+    # the true outlier. For SEAL AUC that cost eight points in the legitimate 0.51-0.55
+    # tail to exclude the single network at 0.286. The far fence flags only points that
+    # are extreme relative to the spread of the data itself.
+    a = np.asarray(sub[target].values, dtype=float)
+    q1, q3 = np.quantile(a, [0.25, 0.75])
+    iqr = q3 - q1
+    inl = a[(a >= q1 - 3 * iqr) & (a <= q3 + 3 * iqr)]
+    allp = np.concatenate([np.asarray(v, dtype=float) for v in preds.values()])
+    lo = min(inl.min(), allp.min())
+    hi = max(inl.max(), allp.max())
+    pad = 0.05 * (hi - lo)
+    lo, hi = lo - pad, hi + pad
+    n_out = int(((sub[target] < lo) | (sub[target] > hi)).sum())
+
     fig, axes = plt.subplots(1, 2, figsize=(11, 4.6), sharex=True, sharey=True)
     for ax, k, name in [(axes[0], 1, 'Model 1 (single scale)'),
                         (axes[1], 5, 'Model 5 (multiscale)')]:
         m = fitted[k]
-        pred = m.predict(sm.add_constant(sub[PREDICTORS[:k]]))
+        pred = preds[k]
         for domain in sorted(sub['domain'].unique()):
             mask = (sub['domain'] == domain).values
             ax.scatter(sub[target].values[mask], np.asarray(pred)[mask],
-                       s=16, alpha=0.7, label=domain)
-        lo = min(sub[target].min(), float(np.min(pred)))
-        hi = max(sub[target].max(), float(np.max(pred)))
+                       s=20, alpha=0.6, edgecolors='none', label=domain,
+                       clip_on=True)
         ax.plot([lo, hi], [lo, hi], 'k--', linewidth=1)
+        ax.set_xlim(lo, hi)
+        ax.set_ylim(lo, hi)
         ax.set_title(f'{name}   $R^2$={m.rsquared:.3f}', fontsize=10)
-        ax.set_xlabel(f'actual {label}')
+        xl = f'actual {label}'
+        if n_out:
+            xl += f'  ({n_out} network{"s" if n_out > 1 else ""} outside axis range)'
+        ax.set_xlabel(xl)
     axes[0].set_ylabel(f'predicted {label}')
     axes[1].legend(fontsize=7)
     fig.tight_layout()
     fig.savefig(os.path.join(FIGURES_DIR, f'predicted_vs_actual_{target}.pdf'),
                 format='pdf', bbox_inches='tight')
+    plt.close(fig)
+    print(f'  figure: axis [{lo:.3f}, {hi:.3f}], {n_out} point(s) outside')
 
 
 if __name__ == '__main__':

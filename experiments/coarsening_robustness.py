@@ -40,6 +40,9 @@ Usage
     # 1. Run the sweep (resumable; safe to interrupt and restart)
     python experiments/coarsening_robustness.py --per-domain 20
 
+    # whole corpus rather than a stratified sample
+    python experiments/coarsening_robustness.py --all-networks
+
     # parallelise across terminals by domain
     python experiments/coarsening_robustness.py --domain Biological &
     python experiments/coarsening_robustness.py --domain Social     &
@@ -57,6 +60,22 @@ Outputs
     results/coarsening_robustness_rho.csv    — mean Spearman rho between trajectories
     figures/coarsening_robustness_ari.pdf    — ARI heatmap (omitted for a 2-method run)
     figures/coarsening_robustness_traj.pdf   — mean trajectory per domain, one line per method
+
+Corpus
+------
+Defaults to all_networks.pkl (558 networks) when present, falling back to
+undirected_networks.pkl (443) otherwise. The full corpus additionally contains the
+networks flagged Directed in the source metadata; these are safe to include because
+CommunityFitNet stores every edge list as unordered pairs, so no orientation exists to
+discard. Build it with:
+
+    python experiments/build_full_corpus.py --source data/CommunityFitNet_updated.pickle
+
+Each result row carries `was_directed`, and --analyze uses it to report whether the newly
+included networks fall into different entropy regimes than the originally included ones.
+This matters because the additions are concentrated in the technological domain (16 -> 72
+networks): if that domain's regime changes, the cause needs to be identified rather than
+absorbed.
 """
 
 import argparse
@@ -79,8 +98,17 @@ if PROJECT_ROOT not in sys.path:
 from algorithm.coarsening_utils import coarsen, get_entropy_metadata_aritmethicEncoding
 
 # ── constants ────────────────────────────────────────────────────────────────
-PKL_PATH = os.path.join(PROJECT_ROOT, 'algorithm', 'Entropy_Experiments',
-                        'Real_World_Networks', 'undirected_networks.pkl')
+_NET_DIR = os.path.join(PROJECT_ROOT, 'algorithm', 'Entropy_Experiments',
+                        'Real_World_Networks')
+FULL_PKL = os.path.join(_NET_DIR, 'all_networks.pkl')          # 558 networks
+UNDIRECTED_PKL = os.path.join(_NET_DIR, 'undirected_networks.pkl')  # 443 networks
+
+# Prefer the full corpus built by build_full_corpus.py, which additionally contains the
+# networks flagged Directed in the source metadata. Those are safe to include: every edge
+# list in CommunityFitNet is stored as an unordered pair (u <= v), so the flag records a
+# property of the original network rather than of the data, and no orientation is lost.
+# Falls back to the undirected-only corpus if the full one has not been built.
+PKL_PATH = FULL_PKL if os.path.exists(FULL_PKL) else UNDIRECTED_PKL
 
 # Same filtering as run_real_networks_experiment.py, so the samples are comparable.
 MIN_NODES = 20
@@ -167,54 +195,92 @@ def entropy_at_levels(G, method):
     The 100% entropy does not depend on the method but is recorded per method anyway
     so each row is self-contained; it is cheap relative to the coarsening itself.
     """
-    ent, secs = {}, {}
+    ent, secs, sizes = {}, {}, {}
     try:
         ent[100] = get_entropy_metadata_aritmethicEncoding(G)['Entropy Normalizado']
     except Exception as exc:
         tqdm.write(f'      entropy failed at 100%: {exc}')
         ent[100] = None
     secs[100] = 0.0
+    sizes[100] = (G.number_of_nodes(), G.number_of_edges())
 
     W = nx.to_scipy_sparse_array(G)
     Gp = pygsp_graphs.Graph(W)
 
     for pct in REDUCTION_LEVELS:
         t0 = time.perf_counter()
+        sizes[pct] = (None, None)
         try:
             _, Gc, _, _ = coarsen(Gp, K=10, r=1 - pct / 100, method=method)
             G_red = nx.from_scipy_sparse_array(Gc.W)
+            # Record the size actually achieved. Coarsening can stop short of the
+            # target (per-level reduction is capped, and a level ends when further
+            # contraction becomes negligible), so "20%" is a request, not a promise.
+            # Without this, two methods can be compared at different sizes and the
+            # discrepancy is invisible in the output.
+            sizes[pct] = (G_red.number_of_nodes(), G_red.number_of_edges())
             ent[pct] = get_entropy_metadata_aritmethicEncoding(G_red)['Entropy Normalizado']
         except Exception as exc:
             tqdm.write(f'      {method} failed at {pct}%: {exc}')
             ent[pct] = None
         secs[pct] = time.perf_counter() - t0
-    return ent, secs
+    return ent, secs, sizes
 
 
 def run_sweep(args):
     os.makedirs(os.path.dirname(OUT_CSV), exist_ok=True)
 
-    networks_df = pd.read_pickle(PKL_PATH)
+    networks_df = pd.read_pickle(args.corpus or PKL_PATH)
     if args.domain:
         networks_df = networks_df[networks_df['networkDomain'] == args.domain]
         networks_df = networks_df.reset_index(drop=True)
         if len(networks_df) == 0:
             sys.exit(f'No networks for domain "{args.domain}". Valid: {VALID_DOMAINS}')
 
-    sample = stratified_sample(networks_df, args.per_domain, args.seed)
+    if args.all_networks:
+        # Whole corpus, no sampling. Ordered small-to-large so a long run yields
+        # usable coverage early and the expensive graphs come last.
+        sample = networks_df.assign(_n=networks_df['nodes_id'].apply(len))
+        sample = sample.sort_values('_n').drop(columns='_n').reset_index(drop=True)
+    else:
+        sample = stratified_sample(networks_df, args.per_domain, args.seed)
     print(f'Sampled {len(sample)} networks: '
           f'{sample["networkDomain"].value_counts().to_dict()}')
     print(f'Methods: {METHODS}')
     print(f'Levels : {REDUCTION_LEVELS}\n')
 
-    # Resume: skip (name, method) pairs already present on disk.
+    # Resume: skip only (name, method) pairs that are COMPLETE on disk.
+    #
+    # A pair whose entropies are all NaN is a failed attempt, not a result -- e.g.
+    # a crash inside one coarsening method. Treating mere presence as "done" would
+    # make those failures permanent across reruns, so we recompute any pair that is
+    # missing a level and keep the rows that did succeed.
+    all_levels = set([100] + REDUCTION_LEVELS)
     done = set()
     rows = []
     if os.path.exists(OUT_CSV) and not args.overwrite:
         prev = pd.read_csv(OUT_CSV)
-        rows = prev.to_dict('records')
-        done = set(zip(prev['name'], prev['method']))
-        print(f'Resuming: {len(done)} (network, method) pairs already computed.\n')
+        ok = prev.dropna(subset=['value'])
+        complete = (ok.groupby(['name', 'method'])['level']
+                      .apply(lambda s: set(s) >= all_levels))
+        done = set(complete[complete].index)
+        stale = set(zip(prev['name'], prev['method'])) - done
+        # drop incomplete pairs so they are recomputed rather than duplicated
+        if stale:
+            keep = [r for r in prev.to_dict('records')
+                    if (r['name'], r['method']) in done]
+            rows = keep
+            print(f'Resuming: {len(done)} complete pair(s) kept; '
+                  f'{len(stale)} incomplete pair(s) will be recomputed.')
+            by_method = {}
+            for _, m in stale:
+                by_method[m] = by_method.get(m, 0) + 1
+            for m, c in sorted(by_method.items()):
+                print(f'    {m:24s} {c} pair(s) to redo')
+            print()
+        else:
+            rows = prev.to_dict('records')
+            print(f'Resuming: {len(done)} (network, method) pairs already computed.\n')
 
     for _, row in tqdm(sample.iterrows(), total=len(sample), desc='networks'):
         domain = row['networkDomain']
@@ -227,24 +293,88 @@ def run_sweep(args):
             continue
 
         tqdm.write(f'\n[{domain}] {name}  ({n} nodes, {e} edges)')
-        base = dict(domain=domain, name=name, n_nodes=n, n_edges=e)
+        # was_directed lets the analysis test whether the newly included networks sit
+        # in different entropy regimes than the originally included ones. Without it,
+        # a domain-level shift caused by the corpus change would be indistinguishable
+        # from a real effect.
+        base = dict(domain=domain, name=name, n_nodes=n, n_edges=e,
+                    was_directed=bool(row.get('was_directed', False)))
 
         for method in METHODS:
             if (name, method) in done:
                 tqdm.write(f'    {method:24s} — cached')
                 continue
             tqdm.write(f'    {method:24s} ...')
-            ent, secs = entropy_at_levels(G, method)
+            ent, secs, sizes = entropy_at_levels(G, method)
             traj = '  '.join(f'H_{lv}={ent[lv]:.3f}' if ent[lv] is not None else f'H_{lv}=None'
                              for lv in sorted(ent, reverse=True))
             tqdm.write(f'      {traj}')
             for lv in sorted(ent, reverse=True):
+                n_red, e_red = sizes.get(lv, (None, None))
                 rows.append({**base, 'method': method, 'level': lv,
-                             'value': ent[lv], 'coarsen_seconds': secs[lv]})
+                             'value': ent[lv], 'coarsen_seconds': secs[lv],
+                             'n_nodes_reduced': n_red, 'n_edges_reduced': e_red})
             pd.DataFrame(rows).to_csv(OUT_CSV, index=False)  # incremental save
 
     pd.DataFrame(rows).to_csv(OUT_CSV, index=False)
     print(f'\nSaved {len(rows)} rows → {OUT_CSV}')
+    print('Now run:  python experiments/coarsening_robustness.py --analyze')
+
+
+
+# ── size backfill ────────────────────────────────────────────────────────────
+
+def backfill_sizes(args):
+    """Recompute achieved node/edge counts for pairs already in the results CSV.
+
+    Coarsening is rerun but entropy is not, which is the expensive half. This lets an
+    existing sweep gain the size columns without redoing the compression estimates.
+    Results are written back into OUT_CSV in place.
+    """
+    if not os.path.exists(OUT_CSV):
+        sys.exit(f'{OUT_CSV} not found — run the sweep first.')
+    prev = pd.read_csv(OUT_CSV)
+    if 'n_nodes_reduced' in prev.columns and prev['n_nodes_reduced'].notna().all():
+        print('All rows already carry achieved sizes; nothing to do.')
+        return
+
+    networks_df = pd.read_pickle(args.corpus or PKL_PATH)
+    name_col = 'network_name' if 'network_name' in networks_df.columns else 'title'
+    wanted = set(prev['name'])
+    lookup = {str(r[name_col]): r for _, r in networks_df.iterrows()
+              if str(r[name_col]) in wanted}
+    print(f'{len(prev)} rows; {len(wanted)} distinct networks, '
+          f'{len(lookup)} matched in the pickle.')
+
+    methods = sorted(prev['method'].unique())
+    sizes = {}                                    # (name, method, level) -> (n, e)
+    for name in tqdm(sorted(wanted), desc='networks'):
+        row = lookup.get(name)
+        if row is None:
+            tqdm.write(f'  {name}: not found in pickle — skipped')
+            continue
+        G = build_graph(row)
+        sizes[(name, 'any', 100)] = (G.number_of_nodes(), G.number_of_edges())
+        Gp = pygsp_graphs.Graph(nx.to_scipy_sparse_array(G))
+        for method in methods:
+            for pct in REDUCTION_LEVELS:
+                try:
+                    _, Gc, _, _ = coarsen(Gp, K=10, r=1 - pct / 100, method=method)
+                    g = nx.from_scipy_sparse_array(Gc.W)
+                    sizes[(name, method, pct)] = (g.number_of_nodes(), g.number_of_edges())
+                except Exception as exc:
+                    tqdm.write(f'  {name} [{method} @ {pct}%]: {exc}')
+
+    def lookup_size(r, which):
+        key = (r['name'], 'any', 100) if r['level'] == 100 else \
+              (r['name'], r['method'], r['level'])
+        return sizes.get(key, (None, None))[which]
+
+    prev['n_nodes_reduced'] = prev.apply(lambda r: lookup_size(r, 0), axis=1)
+    prev['n_edges_reduced'] = prev.apply(lambda r: lookup_size(r, 1), axis=1)
+    prev.to_csv(OUT_CSV, index=False)
+    got = prev['n_nodes_reduced'].notna().sum()
+    print(f'\nBackfilled sizes for {got}/{len(prev)} rows → {OUT_CSV}')
     print('Now run:  python experiments/coarsening_robustness.py --analyze')
 
 
@@ -254,7 +384,7 @@ def analyze(args):
     from sklearn.cluster import KMeans
     from sklearn.preprocessing import StandardScaler
     from sklearn.metrics import adjusted_rand_score
-    from scipy.stats import spearmanr
+    from scipy.stats import spearmanr, pearsonr
     import matplotlib
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
@@ -275,6 +405,7 @@ def analyze(args):
     wide = df.pivot_table(index=['domain', 'name', 'method'],
                           columns='level', values='value').reset_index()
     wide = wide.dropna(subset=levels)
+    wide_all = wide.copy()          # before restricting to the common network set
     print(f'Complete trajectories: {len(wide)} (network, method) pairs')
 
     # Only networks that succeeded under *every* method can enter the comparison,
@@ -283,6 +414,23 @@ def analyze(args):
     common = set(counts[counts == len(methods)].index)
     wide = wide[wide['name'].isin(common)]
     print(f'Networks with all {len(methods)} methods: {len(common)}')
+
+    if len(common) < 3:
+        # Diagnose rather than crashing inside KMeans further down.
+        print('\n' + '!' * 72)
+        print(f'Cannot cluster: only {len(common)} network(s) have complete '
+              f'trajectories under every method (need >= 3 for k=3).')
+        print('\nComplete trajectories per method:')
+        per_method = wide_all.groupby('method')['name'].nunique()
+        for m in methods:
+            print(f'    {m:24s} {int(per_method.get(m, 0)):4d}')
+        print('\nThis usually means one method failed on most networks and the CSV')
+        print('holds its empty rows. Rerunning the sweep now recomputes incomplete')
+        print('pairs (complete ones are kept), so simply run:')
+        print('    python experiments/coarsening_robustness.py --per-domain <N>')
+        print('!' * 72)
+        sys.exit(1)
+
     if len(common) < 20:
         print('WARNING: fewer than 20 networks common to all methods — ARI will be noisy.')
 
@@ -305,6 +453,72 @@ def analyze(args):
     print(f'\nAdjusted Rand Index vs {REFERENCE_METHOD}:')
     print(ari[REFERENCE_METHOD].round(3).to_string())
     print(f'\nFull ARI matrix → {ari_path}')
+
+    # ── level-wise agreement, raw and size-matched ───────────────────────────
+    #
+    # The per-network Spearman below is computed on five points and is very noisy.
+    # Correlating each level ACROSS networks is the more informative view: it shows
+    # at which depth (if any) two methods stop agreeing.
+    #
+    # Coarsening may stop short of the requested size, so two methods can be compared
+    # at different sizes. We therefore report the same correlations restricted to
+    # networks whose achieved node counts agree within SIZE_TOL, which separates a
+    # genuine structural difference from a size-mismatch artefact.
+    SIZE_TOL = 0.05                       # 5% of the achieved node count
+
+    if len(methods) == 2:
+        a, b = methods
+        wa = wide[wide['method'] == a].set_index('name')
+        wb = wide[wide['method'] == b].set_index('name')
+        idx = wa.index.intersection(wb.index)
+
+        have_sizes = 'n_nodes_reduced' in df.columns and df['n_nodes_reduced'].notna().any()
+        if have_sizes:
+            nsz = (df.dropna(subset=['n_nodes_reduced'])
+                     .pivot_table(index=['name', 'method'], columns='level',
+                                  values='n_nodes_reduced'))
+        print(f'\nLevel-wise agreement across networks ({a} vs {b}):')
+        header = f'  {"level":>6s} {"pearson":>9s} {"spearman":>9s} {"mean_A":>8s} {"mean_B":>8s}'
+        if have_sizes:
+            header += f' | {"matched":>8s} {"pearson":>9s} {"spearman":>9s}'
+        print(header)
+
+        for lv in levels:
+            x, y = wa.loc[idx, lv].astype(float), wb.loc[idx, lv].astype(float)
+            pr = pearsonr(x, y)[0] if len(x) > 2 else float('nan')
+            sr = spearmanr(x, y).correlation if len(x) > 2 else float('nan')
+            line = (f'  {lv:>6d} {pr:>+9.3f} {sr:>+9.3f} '
+                    f'{x.mean():>8.3f} {y.mean():>8.3f}')
+
+            if have_sizes:
+                keep = []
+                for name in idx:
+                    try:
+                        na, nb = nsz.loc[(name, a), lv], nsz.loc[(name, b), lv]
+                    except KeyError:
+                        continue
+                    if pd.isna(na) or pd.isna(nb) or max(na, nb) == 0:
+                        continue
+                    if abs(na - nb) / max(na, nb) <= SIZE_TOL:
+                        keep.append(name)
+                if len(keep) > 2:
+                    xm = wa.loc[keep, lv].astype(float)
+                    ym = wb.loc[keep, lv].astype(float)
+                    line += (f' | {len(keep):>8d} {pearsonr(xm, ym)[0]:>+9.3f} '
+                             f'{spearmanr(xm, ym).correlation:>+9.3f}')
+                else:
+                    line += f' | {len(keep):>8d} {"--":>9s} {"--":>9s}'
+            print(line)
+
+        if not have_sizes:
+            print('\n  (no achieved-size columns in the CSV, so the size-matched')
+            print('   comparison is unavailable. Run --backfill-sizes to add them;')
+            print('   it reruns coarsening only, not the entropy estimation.)')
+        else:
+            print(f'\n  Size-matched columns keep only networks whose achieved node')
+            print(f'  counts agree within {SIZE_TOL:.0%}. A large gap between the raw and')
+            print('  matched correlations means the disagreement is an artefact of')
+            print('  coarsening stopping short, not a structural difference.')
 
     # ── trajectory agreement ─────────────────────────────────────────────────
     rho = pd.DataFrame(index=methods, columns=methods, dtype=float)
@@ -365,6 +579,51 @@ def analyze(args):
                 format='pdf', bbox_inches='tight')
     print(f'Figures → {figdir}/coarsening_robustness_{{ari,traj}}.pdf')
 
+    # ── did the corpus change move the regimes? ──────────────────────────────
+    #
+    # The corpus now includes networks flagged Directed in the source metadata, which
+    # were previously excluded. Those additions are concentrated in the technological
+    # and informational domains. If they sit in systematically different regimes than
+    # the originally included networks, then a domain-level result computed on the
+    # combined corpus is partly a statement about which networks were added, and the
+    # two strata should be reported separately.
+    if 'was_directed' in df.columns and df['was_directed'].any():
+        flag = (df.dropna(subset=['was_directed'])
+                  .groupby('name')['was_directed'].first())
+        ref = wide[wide['method'] == REFERENCE_METHOD].set_index('name')
+        ref = ref[ref.index.isin(flag.index)]
+        strat = flag.reindex(ref.index)
+
+        print('\nEffect of including the previously excluded networks '
+              f'({REFERENCE_METHOD}):')
+        print(f'  {"stratum":24s} {"n":>5s} ' +
+              ' '.join(f'{f"H_{l}":>8s}' for l in levels))
+        for label, mask in [('originally included', ~strat.astype(bool)),
+                            ('newly included', strat.astype(bool))]:
+            sub = ref[mask.values]
+            if len(sub) == 0:
+                continue
+            print(f'  {label:24s} {len(sub):5d} ' +
+                  ' '.join(f'{sub[l].mean():8.3f}' for l in levels))
+
+        # Same question at the level of the regime assignment.
+        if strat.astype(bool).sum() >= 5 and (~strat.astype(bool)).sum() >= 5:
+            lab_ref = labels[REFERENCE_METHOD].reindex(ref.index).dropna()
+            st = strat.reindex(lab_ref.index).astype(bool)
+            comp = pd.crosstab(st, lab_ref)
+            comp.index = ['originally included', 'newly included']
+            print('\n  Regime membership by stratum:')
+            print(comp.to_string().replace('\n', '\n  '))
+            frac = comp.div(comp.sum(axis=1), axis=0)
+            spread = (frac.loc['newly included'] - frac.loc['originally included']).abs().max()
+            print(f'\n  Largest difference in regime share: {spread:.2f}')
+            if spread > 0.25:
+                print('  The two strata are distributed differently across regimes.')
+                print('  Report domain-level results per stratum, or state that the')
+                print('  technological and informational regimes changed with the corpus.')
+            else:
+                print('  Similar distribution: pooling the two strata is defensible.')
+
     # ── verdict ──────────────────────────────────────────────────────────────
     others = [m for m in methods if m != REFERENCE_METHOD]
     min_ari = ari.loc[others, REFERENCE_METHOD].min()
@@ -393,14 +652,25 @@ def analyze(args):
 if __name__ == '__main__':
     p = argparse.ArgumentParser(description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
+    p.add_argument('--all-networks', action='store_true',
+                   help='Run every network in the corpus instead of a stratified '
+                        'sample (ignores --per-domain). Complete pairs already on '
+                        'disk are kept, so this extends an existing run.')
     p.add_argument('--per-domain', type=int, default=20,
                    help='Networks sampled per domain (default 20)')
     p.add_argument('--domain', default=None, help=f'Restrict to one domain: {VALID_DOMAINS}')
+    p.add_argument('--corpus', default=None,
+                   help='Path to a corpus pickle. Defaults to the undirected-only'
+                        ' corpus; pass all_networks.pkl (see build_full_corpus.py)'
+                        ' to include symmetrized directed networks.')
     p.add_argument('--seed', type=int, default=42)
     p.add_argument('--overwrite', action='store_true',
                    help='Ignore existing CSV and recompute from scratch')
     p.add_argument('--analyze', action='store_true',
                    help='Skip the sweep; compute ARI/Spearman/figures from the CSV')
+    p.add_argument('--backfill-sizes', action='store_true',
+                   help='Recompute achieved node/edge counts for an existing CSV '
+                        '(reruns coarsening only, not entropy) and exit')
     p.add_argument('--methods', default='local-variation',
                    help="'local-variation' (default: the two Loukas algorithms), "
                         "'all' (adds heavy_edge, algebraic_JC, affinity_GS), or a "
@@ -421,7 +691,9 @@ if __name__ == '__main__':
         sys.exit(f'The reference method {REFERENCE_METHOD!r} must be included '
                  f'so ARI has a baseline to compare against.')
 
-    if args.analyze:
+    if args.backfill_sizes:
+        backfill_sizes(args)
+    elif args.analyze:
         analyze(args)
     else:
         run_sweep(args)

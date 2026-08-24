@@ -1,0 +1,4 @@
+stage,exponent,intercept_log10,r2,n_points
+encode,1.775,-6.325,0.982,50
+compress,1.607,-5.934,0.944,50
+linkpred,1.909,-5.656,0.984,50

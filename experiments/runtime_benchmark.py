@@ -57,7 +57,18 @@ if PROJECT_ROOT not in sys.path:
 from algorithm.coarsening_utils import coarsen
 from algorithm.calculo_entropia import (M_adyacencia, Encoder,
                                         get_optimized_compression_length)
-import algorithm.entropia_link_prediction as elp
+
+# entropia_link_prediction imports torch, which the coarsen/encode/compress stages do
+# not need. Imported lazily so --no-linkpred runs without the deep-learning stack.
+elp = None
+
+
+def _load_elp():
+    global elp
+    if elp is None:
+        import algorithm.entropia_link_prediction as _elp
+        elp = _elp
+    return elp
 
 try:
     import psutil
@@ -68,7 +79,7 @@ except ImportError:                                    # pragma: no cover
     _HAVE_PSUTIL = False
 
 PKL_PATH = os.path.join(PROJECT_ROOT, 'algorithm', 'Entropy_Experiments',
-                        'Real_World_Networks', 'undirected_networks.pkl')
+                        'Real_World_Networks', 'all_networks.pkl')
 MIN_NODES = 20
 MIN_EDGES = 30
 LEVELS = [100, 80, 60, 40, 20]
@@ -92,10 +103,13 @@ class _RSSSampler(threading.Thread):
         super().__init__(daemon=True)
         self.interval = interval
         self.peak = 0
-        self._stop = threading.Event()
+        # NOT `self._stop`: threading.Thread already defines _stop() as a method and
+        # calls it internally when the thread finishes. Shadowing it with an Event
+        # makes that internal call raise "'Event' object is not callable".
+        self._stop_evt = threading.Event()
 
     def run(self):
-        while not self._stop.is_set():
+        while not self._stop_evt.is_set():
             try:
                 self.peak = max(self.peak, _PROC.memory_info().rss)
             except Exception:
@@ -103,7 +117,7 @@ class _RSSSampler(threading.Thread):
             time.sleep(self.interval)
 
     def stop(self):
-        self._stop.set()
+        self._stop_evt.set()
         self.join(timeout=1.0)
         return self.peak
 
@@ -221,6 +235,7 @@ def bench_network(G, name, domain, repeats, test_ratio, seed, do_linkpred):
 
             # ── stage 4: link prediction ────────────────────────────────────
             if do_linkpred and e_lvl >= MIN_EDGES:
+                _load_elp()
                 try:
                     def _lp():
                         _, train, test = elp.split_edges(G_lvl, test_ratio=test_ratio,
@@ -241,7 +256,7 @@ def run_bench(args):
         print('psutil not installed — memory figures fall back to tracemalloc and will\n'
               'undercount numpy/scipy allocations. `pip install psutil` for real RSS.\n')
 
-    networks_df = pd.read_pickle(PKL_PATH)
+    networks_df = pd.read_pickle(args.corpus or PKL_PATH)
     sample = size_stratified_sample(networks_df, args.n_networks, args.seed)
     sizes = sample['nodes_id'].apply(len)
     print(f'Benchmarking {len(sample)} networks, '
@@ -400,6 +415,10 @@ if __name__ == '__main__':
                    help='Networks in the log-uniform size-stratified sample')
     p.add_argument('--repeats', type=int, default=3, help='Timing repetitions')
     p.add_argument('--test-ratio', type=float, default=0.2)
+    p.add_argument('--corpus', default=None,
+                   help='Path to a corpus pickle. Defaults to the undirected-only'
+                        ' corpus; pass all_networks.pkl (see build_full_corpus.py)'
+                        ' to include symmetrized directed networks.')
     p.add_argument('--seed', type=int, default=42)
     p.add_argument('--no-linkpred', action='store_true',
                    help='Skip the link-prediction stage (much faster)')

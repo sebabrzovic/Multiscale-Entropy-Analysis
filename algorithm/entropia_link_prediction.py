@@ -2,6 +2,29 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
+
+# Seeded generator for tie-breaking; see tiebroken_rank below.
+_TIE_RNG = np.random.default_rng(20260821)
+
+
+def tiebroken_rank(pair_scores_arr, target, rng=None):
+    """Rank a held-out edge among the candidate scores, breaking ties at random.
+
+        rank = n_greater + U{1, ..., n_ties}
+
+    Counting only strictly-greater scores would assign the BEST rank in the tied
+    block, and taking n_greater + n_ties the worst. Either makes the answer a
+    property of the convention rather than of the graph wherever a scorer produces
+    many ties, as Adamic-Adar does at zero: on a sparse ER graph with 93% of held-out
+    edges scoring exactly zero, the same data yields H* = 0.083 (best), 0.081 (worst)
+    and 0.969 (random). Only the last correctly reports that AA cannot predict a
+    random graph. SEAL's continuous scores tie rarely, so the convention barely moves
+    its value -- but the two predictors should be measured the same way.
+    """
+    rng = _TIE_RNG if rng is None else rng
+    n_greater = int(np.sum(pair_scores_arr > target))
+    n_ties = int(np.sum(pair_scores_arr == target)) + 1   # +1: the edge itself
+    return n_greater + int(rng.integers(1, n_ties + 1))
 from collections import Counter
 from collections import defaultdict
 
@@ -96,8 +119,7 @@ def _global_ranks(pair_scores_arr, candidate_pairs, test_edges, train_set, score
     ranks = []
     for (u, v) in test_edges:
         target = score_fn(u, v)
-        rank = int(np.sum(pair_scores_arr > target)) + 1
-        ranks.append(rank)
+        ranks.append(tiebroken_rank(pair_scores_arr, target))
     return ranks
 
 
@@ -164,8 +186,7 @@ def evaluate_link_prediction_heuristic(G, train_edges, test_edges,
     ranks = []
     for (u, v) in test_edges:
         target = score_fn(u, v)
-        rank = int(np.sum(pair_scores_arr > target)) + 1
-        ranks.append(rank)
+        ranks.append(tiebroken_rank(pair_scores_arr, target))
 
     # AUC — positives: test edges; negatives: random sample of non-edges
     pos_scores = np.array([score_fn(u, v) for u, v in test_edges])
@@ -531,8 +552,7 @@ def evaluate_link_prediction_seal(G, train_edges, test_edges,
     ranks = []
     for (u, v) in test_edges:
         target = pair_score_map.get((u, v), pair_score_map.get((v, u), 0.0))
-        rank = int(np.sum(pair_scores_arr > target)) + 1
-        ranks.append(rank)
+        ranks.append(tiebroken_rank(pair_scores_arr, target))
 
     # ── AUC ──────────────────────────────────────────────────────────────
     pos_scores = np.array([pair_score_map.get(p, pair_score_map.get((p[1], p[0]), 0.0))

@@ -947,7 +947,7 @@ def contract_variation_edges(G, A=None, K=10, r=0.5, algorithm="greedy"):
 
     # cost function for the edge
     def subgraph_cost(G, A, edge):
-        edge, w = edge[:2].astype(np.int), edge[2]
+        edge, w = edge[:2].astype(int), edge[2]
         deg_new = 2 * deg[edge] - w
         L = np.array([[deg_new[0], -w], [-w, deg_new[1]]])
         B = Pibot @ A[edge, :]
@@ -1149,7 +1149,7 @@ def get_proximity_measure(G, name, K=10):
 
     # heuristic for mutligrid
     elif name == "algebraic_JC":
-        proximity += np.Inf
+        proximity += np.inf
         for e in range(0, M):
             i, j = edges[:, e]
             for kIdx in range(num_vectors):
@@ -1249,7 +1249,7 @@ def get_proximity_measure(G, name, K=10):
 
         # heuristic for mutligrid (algebraic multigrid)
         elif name == "algebraic_GS":
-            proximity[e] = np.Inf
+            proximity[e] = np.inf
             for kIdx in range(num_vectors):
                 xk = X_gs[:, kIdx]
                 proximity[e] = min(
@@ -1284,10 +1284,10 @@ def generate_test_vectors(
 
     if method == "JC" or method == "Jacobi":
 
-        deg = G.dw.astype(np.float)
+        deg = G.dw.astype(float)
         D = sp.sparse.diags(deg, 0)
         deginv = deg ** (-1)
-        deginv[deginv == np.Inf] = 0
+        deginv[deginv == np.inf] = 0
         Dinv = sp.sparse.diags(deginv, 0)
         M = Dinv.dot(D - L)
 
