@@ -1,13 +1,6 @@
 """
 Experiment A — Robustness of multiscale entropy to the choice of graph reduction.
 
-Reviewer 2 (Nature Communications, NCOMMS-25-78191-T) objected that all multiscale
-representations in the paper come from Loukas' spectral coarsening, which is designed
-to preserve low-frequency Laplacian components. The reported entropy regimes may
-therefore be an artefact of that particular algorithm rather than a property of the
-networks. This script recomputes the whole multiscale entropy pipeline under more than
-one reduction strategy, on the real-world corpus, and measures whether the k=3 regime
-assignment survives.
 
 Scope of the default run
 ------------------------

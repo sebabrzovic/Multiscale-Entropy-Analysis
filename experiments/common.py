@@ -1,9 +1,4 @@
 """Shared constants, paths, and loaders for the analysis scripts.
-
-Everything here was previously duplicated across two or more scripts, in a few cases
-with the copies silently disagreeing: `PAPER_STYLE` existed twice with different tick
-directions, the six-domain list existed four times in two different orders, and the
-corpus path was rebuilt by hand in five places. Import from here instead.
 """
 
 import glob

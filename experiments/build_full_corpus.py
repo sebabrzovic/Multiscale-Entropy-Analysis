@@ -1,25 +1,5 @@
 """
-Build the full analysis corpus, including the networks flagged "Directed".
-
-The corpus used previously kept only graphs recorded as undirected in the CommunityFitNet
-metadata, dropping 129 of 572. The loss was very uneven -- technological networks retained
-16 of 74 and informational 11 of 22 -- because circuits, software graphs, citations and web
-graphs are predominantly directed at source.
-
-That exclusion turns out to be unnecessary. CommunityFitNet stores every edge list in
-canonical unordered form: across all 572 networks, directed and undirected alike, every
-edge satisfies u <= v. Consequently the stored graphs carry no orientation information,
-every "directed" network reads as acyclic with zero reciprocity, and building an
-undirected graph from its edge list neither discards nor invents structure. The
-graphProperties flag describes the original source network, not the representation in
-the corpus.
-
-This script therefore builds the corpus from all 572 networks. It still computes
-reciprocity per network as a guard: if a future version of the source data does carry
-orientation, reciprocity will be non-zero and the assumption above must be revisited
-before pooling. The `was_directed` flag is retained on every row for the same reason --
-it allows testing whether the newly included networks sit in different entropy regimes
-than the originally included ones.
+Build the full analysis corpus from graphs in the CommunityFitNet.
 
 Usage
 -----

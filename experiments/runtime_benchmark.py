@@ -1,10 +1,6 @@
 """
 Experiment B — Cost and scaling of the multiscale entropy pipeline.
 
-Reviewer 2 (Nature Communications, NCOMMS-25-78191-T) noted that the manuscript
-asserts a computational benefit from coarsening in four places without ever measuring
-it: no runtime, no memory footprint, no complexity analysis. This script instruments
-each stage of the pipeline separately and produces the numbers the claim needs.
 
 Stages timed independently
 --------------------------

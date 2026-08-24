@@ -1,5 +1,9 @@
 # Multiscale Entropy Analysis of Complex Networks
 
+Sebastián Brzovic, Cristóbal Rojas, Andrés Abeliuk
+
+**Preprint:** [arXiv:2510.11524](https://arxiv.org/abs/2510.11524)
+
 Code and data for the paper of the same name. It extends compression-based graph entropy
 to multiple scales via spectral coarsening, and asks whether the resulting multiscale
 description is a useful characterization of structural complexity — assessed by how well
@@ -7,6 +11,12 @@ it predicts link-prediction accuracy across 558 real-world networks.
 
 Everything the paper reports is reproducible from the raw corpus upward. This README says
 which command produces which figure and table, and what each costs.
+
+> The arXiv preprint is the earlier version of this work, posted under its original
+> title *Networks Multiscale Entropy Analysis*. This repository tracks the current
+> revision, which expands the corpus to 558 networks, adds AUC alongside prediction
+> entropy, and adds the coarsening-robustness and runtime analyses. Numbers here will
+> not all match the preprint.
 
 ## Layout
 
