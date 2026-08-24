@@ -18,9 +18,10 @@ Run one instance per domain to parallelise across terminals:
 
 Outputs
 -------
-    <output>/real_networks_results_<domain>.csv   — per-domain results
-    <output>/real_networks_results.csv            — merged (all domains combined)
-    <output>/real_networks_summary.csv            — mean/std per domain
+    <output>/real_networks_results_<domain>.csv   — one domain (with --domain)
+    <output>/real_networks_results_all.csv        — whole corpus (without --domain);
+                                                    this is what the analysis reads
+    <output>/real_networks_summary_<tag>.csv      — mean/std per domain
 """
 
 import argparse
@@ -41,71 +42,21 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
+from experiments import common
+from experiments.common import analytic_entropy_from_ranks, build_graph
 from algorithm.coarsening_utils import coarsen, get_entropy_metadata_aritmethicEncoding
 import algorithm.entropia_link_prediction as elp
 
 # ── constants ────────────────────────────────────────────────────────────────
-PKL_PATH         = os.path.join(PROJECT_ROOT, 'algorithm', 'Entropy_Experiments',
-                                'Real_World_Networks', 'undirected_networks.pkl')
-REDUCTION_LEVELS = [80, 60, 40, 20]
-MIN_NODES = 20
-MIN_EDGES = 30
+PKL_PATH = common.CORPUS_PKL
+REDUCTION_LEVELS = common.REDUCTION_LEVELS
+MIN_NODES = common.MIN_NODES
+MIN_EDGES = common.MIN_EDGES
 
-VALID_DOMAINS = ['Biological', 'Social', 'Economic', 'Transportation', 'Technological', 'Informational']
+VALID_DOMAINS = common.DOMAINS
 
 
 # ── analytic entropy normalisation (Sun et al. 2020) ─────────────────────────
-
-def analytic_entropy_from_ranks(ranks, N):
-    """Prediction entropy of a rank distribution, normalised analytically.
-
-        bin(r) = floor((r-1)/N)      bins of fixed width N
-        n_bins = ceil(C(N,2)/N)      ~ N/2
-        H      = -sum_j p_j log2 p_j
-        H*     = H / (log2(N) - 1)
-
-    log2(N) - 1 = log2(N/2) is the entropy of a uniform distribution over the bins,
-    i.e. what a predictor carrying no information would produce. It replaces the
-    former simulated Erdos-Renyi denominator, which is structurally broken for
-    Adamic-Adar: AA scores zero for any pair with no common neighbour, so on a sparse
-    ER graph nearly every candidate ties at zero, the ranks collapse into one bin and
-    H(G_R) -> 0 by construction. That denominator was small and stable rather than
-    noisy, so averaging more draws did not repair it -- of 440 networks, 172 gave a
-    ratio above 2 and 98 gave zero or less, against a maximum of 67. The analytic form
-    is deterministic, needs no simulation, and puts H* in [0, 1] by construction.
-
-    Used for every predictor so their H* values are directly comparable.
-    Returns (H_raw, denom, H_star).
-    """
-    ranks = np.asarray(ranks, dtype=np.int64)
-    if N < 3:
-        raise ValueError(f'N={N} too small to normalise')
-    n_bins = int(np.ceil((N * (N - 1) / 2) / N))
-    bins = np.minimum((ranks - 1) // N, n_bins - 1)
-    counts = np.bincount(bins, minlength=n_bins).astype(float)
-    p = counts / counts.sum()
-    p = p[p > 0]
-    H = float(-(p * np.log2(p)).sum())
-    denom = float(np.log2(N) - 1.0)
-    H_star = H / denom
-    if not (-1e-9 <= H_star <= 1.0 + 1e-9):
-        raise AssertionError(f'H*={H_star:.4f} outside [0,1] (N={N}, H={H:.4f})')
-    return H, denom, float(np.clip(H_star, 0.0, 1.0))
-
-
-# ── helpers ──────────────────────────────────────────────────────────────────
-
-def build_graph(row):
-    is_directed = 'Directed' in row['graphProperties']
-    G = nx.DiGraph() if is_directed else nx.Graph()
-    G.add_nodes_from(np.array(row['nodes_id']))
-    G.add_edges_from(np.array(row['edges_id']))
-    G = nx.to_undirected(G)
-    if not nx.is_connected(G):
-        G = G.subgraph(max(nx.connected_components(G), key=len)).copy()
-        G = nx.convert_node_labels_to_integers(G)
-    return G
-
 
 def spectral_entropy_at_levels(G, reduction_levels):
     """Return dict {level_pct: normalised_entropy} for each reduction level (100 = original)."""
@@ -229,11 +180,20 @@ def main(args):
     # Spectral rows to reuse under --linkpred-only, keyed by network name.
     prior_spectral = {}
     if args.linkpred_only:
-        if not os.path.exists(domain_csv):
-            sys.exit(f'--linkpred-only needs existing spectral rows, but '
-                     f'{domain_csv} does not exist.')
-        _prev = pd.read_csv(domain_csv)
+        # Spectral rows may sit in the consolidated file or in the per-domain files,
+        # depending on how the run that produced them was invoked. Reading only
+        # domain_csv silently recomputed a fraction of the corpus when --domain was
+        # omitted, so gather from every result file present and dedupe.
+        candidates = [domain_csv] + [
+            os.path.join(args.output, f'real_networks_results_{d}.csv')
+            for d in VALID_DOMAINS]
+        found = [f for f in dict.fromkeys(candidates) if os.path.exists(f)]
+        if not found:
+            sys.exit(f'--linkpred-only needs existing spectral rows, but no '
+                     f'real_networks_results*.csv exists in {args.output}.')
+        _prev = pd.concat([pd.read_csv(f) for f in found], ignore_index=True)
         _prev = _prev[_prev['measure'] == 'spectral_entropy']
+        _prev = _prev.drop_duplicates(subset=['name', 'level'], keep='last')
         for _n, _g in _prev.groupby('name'):
             prior_spectral[_n] = _g.to_dict('records')
         print(f'--linkpred-only: reusing spectral entropy for '
@@ -326,17 +286,10 @@ def main(args):
     tqdm.write(f'\nSaved {len(df)} rows → {domain_csv}'
                f'  ({n_processed} computed, {n_cached} reused, {n_skipped} too small)')
 
-    # ── Merge all domain files into one combined CSV ──────────────────────────
-    domain_files = [
-        os.path.join(args.output, f'real_networks_results_{d}.csv')
-        for d in VALID_DOMAINS
-        if os.path.exists(os.path.join(args.output, f'real_networks_results_{d}.csv'))
-    ]
-    if len(domain_files) > 1 or not args.domain:
-        combined = pd.concat([pd.read_csv(f) for f in domain_files], ignore_index=True)
-        combined_path = os.path.join(args.output, 'real_networks_results.csv')
-        combined.to_csv(combined_path, index=False)
-        tqdm.write(f'Merged {len(domain_files)} domain file(s) → {combined_path}  ({len(combined)} rows total)')
+    # No merge step: a run without --domain already writes the consolidated
+    # real_networks_results_all.csv, which is what rebuild_regression.py reads. The
+    # old merge combined only the per-domain files, excluding _all.csv, so the merged
+    # file and the file every downstream script reads drifted apart.
 
     # ── Summary ───────────────────────────────────────────────────────────────
     summary_parts = []

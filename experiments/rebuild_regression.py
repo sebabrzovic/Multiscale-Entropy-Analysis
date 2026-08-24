@@ -1,8 +1,9 @@
 """
 Regression analysis behind Table 3 and the predictability claims of Section sec:seal.
 
-Rebuilds, from results/real_networks_results*.csv, the Model 1..5 ladder for three
-targets (SEAL AUC, SEAL prediction entropy, Adamic-Adar entropy) on the full corpus,
+Rebuilds, from results/real_networks_results_all.csv, the Model 1..5 ladder for four
+targets -- SEAL AUC, SEAL prediction entropy, Adamic-Adar AUC and Adamic-Adar prediction
+entropy -- on the full 558-network corpus.
 Every number quoted in the manuscript for these analyses should be reproducible by
 running this script. The k=3 clustering behind Table 2 and Figure 4 is NOT duplicated
 here -- experiments/clustering_analysis.py owns it, and labels clusters canonically by
@@ -22,29 +23,17 @@ What it reports beyond the plain ladder
     also fitted separately per stratum: a relationship holding in only one stratum is
     not a corpus-wide result.
 
-  * Adamic-Adar baseline repair. run_real_networks_experiment.py normalises AA entropy
-    by a SINGLE Erdos-Renyi draw where the paper specifies ten, and a near-zero baseline
-    makes the ratio explode. `--fix-aa-baseline` recomputes it as the mean of ten draws;
-    without it, degenerate rows are excluded and counted. SEAL is unaffected.
-
 A guard warns if n < MIN_EXPECTED_N, so an incomplete link-prediction run cannot quietly
 produce an underpowered regression.
 
 Usage
 -----
-    source ~/venvs/research/bin/activate
-
-    # optional: recompute the AA baseline properly (slow, CPU only)
-    python experiments/rebuild_regression.py --fix-aa-baseline
-
-    # main analysis; emits LaTeX tables ready to include in the manuscript
     python experiments/rebuild_regression.py
 
 Outputs
 -------
     results/multiscale_panel.csv           — one row per network, predictors + targets
     results/regression_<target>.csv        — Model 1..5 ladder per target
-    results/aa_baseline_fixed.csv          — from --fix-aa-baseline
     tables/table_regression_<target>.tex   — LaTeX, drop-in for the manuscript
     figures/predicted_vs_actual_<target>.pdf
 """
@@ -67,7 +56,8 @@ RESULTS_DIR = os.path.join(PROJECT_ROOT, 'results')
 TABLES_DIR = os.path.join(PROJECT_ROOT, 'tables')
 FIGURES_DIR = os.path.join(PROJECT_ROOT, 'figures')
 
-LEVELS = [100, 80, 60, 40, 20]
+from experiments.common import LEVELS, CORPUS_PKL, write_table   # noqa: E402
+
 PREDICTORS = [f'H_{lv}' for lv in LEVELS]
 
 # The full corpus is 558 networks (all_networks.pkl); anything far below this means the
@@ -129,8 +119,7 @@ def load_panel(verbose=True):
     # Stratum flag: networks flagged Directed in the source metadata were absent from
     # the original corpus. They behave differently enough (flat, high-entropy
     # trajectories) that pooling them without checking would hide a real effect.
-    full_pkl = os.path.join(PROJECT_ROOT, 'algorithm', 'Entropy_Experiments',
-                            'Real_World_Networks', 'all_networks.pkl')
+    full_pkl = CORPUS_PKL
     if os.path.exists(full_pkl):
         allnet = pd.read_pickle(full_pkl)
         ncol = 'network_name' if 'network_name' in allnet.columns else 'title'
@@ -199,7 +188,6 @@ def model_ladder(sub, target, label):
     m1, m5 = fitted[1], fitted[5]
     df_num = m5.df_model - m1.df_model
     f_stat = ((m1.ssr - m5.ssr) / df_num) / (m5.ssr / m5.df_resid)
-    from scipy import stats
     f_p = 1 - stats.f.cdf(f_stat, df_num, m5.df_resid)
 
     # Subsets that matter for the manuscript's claims:
@@ -231,8 +219,8 @@ def model_ladder(sub, target, label):
     # relationship that holds only in one of them is not a corpus-wide result.
     if 'newly_included' in sub.columns and sub['newly_included'].nunique() > 1:
         print('  by stratum:')
-        for label, mask in [('originally included', ~sub['newly_included']),
-                            ('newly included', sub['newly_included'])]:
+        for stratum, mask in [('originally included', ~sub['newly_included']),
+                              ('newly included', sub['newly_included'])]:
             g = sub[mask.values]
             if len(g) < 20:
                 continue
@@ -241,7 +229,7 @@ def model_ladder(sub, target, label):
             dfn = a5.df_model - a1.df_model
             f = ((a1.ssr - a5.ssr) / dfn) / (a5.ssr / a5.df_resid)
             pv = 1 - stats.f.cdf(f, dfn, a5.df_resid)
-            print(f'    {label:22s} n={len(g):4d}  M1={a1.rsquared:.4f} '
+            print(f'    {stratum:22s} n={len(g):4d}  M1={a1.rsquared:.4f} '
                   f'M5={a5.rsquared:.4f}  F={f:.1f} p={pv:.2e}')
 
     out.attrs['f_stat'] = f_stat
@@ -285,98 +273,7 @@ def latex_regression_table(out, target, label):
 
 # ── AA baseline repair ───────────────────────────────────────────────────────
 
-def fix_aa_baseline(args):
-    """Recompute the Adamic-Adar ER baseline as a mean over ten draws.
-
-    The published pipeline divides by a single Erdos-Renyi sample; when that sample's
-    prediction entropy is near zero the normalised value explodes. Averaging ten draws
-    is what the manuscript describes and what the compression-entropy path already does
-    (get_entropy_metadata_aritmethicEncoding builds ten reference graphs).
-    """
-    import networkx as nx
-    from tqdm import tqdm
-    import algorithm.entropia_link_prediction as elp
-
-    pkl = os.path.join(PROJECT_ROOT, 'algorithm', 'Entropy_Experiments',
-                       'Real_World_Networks', 'all_networks.pkl')
-    networks_df = pd.read_pickle(pkl)
-
-    def build_graph(row):
-        G = nx.DiGraph() if 'Directed' in row['graphProperties'] else nx.Graph()
-        G.add_nodes_from(np.array(row['nodes_id']))
-        G.add_edges_from(np.array(row['edges_id']))
-        G = nx.to_undirected(G)
-        if not nx.is_connected(G):
-            G = G.subgraph(max(nx.connected_components(G), key=len)).copy()
-            G = nx.convert_node_labels_to_integers(G)
-        return G
-
-    out_path = os.path.join(RESULTS_DIR, 'aa_baseline_fixed.csv')
-    rows = []
-    done = set()
-    if os.path.exists(out_path) and not args.overwrite:
-        prev = pd.read_csv(out_path)
-        rows = prev.to_dict('records')
-        done = set(prev['name'])
-        print(f'Resuming: {len(done)} networks already recomputed.')
-
-    for _, row in tqdm(networks_df.iterrows(), total=len(networks_df), desc='AA baseline'):
-        name = row.get('network_name', row.get('title', 'unknown'))
-        if name in done:
-            continue
-        G = build_graph(row)
-        n, e = G.number_of_nodes(), G.number_of_edges()
-        if n < 20 or e < 30:
-            continue
-        try:
-            _, train, test = elp.split_edges(G, test_ratio=args.test_ratio, seed=args.seed)
-            ranks, _, n_cands = elp.evaluate_link_prediction_heuristic(
-                G, train, test, predictor='adamic_adar', seed=args.seed)
-            real_ent = elp.calculate_entropy(ranks, n, n_candidates=n_cands)
-
-            baselines = []
-            for draw in range(args.n_baseline):
-                RG = elp.create_EdosReyni(G)
-                if RG is None:
-                    continue
-                _, rtrain, rtest = elp.split_edges(RG, test_ratio=args.test_ratio,
-                                                   seed=args.seed + draw)
-                rranks, _, rn = elp.evaluate_link_prediction_heuristic(
-                    RG, rtrain, rtest, predictor='adamic_adar', seed=args.seed + draw)
-                b = elp.calculate_entropy(rranks, RG.number_of_nodes(), n_candidates=rn)
-                if b and b > 0:
-                    baselines.append(b)
-
-            if len(baselines) < args.n_baseline // 2:
-                tqdm.write(f'  {name}: only {len(baselines)} usable baselines — skipped')
-                continue
-            rows.append({
-                'domain': row['networkDomain'], 'name': name,
-                'adamic_adar_entropy_fixed': real_ent / float(np.mean(baselines)),
-                'baseline_mean': float(np.mean(baselines)),
-                'baseline_std': float(np.std(baselines)),
-                'n_baselines': len(baselines),
-            })
-        except Exception as exc:
-            tqdm.write(f'  {name}: failed ({exc})')
-        pd.DataFrame(rows).to_csv(out_path, index=False)
-
-    df = pd.DataFrame(rows)
-    df.to_csv(out_path, index=False)
-    print(f'\nSaved {len(df)} recomputed baselines → {out_path}')
-    if len(df):
-        v = df['adamic_adar_entropy_fixed']
-        print(f'Fixed AA entropy: median={v.median():.3f}  '
-              f'>{AA_SANITY_MAX}: {(v > AA_SANITY_MAX).sum()}/{len(v)}')
-
-
-# ── main ─────────────────────────────────────────────────────────────────────
-
 def main(args):
-    if args.fix_aa_baseline:
-        fix_aa_baseline(args)
-        return
-
     os.makedirs(TABLES_DIR, exist_ok=True)
     os.makedirs(FIGURES_DIR, exist_ok=True)
 
@@ -393,23 +290,23 @@ def main(args):
             continue
         out, fitted = model_ladder(sub, target, label)
         out.to_csv(os.path.join(RESULTS_DIR, f'regression_{target}.csv'), index=False)
-        with open(os.path.join(TABLES_DIR, f'table_regression_{target}.tex'), 'w') as fh:
-            fh.write(latex_regression_table(out, target, label))
+        write_table(f'table_regression_{target}.tex',
+                    latex_regression_table(out, target, label).split('\n'))
         plot_predicted_vs_actual(sub, target, label, fitted)
 
     print(f'\nLaTeX tables → {TABLES_DIR}/')
     print(f'Figures      → {FIGURES_DIR}/')
 
 
-def plot_predicted_vs_actual(sub, target, label, fitted, clip_q=0.005):
+def plot_predicted_vs_actual(sub, target, label, fitted):
     """Predicted vs actual, one panel per model.
 
-    Axis limits are set from the `clip_q` / 1-clip_q quantiles of the pooled actual and
-    predicted values rather than from their extremes. A single network can otherwise
-    stretch the axis far past the bulk of the data and compress the region where all
-    the structure is -- for SEAL AUC one graph sits at 0.286 while the 1st percentile
-    is 0.546. Outlying points are drawn, not dropped: matplotlib clips them at the
-    spine, and the count is reported in the axis label so the reader knows they exist.
+    Axis limits come from a Tukey far fence (3x IQR) on the observed values rather than
+    from their extremes. A single network can otherwise stretch the axis far past the
+    bulk of the data and compress the region where all the structure is -- for SEAL AUC
+    one graph sits at 0.286 while the rest begin around 0.55. Outlying points are drawn,
+    not dropped: matplotlib clips them at the spine, and the count is reported in the
+    axis label so the reader knows they exist.
     """
     import matplotlib
     matplotlib.use('Agg')
@@ -465,11 +362,4 @@ def plot_predicted_vs_actual(sub, target, label, fitted, clip_q=0.005):
 if __name__ == '__main__':
     p = argparse.ArgumentParser(description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument('--fix-aa-baseline', action='store_true',
-                   help='Recompute the Adamic-Adar ER baseline over N draws and exit')
-    p.add_argument('--n-baseline', type=int, default=10,
-                   help='ER draws per network when fixing the baseline (default 10)')
-    p.add_argument('--test-ratio', type=float, default=0.2)
-    p.add_argument('--seed', type=int, default=42)
-    p.add_argument('--overwrite', action='store_true')
     main(p.parse_args())

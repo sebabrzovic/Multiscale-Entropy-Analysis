@@ -1,7 +1,32 @@
+"""Link prediction and prediction entropy.
+
+Two predictors are evaluated on a shared train/test split: the Adamic-Adar
+neighborhood heuristic and SEAL, a graph neural network over enclosing subgraphs.
+Both report an AUC and a prediction entropy, the Shannon entropy of the held-out
+edges' rank distribution.
+
+The SEAL implementation (_drnl_node_labeling, _extract_enclosing_subgraph, _DGCNN,
+evaluate_link_prediction_seal) is adapted from the PyTorch Geometric example at
+https://github.com/pyg-team/pytorch_geometric/blob/master/examples/seal_link_pred.py
+See THIRD_PARTY.md.
+"""
+
+import math
+from collections import Counter
+
 import networkx as nx
-import matplotlib.pyplot as plt
-import pandas as pd
 import numpy as np
+
+import torch
+import torch.nn.functional as F
+from torch.nn import BCEWithLogitsLoss, Conv1d, MaxPool1d, ModuleList
+from torch_geometric.data import Data
+from torch_geometric.loader import DataLoader as PyGDataLoader
+from torch_geometric.nn import GCNConv, MLP, SortAggregation
+from torch_geometric.utils import k_hop_subgraph, to_scipy_sparse_matrix
+from scipy.sparse.csgraph import shortest_path
+from sklearn.metrics import roc_auc_score
+
 
 # Seeded generator for tie-breaking; see tiebroken_rank below.
 _TIE_RNG = np.random.default_rng(20260821)
@@ -25,64 +50,6 @@ def tiebroken_rank(pair_scores_arr, target, rng=None):
     n_greater = int(np.sum(pair_scores_arr > target))
     n_ties = int(np.sum(pair_scores_arr == target)) + 1   # +1: the edge itself
     return n_greater + int(rng.integers(1, n_ties + 1))
-from collections import Counter
-from collections import defaultdict
-
-import math
-import torch
-import torch.nn.functional as F
-from torch.nn import BCEWithLogitsLoss, Conv1d, MaxPool1d, ModuleList
-from torch_geometric.data import Data
-from torch_geometric.loader import DataLoader as PyGDataLoader
-from torch_geometric.nn import GCNConv, MLP, SortAggregation
-from torch_geometric.utils import from_networkx, negative_sampling, k_hop_subgraph, to_scipy_sparse_matrix
-from scipy.sparse.csgraph import shortest_path
-from sklearn.metrics import roc_auc_score
-
-
-# ---------------------------------------------------------------------------
-# GCN-based link prediction (PyTorch Geometric)
-# ---------------------------------------------------------------------------
-
-class _GCNEncoder(torch.nn.Module):
-    """Two-layer GCN that maps node features to embeddings."""
-
-    def __init__(self, in_channels, hidden_channels, out_channels):
-        super().__init__()
-        self.conv1 = GCNConv(in_channels, hidden_channels)
-        self.conv2 = GCNConv(hidden_channels, out_channels)
-
-    def forward(self, x, edge_index):
-        x = self.conv1(x, edge_index).relu()
-        return self.conv2(x, edge_index)
-
-
-def _decode(z, edge_index):
-    """Dot-product decoder: score = sigmoid(z_u · z_v)."""
-    src, dst = edge_index
-    return (z[src] * z[dst]).sum(dim=-1)
-
-
-def _train_gcn(data, model, optimizer, train_pos, train_neg):
-    model.train()
-    optimizer.zero_grad()
-    z = model(data.x, train_pos)
-
-    pos_score = _decode(z, train_pos)
-    neg_score = _decode(z, train_neg)
-
-    labels = torch.cat([torch.ones(pos_score.size(0)),
-                        torch.zeros(neg_score.size(0))])
-    scores = torch.cat([pos_score, neg_score])
-    loss = F.binary_cross_entropy_with_logits(scores, labels)
-    loss.backward()
-    optimizer.step()
-    return loss.item()
-
-
-# ---------------------------------------------------------------------------
-# Shared train/test split utilities
-# ---------------------------------------------------------------------------
 
 def split_edges(G, test_ratio=0.1, seed=42):
     """
@@ -209,115 +176,6 @@ def evaluate_link_prediction_heuristic(G, train_edges, test_edges,
 
 # ---------------------------------------------------------------------------
 # GCN link prediction (accepts external train/test split)
-# ---------------------------------------------------------------------------
-
-def evaluate_link_prediction_gcn(G, train_edges=None, test_edges=None,
-                                  hidden_channels=64, out_channels=32,
-                                  epochs=100, lr=0.01, test_ratio=0.1,
-                                  seed=42):
-    """
-    GCN-based link prediction using PyTorch Geometric.
-
-    If train_edges / test_edges are provided the internal split is skipped,
-    enabling a fair comparison with heuristic methods on the same partition.
-
-    Returns
-    -------
-    ranks : list of int
-    auc   : float
-    """
-    torch.manual_seed(seed)
-    np.random.seed(seed)
-
-    G = G.copy()
-    G.remove_edges_from(nx.selfloop_edges(G))
-    n_nodes = G.number_of_nodes()
-
-    degrees = np.array([G.degree(n) for n in G.nodes()], dtype=np.float32)
-    max_deg = degrees.max() if degrees.max() > 0 else 1.0
-    x = torch.tensor(degrees / max_deg, dtype=torch.float).unsqueeze(1)
-
-    # Re-index nodes to 0..n-1
-    node_list = list(G.nodes())
-    node_idx = {n: i for i, n in enumerate(node_list)}
-
-    if train_edges is None or test_edges is None:
-        # Internal split (legacy behaviour)
-        all_edges = [(node_idx[u], node_idx[v]) for u, v in G.edges()]
-        rng = np.random.default_rng(seed)
-        rng.shuffle(all_edges)
-        n_test = max(1, int(len(all_edges) * test_ratio))
-        test_edges  = all_edges[:n_test]
-        train_edges = all_edges[n_test:]
-
-    train_edge_index = torch.tensor(train_edges, dtype=torch.long).t().contiguous()
-    train_edge_index_undirected = torch.cat(
-        [train_edge_index, train_edge_index.flip(0)], dim=1
-    )
-
-    data = Data(x=x, edge_index=train_edge_index_undirected, num_nodes=n_nodes)
-
-    model = _GCNEncoder(in_channels=1,
-                        hidden_channels=hidden_channels,
-                        out_channels=out_channels)
-    optimizer = torch.optim.Adam(model.parameters(), lr=lr)
-
-    for _ in range(epochs):
-        neg_edge_index = negative_sampling(
-            edge_index=train_edge_index_undirected,
-            num_nodes=n_nodes,
-            num_neg_samples=train_edge_index.size(1),
-        )
-        _train_gcn(data, model, optimizer, train_edge_index_undirected, neg_edge_index)
-
-    model.eval()
-    with torch.no_grad():
-        z = model(data.x, data.edge_index)
-    z = F.normalize(z, p=2, dim=-1)
-
-    train_set = set(map(tuple, train_edges)) | {(v, u) for u, v in train_edges}
-
-    z_np = z.detach().numpy()
-    all_scores = z_np @ z_np.T
-    all_scores = np.nan_to_num(all_scores, nan=-np.inf)
-    np.fill_diagonal(all_scores, -np.inf)
-
-    triu_i, triu_j = np.triu_indices(n_nodes, k=1)
-    pair_scores = all_scores[triu_i, triu_j]
-    pair_mask = np.array([
-        (int(i), int(j)) in train_set for i, j in zip(triu_i, triu_j)
-    ])
-    pair_scores[pair_mask] = -np.inf
-
-    ranks = []
-    for (u, v) in test_edges:
-        target_score = all_scores[u, v]
-        rank = int(np.sum(pair_scores > target_score)) + 1
-        ranks.append(rank)
-
-    # AUC
-    test_edge_index = torch.tensor(test_edges, dtype=torch.long).t()
-    with torch.no_grad():
-        test_scores = torch.sigmoid(_decode(z, test_edge_index)).numpy()
-
-    neg_test = negative_sampling(
-        edge_index=train_edge_index_undirected,
-        num_nodes=n_nodes,
-        num_neg_samples=len(test_edges),
-    )
-    with torch.no_grad():
-        neg_scores = torch.sigmoid(_decode(z, neg_test)).numpy()
-
-    y_true  = np.concatenate([np.ones(len(test_scores)), np.zeros(len(neg_scores))])
-    y_score = np.concatenate([test_scores, neg_scores])
-    auc = roc_auc_score(y_true, y_score)
-
-    return ranks, auc
-
-
-# ---------------------------------------------------------------------------
-# SEAL link prediction (Zhang et al. 2018) — based on PyG official example
-# https://github.com/pyg-team/pytorch_geometric/blob/master/examples/seal_link_pred.py
 # ---------------------------------------------------------------------------
 
 def _drnl_node_labeling(edge_index, src, dst, num_nodes):
@@ -621,115 +479,6 @@ def compare_methods_shared_split(G, heuristics=('adamic_adar',),
     return results
 
 
-def compare_real_vs_random_gcn(G, **gcn_kwargs):
-    """
-    Compare GCN link prediction entropy of a real graph vs a random graph.
-    Uses an internal split (legacy; for fair multi-method comparison use
-    compare_methods_shared_split instead).
-    """
-    N = G.number_of_nodes()
-    E = G.number_of_edges()
-    ranks, auc = evaluate_link_prediction_gcn(G, **gcn_kwargs)
-    real_entropy = calculate_entropy(ranks, N)
-
-    G_random = create_EdosReyni(G)
-    if G_random is None:
-        return None
-
-    random_ranks, random_auc = evaluate_link_prediction_gcn(G_random, **gcn_kwargs)
-    random_entropy = calculate_entropy(random_ranks, N)
-
-    return {
-        'graph_stats': {'nodes': N, 'edges': E},
-        'real_graph':  {'entropy': real_entropy, 'auc': auc},
-        'random_graph': {'entropy': random_entropy, 'auc': random_auc},
-    }
-
-def evaluate_link_prediction(G, predictor='jaccard'):
-    """
-    Evaluate link prediction using leave-one-out cross-validation.
-    
-    Parameters:
-    -----------
-    G : networkx.Graph
-        The input graph
-    predictor : str
-        The link prediction method to use ('jaccard', 'adamic_adar', or 'common_neighbor')
-        
-    Returns:
-    --------
-    ranks : list
-        List of rankings for each removed edge
-    """
-    
-    # Choose the predictor function
-    if predictor == 'jaccard':
-        pred_func = nx.jaccard_coefficient
-    elif predictor == 'adamic_adar':
-        pred_func = nx.adamic_adar_index
-    else:
-        raise ValueError("Invalid predictor. Choose 'jaccard', 'adamic_adar', or 'common_neighbor'")
-    
-    # Store the rankings for each edge
-    ranks = []
-    
-    # Make a copy of the graph to work with
-    G_copy = G.copy()
-    
-    # Get all edges from the original graph
-    edges = list(G.edges())
-    
-    for edge in edges:
-        # Remove the edge temporarily
-        G_copy.remove_edge(*edge)
-        
-        # Get all unlinked pairs plus our removed edge
-        unlinked_pairs = get_unlinked_pairs(G_copy, edge)
-        
-        # Calculate prediction scores only for unlinked pairs
-        scores = []
-        for pair in unlinked_pairs:
-            # For jaccard and adamic_adar, calculate for the pair
-            preds = list(pred_func(G_copy, [(pair[0], pair[1])]))[0]
-            score = preds[2]  # The score is the third element in the tuple
-            scores.append((pair, score))
-        
-        # Get the rank of our removed edge
-        rank = get_rank(scores, edge)
-        ranks.append(rank)
-        
-        # Add the edge back
-        G_copy.add_edge(*edge)
-    
-    return ranks
-
-def get_unlinked_pairs(G, removed_edge):
-    """Get all unlinked node pairs plus the removed edge."""
-    nodes = list(G.nodes())
-    unlinked_pairs = []
-    
-    # Add all non-existing edges (unlinked pairs)
-    for i in range(len(nodes)):
-        for j in range(i + 1, len(nodes)):
-            edge = (nodes[i], nodes[j])
-            # Add if it's either an unlinked pair or our removed edge
-            if not G.has_edge(*edge) or edge == removed_edge or edge[::-1] == removed_edge:
-                unlinked_pairs.append(edge)
-    
-    return unlinked_pairs
-
-def get_rank(scores, target_edge):
-    """Get the rank of the target edge among all possibilities."""
-    # Sort scores in descending order
-    sorted_scores = sorted(scores, key=lambda x: x[1], reverse=True)
-    
-    # Find the rank of our target edge
-    for i, (edge, score) in enumerate(sorted_scores):
-        if edge == target_edge or edge[::-1] == target_edge:
-            return i + 1  # Add 1 because ranks start at 1, not 0
-            
-    return len(sorted_scores)  # If not found (shouldn't happen)
-
 def calculate_entropy(ranks, N, n_candidates=None):
     """
     Calculate entropy H based on rank distribution using N/2 bins.
@@ -761,75 +510,3 @@ def calculate_entropy(ranks, N, n_candidates=None):
             probabilities.append(p)
 
     return -sum(p * np.log2(p) for p in probabilities)
-
-
-def create_EdosReyni(G, max_attempts=50, error_percentage=1):
-    """
-    Create an Erdős-Rényi random graph with same number of nodes and edges as input graph,
-    within specified error percentage for edge count
-    
-    Args:
-        G: Input graph
-        max_attempts: Maximum number of attempts to create graph with correct edge count
-        error_percentage: Allowed percentage error in edge count (default 1%)
-    Returns:
-        Random graph with approximately same n,e, or None if no valid graph found
-    """
-    n = len(G)
-    e = G.number_of_edges()
-    
-    # Calculate probability p for desired edge count
-    p = (2.0 * e) / (n * (n-1)) if n > 1 else 0
-    
-    # Calculate acceptable edge range
-    min_edges = int(e * (1 - error_percentage/100))
-    max_edges = int(e * (1 + error_percentage/100))
-    
-    # Try to create graph up to max_attempts times
-    for _ in range(max_attempts):
-        G_random = nx.erdos_renyi_graph(n, p)
-        edge_count = G_random.number_of_edges()
-        
-        if min_edges <= edge_count <= max_edges:
-            return G_random
-
-    return None
-
-
-
-def compare_real_vs_random(G, predictor='jaccard'):
-    """
-    Compare link prediction entropy of a real graph vs random graph
-    
-    Args:
-        G: Input graph
-    Returns:
-        Dictionary with entropy values and basic statistics
-    """
-    N = G.number_of_nodes()
-    E = G.number_of_edges()
-    
-    ranks = evaluate_link_prediction(G, predictor)
-    real_entropy = calculate_entropy(ranks, N)
-
-    G_random = create_EdosReyni(G)
-    if G_random is None:
-        return None
-        
-    random_rank = evaluate_link_prediction(G_random, predictor)
-    random_entropy = calculate_entropy(random_rank, N)
-    
-    results = {
-        'graph_stats': {
-            'nodes': N,
-            'edges': E
-        },
-        'real_graph': {
-            'entropy': real_entropy
-        },
-        'random_graph': {
-            'entropy': random_entropy
-        }
-    }
-    
-    return results

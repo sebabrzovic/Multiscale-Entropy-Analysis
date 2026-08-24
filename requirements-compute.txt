@@ -1,0 +1,15 @@
+# Stage 2 — re-deriving results/*.csv from the corpus. Install on top of
+# requirements.txt. Needs a GPU to be practical: the SEAL link predictor runs on
+# all 558 networks.
+-r requirements.txt
+networkx==3.2.1
+pygsp==0.6.1
+tqdm==4.68.2
+sortedcontainers==2.4.0
+arithmetic-compressor==0.2
+psutil==7.2.2
+
+# Install torch first, matched to your CUDA version, then torch-geometric.
+# See https://pytorch.org/get-started/locally/
+torch==2.8.0
+torch-geometric==2.6.1

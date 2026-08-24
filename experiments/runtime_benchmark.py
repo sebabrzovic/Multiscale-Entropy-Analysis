@@ -64,6 +64,9 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
+from experiments import common                             # noqa: E402
+from experiments.common import PAPER_STYLE, build_graph    # noqa: E402
+
 if _HAVE_GRAPH_STACK:
     from algorithm.coarsening_utils import coarsen
     from algorithm.calculo_entropia import (M_adyacencia, Encoder,
@@ -89,13 +92,11 @@ except ImportError:                                    # pragma: no cover
     _PROC = None
     _HAVE_PSUTIL = False
 
-PKL_PATH = os.path.join(PROJECT_ROOT, 'algorithm', 'Entropy_Experiments',
-                        'Real_World_Networks', 'all_networks.pkl')
-MIN_NODES = 20
-MIN_EDGES = 30
-LEVELS = [100, 80, 60, 40, 20]
-VALID_DOMAINS = ['Biological', 'Social', 'Economic',
-                 'Transportation', 'Technological', 'Informational']
+PKL_PATH = common.CORPUS_PKL
+MIN_NODES = common.MIN_NODES
+MIN_EDGES = common.MIN_EDGES
+LEVELS = common.LEVELS
+VALID_DOMAINS = common.DOMAINS
 OUT_CSV = os.path.join(PROJECT_ROOT, 'results', 'runtime_benchmark.csv')
 
 
@@ -160,18 +161,6 @@ def measure(fn):
 
 
 # ── graph handling ───────────────────────────────────────────────────────────
-
-def build_graph(row):
-    is_directed = 'Directed' in row['graphProperties']
-    G = nx.DiGraph() if is_directed else nx.Graph()
-    G.add_nodes_from(np.array(row['nodes_id']))
-    G.add_edges_from(np.array(row['edges_id']))
-    G = nx.to_undirected(G)
-    if not nx.is_connected(G):
-        G = G.subgraph(max(nx.connected_components(G), key=len)).copy()
-        G = nx.convert_node_labels_to_integers(G)
-    return G
-
 
 def size_stratified_sample(networks_df, n_networks, seed):
     """Pick networks spread log-uniformly over the node-count range.
@@ -304,25 +293,6 @@ def run_bench(args):
 
 # ── analysis ─────────────────────────────────────────────────────────────────
 
-PAPER_STYLE = {
-    # Type 42 embeds TrueType outlines rather than bitmaps; ACM rejects the Type 3
-    # fonts matplotlib emits by default.
-    'pdf.fonttype': 42,
-    'ps.fonttype': 42,
-    'font.family': 'serif',
-    'font.serif': ['Linux Libertine', 'Libertinus Serif', 'DejaVu Serif'],
-    'font.size': 8,
-    'axes.labelsize': 8.5,
-    'axes.titlesize': 8.5,
-    'xtick.labelsize': 7.5,
-    'ytick.labelsize': 7.5,
-    'legend.fontsize': 7,
-    'axes.linewidth': 0.6,
-    'xtick.major.width': 0.6,
-    'ytick.major.width': 0.6,
-    'axes.grid': False,
-    'savefig.dpi': 600,
-}
 
 STAGE_ORDER = ['coarsen', 'encode', 'compress', 'linkpred']
 STAGE_LABEL = {'coarsen': 'Coarsening', 'encode': 'SZIP encoding',
@@ -502,8 +472,7 @@ def analyze(args):
         lines.append(f'{lv} & ' + ' & '.join(cells) +
                      f' & {tot_mean[lv]:.3f} & {pk_mean[lv]:.2f} ' + r'\\')
     lines += [r'\bottomrule', r'\end{tabular}']
-    with open(os.path.join(tabdir, 'table_runtime_cost.tex'), 'w') as fh:
-        fh.write('\n'.join(lines) + '\n')
+    common.write_table('table_runtime_cost.tex', lines)
 
     lines = [r'\begin{tabular}{lccccc}', r'\toprule',
              r'\textit{Stage} & \textit{Time} $\alpha$ & $R^2$ & '
@@ -517,8 +486,7 @@ def analyze(args):
         lines.append(f"{STAGE_LABEL[r['stage']]} & {r['time_exponent']:.2f} & "
                      f"{r['time_r2']:.2f} & {beta} & {br2} & {nm} " + r'\\')
     lines += [r'\bottomrule', r'\end{tabular}']
-    with open(os.path.join(tabdir, 'table_runtime_scaling.tex'), 'w') as fh:
-        fh.write('\n'.join(lines) + '\n')
+    common.write_table('table_runtime_scaling.tex', lines)
     print(f'-> {tabdir}/table_runtime_{{cost,scaling}}.tex')
 
     # ── figure: scaling + speedup ────────────────────────────────────────────

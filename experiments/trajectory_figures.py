@@ -39,9 +39,10 @@ from matplotlib.lines import Line2D
 import matplotlib.patheffects as pe
 from matplotlib.colors import Normalize
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from clustering_analysis import (load_trajectories, LEVELS, DOMAIN_ORDER,   # noqa: E402
-                                 FIGURES, RESULTS, SEED, PAPER_STYLE)
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from experiments.common import (load_trajectories, LEVELS, FIGURES,   # noqa: E402
+                                RESULTS, SEED, PAPER_STYLE,
+                                DOMAINS as DOMAIN_ORDER)
 
 # Strata follow the manuscript: small 0-200, medium 200-600, large 600+.
 STRATA = [('small (≤200)', -1, 200),

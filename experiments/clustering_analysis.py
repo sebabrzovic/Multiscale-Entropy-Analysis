@@ -40,77 +40,22 @@ Outputs
 """
 
 import argparse
-import glob
 import os
 import sys
 import warnings
 warnings.filterwarnings('ignore')
 
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import numpy as np
 import pandas as pd
 
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-RESULTS = os.path.join(PROJECT_ROOT, 'results')
-TABLES = os.path.join(PROJECT_ROOT, 'tables')
-FIGURES = os.path.join(PROJECT_ROOT, 'figures')
+from experiments.common import (      # noqa: E402
+    PROJECT_ROOT, RESULTS, TABLES, FIGURES, PAPER_STYLE, LEVELS, SEED,
+    DOMAINS as DOMAIN_ORDER, PALETTE, load_trajectories, write_table,
+)
 
-PAPER_STYLE = {
-    # Type 42 embeds TrueType outlines rather than bitmaps. ACM (and most
-    # publishers) reject Type 3 fonts, which is what matplotlib emits by default.
-    'pdf.fonttype': 42,
-    'ps.fonttype': 42,
-    # Libertine is the acmart body face; the fallbacks keep this working on
-    # machines without it rather than silently substituting a sans-serif.
-    'font.family': 'serif',
-    'font.serif': ['Linux Libertine', 'Libertinus Serif', 'DejaVu Serif'],
-    'font.size': 8,
-    'axes.labelsize': 8.5,
-    'axes.titlesize': 8.5,
-    'xtick.labelsize': 7.5,
-    'ytick.labelsize': 7.5,
-    'legend.fontsize': 7,
-    'axes.linewidth': 0.6,
-    'xtick.major.width': 0.6,
-    'ytick.major.width': 0.6,
-    'xtick.direction': 'out',
-    'ytick.direction': 'out',
-    'axes.grid': False,
-    'savefig.dpi': 600,
-}
-
-LEVELS = [100, 80, 60, 40, 20]
 K = 3
-SEED = 42
-
-DOMAIN_ORDER = ['Biological', 'Social', 'Economic',
-                'Technological', 'Transportation', 'Informational']
-
-
-def load_trajectories(source):
-    """Return a frame indexed by network with columns 100, 80, 60, 40, 20 and `domain`.
-
-    `robustness` uses coarsening_robustness.csv restricted to the neighborhood-based
-    algorithm, which covers the full corpus. `real` uses the per-domain result files,
-    which carry the same measure under the name `spectral_entropy`.
-    """
-    if source == 'robustness':
-        path = os.path.join(RESULTS, 'coarsening_robustness.csv')
-        if not os.path.exists(path):
-            sys.exit(f'{path} not found — run coarsening_robustness.py first.')
-        df = pd.read_csv(path)
-        df = df[df['method'] == 'variation_neighborhood']
-        wide = df.pivot_table(index=['domain', 'name'], columns='level', values='value')
-    else:
-        files = sorted(glob.glob(os.path.join(RESULTS, 'real_networks_results_*.csv')))
-        if not files:
-            sys.exit(f'No real_networks_results_*.csv in {RESULTS}')
-        df = pd.concat([pd.read_csv(f) for f in files], ignore_index=True)
-        df = df[df['measure'] == 'spectral_entropy']
-        wide = df.pivot_table(index=['domain', 'name'], columns='level', values='value')
-
-    wide = wide.dropna(subset=LEVELS).reset_index()
-    return wide
-
 
 def cluster(wide, k=K, seed=SEED):
     """K-means on standardized trajectories, with clusters relabelled by mean H_100."""
@@ -162,10 +107,14 @@ def emit_table(wide, labels):
               ' & '.join(r'\textbf{%d}' % int(v) for v in comp.sum().values) + r' \\',
               r'        \bottomrule', r'    \end{tabular}', r'\end{table}']
 
-    path = os.path.join(TABLES, 'table_cluster_composition.tex')
-    with open(path, 'w') as fh:
-        fh.write('\n'.join(lines) + '\n')
+    path = write_table('table_cluster_composition.tex', lines)
     print(f'\nTable → {path}')
+
+    # The manuscript's Table 2 counts come from this crosstab; emit it as data too
+    # rather than leaving a hand-saved copy in results/ with no producer.
+    csv_path = os.path.join(RESULTS, 'cluster_composition.csv')
+    comp.to_csv(csv_path)
+    print(f'Composition → {csv_path}')
     return comp
 
 
@@ -238,14 +187,10 @@ def emit_figure(wide, X, labels, args):
     from matplotlib.colors import to_rgba
     import matplotlib.patheffects as pe
 
-    # Domain palette. Assigned in DOMAIN_ORDER, so the mapping is stable across
-    # runs and matches the order used in Table 2.
-    OKABE_ITO = ['#568f8b',  # Biological     (183 — largest group, needs weight)
-                 '#1d4a60',  # Social          (tight, distinct cluster)
-                 '#cd7e59',  # Economic
-                 '#ddb247',  # Technological
-                 '#d15252',  # Transportation
-                 '#b4d2b1']  # Informational   (19 — palest, fewest points)
+    # Domain palette (common.PALETTE). Assigned in DOMAIN_ORDER, so the mapping is
+    # stable across runs and matches the order used in Table 2: Biological, Social,
+    # Economic, Technological, Transportation, Informational.
+    OKABE_ITO = PALETTE
     # Cluster identity is carried by labelled centroids rather than marker shape.
     # With 558 overlapping points the shape channel was hard to read anyway, and
     # freeing it lets every point use the same clean circle so that colour — the
@@ -440,7 +385,7 @@ if __name__ == '__main__':
     p.add_argument('--boundary',
                    choices=['voronoi-filled', 'voronoi', 'none'],
                    default='voronoi-filled',
-                   help="'voronoi' = the k-means decision boundaries, computed in "
+                   help="'voronoi' = the k-means decision boundaries (unfilled), computed in "
                         "5-D and restricted to the plotted plane (default); "
                         "'voronoi-filled' adds light region shading; "
                         "'none' = centroids only")

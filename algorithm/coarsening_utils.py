@@ -14,7 +14,6 @@ from mpl_toolkits.mplot3d import Axes3D
 
 from sortedcontainers import SortedList
 from . import graph_utils
-from . import maxWeightMatching
 
 import sys
 import os
@@ -31,7 +30,6 @@ def coarsen(
     r=0.5,
     max_levels=10,
     method="variation_neighborhood",
-    algorithm="greedy",
     Uk=None,
     lk=None,
     max_level_r=0.99,
@@ -116,7 +114,7 @@ def coarsen(
 
             if method == "variation_edges":
                 coarsening_list = contract_variation_edges(
-                    G, K=K, A=A, r=r_cur, algorithm=algorithm
+                    G, K=K, A=A, r=r_cur
                 )
             else:
                 coarsening_list = contract_variation_linear(
@@ -126,15 +124,7 @@ def coarsen(
         else:
             weights = get_proximity_measure(G, method, K=K)
 
-            if algorithm == "optimal":
-                # the edge-weight should be light at proximal edges
-                weights = -weights
-                if "rss" not in method:
-                    weights -= min(weights)
-                coarsening_list = matching_optimal(G, weights=weights, r=r_cur)
-
-            elif algorithm == "greedy":
-                coarsening_list = matching_greedy(G, weights=weights, r=r_cur)
+            coarsening_list = matching_greedy(G, weights=weights, r=r_cur)
 
         iC = get_coarsening_matrix(G, coarsening_list)
 
@@ -164,228 +154,8 @@ def coarsen(
 # Plotting for paper
 ################################################################################
 
-def coarsen_at_reduction_levels(G, reduction_levels, method="variation_neighborhood", K=5, max_levels=10, algorithm="greedy"):
-    """
-    Coarsen a graph at different reduction levels.
-    
-    Parameters
-    ----------
-    G : pygsp Graph
-        The original graph to coarsen
-    reduction_levels : list of float
-        List of reduction ratios (e.g., [0.2, 0.4, 0.6, 0.8])
-    method : str
-        Coarsening method
-    K : int
-        The size of the subspace we are interested in preserving
-    max_levels : int
-        Maximum number of coarsening levels
-    algorithm : str
-        Algorithm to use for coarsening
-        
-    Returns
-    -------
-    graphs_at_levels : list of pygsp Graphs
-        List containing the original graph and coarsened versions at each reduction level
-    """
-    graphs_at_levels = [G]  # Start with original graph
-    
-    for r in reduction_levels:
-        try:
-            C, Gc, Call, Gall = coarsen(G, K=K, r=r, method=method, 
-                                      max_levels=max_levels, algorithm=algorithm)
-            graphs_at_levels.append(Gc)
-        except Exception as e:
-            pass  # Could not coarsen at reduction level {r}
-            # Add None or the last successful graph
-            graphs_at_levels.append(graphs_at_levels[-1] if graphs_at_levels else G)
-    
-    return graphs_at_levels
-
-
-def plot_reduction_levels_horizontal(G, reduction_levels=[0.2, 0.4, 0.6, 0.8], 
-                                   method="variation_neighborhood", K=5,
-                                   size=3, edge_width=0.8, node_size=20, alpha=0.55, 
-                                   title="Graph Reduction Levels"):
-    """
-    Plot graph coarsening at different reduction levels horizontally.
-    
-    Parameters
-    ----------
-    G : pygsp Graph
-        The original graph to coarsen
-    reduction_levels : list of float
-        List of reduction ratios (e.g., [0.2, 0.4, 0.6, 0.8])
-    method : str
-        Coarsening method
-    K : int
-        The size of the subspace we are interested in preserving
-    size : int
-        Size multiplier for the figure
-    edge_width : float
-        Width of the edges
-    node_size : int
-        Size of the nodes
-    alpha : float
-        Transparency level
-    title : str
-        Title of the plot
-        
-    Returns
-    -------
-    fig : matplotlib figure
-    """
-    # Get graphs at different reduction levels
-    graphs_at_levels = coarsen_at_reduction_levels(G, reduction_levels, method=method, K=K)
-    
-    n_graphs = len(graphs_at_levels)
-    fig = plt.figure(figsize=(n_graphs * size * 3, size * 2))
-    
-    # Labels for each subplot
-    labels = ['Original (0%)'] + [f'{int(r*100)}% Reduction' for r in reduction_levels]
-    
-    for i, (graph, label) in enumerate(zip(graphs_at_levels, labels)):
-        
-        # Get edges
-        edges = np.array(graph.get_edge_list()[0:2])
-        
-        # Determine if 2D or 3D plotting
-        if graph.coords.shape[1] == 2:
-            ax = fig.add_subplot(1, n_graphs, i + 1)
-            ax.axis("off")
-            ax.set_title(f"{label}\nN = {graph.N}")
-            
-            [x, y] = graph.coords.T
-            
-            # Plot edges
-            for eIdx in range(edges.shape[1]):
-                ax.plot(
-                    x[edges[:, eIdx]],
-                    y[edges[:, eIdx]],
-                    color="k",
-                    alpha=alpha*0.4,
-                    linewidth=edge_width,
-                )
-            
-            # Plot nodes
-            ax.scatter(x, y, c="k", s=node_size, alpha=alpha)
-            
-        elif graph.coords.shape[1] == 3:
-            ax = fig.add_subplot(1, n_graphs, i + 1, projection="3d")
-            ax.axis("off")
-            ax.set_title(f"{label}\nN = {graph.N}")
-            
-            [x, y, z] = graph.coords.T
-            
-            # Plot edges
-            for eIdx in range(edges.shape[1]):
-                ax.plot(
-                    x[edges[:, eIdx]],
-                    y[edges[:, eIdx]],
-                    zs=z[edges[:, eIdx]],
-                    color="k",
-                    alpha=alpha*0.4,
-                    linewidth=edge_width,
-                )
-            
-            # Plot nodes
-            ax.scatter(x, y, z, c="k", s=node_size, alpha=alpha)
-    
-    # Set main title
-    fig.suptitle(title, fontsize=16, y=0.95)
-    fig.tight_layout()
-    
-    return fig
-
-
-def plot_reduction_levels_comparison(G, reduction_levels=[0.2, 0.4, 0.6, 0.8],
-                                   methods=["variation_neighborhood", "heavy_edge"],
-                                   K=5, size=3, edge_width=0.8, node_size=20, alpha=0.55):
-    """
-    Compare different coarsening methods at various reduction levels.
-    
-    Parameters
-    ----------
-    G : pygsp Graph
-        The original graph to coarsen
-    reduction_levels : list of float
-        List of reduction ratios
-    methods : list of str
-        List of coarsening methods to compare
-    K : int
-        The size of the subspace we are interested in preserving
-    size : int
-        Size multiplier for the figure
-    edge_width : float
-        Width of the edges
-    node_size : int
-        Size of the nodes
-    alpha : float
-        Transparency level
-        
-    Returns
-    -------
-    fig : matplotlib figure
-    """
-    n_methods = len(methods)
-    n_levels = len(reduction_levels) + 1  # +1 for original
-    
-    fig = plt.figure(figsize=(n_levels * size * 2, n_methods * size * 2))
-    
-    for method_idx, method in enumerate(methods):
-        # Get graphs at different reduction levels for this method
-        graphs_at_levels = coarsen_at_reduction_levels(G, reduction_levels, method=method, K=K)
-        
-        # Labels for each subplot
-        labels = ['Original'] + [f'{int(r*100)}%' for r in reduction_levels]
-        
-        for level_idx, (graph, label) in enumerate(zip(graphs_at_levels, labels)):
-            subplot_idx = method_idx * n_levels + level_idx + 1
-            
-            # Get edges
-            edges = np.array(graph.get_edge_list()[0:2])
-            
-            if graph.coords.shape[1] == 2:
-                ax = fig.add_subplot(n_methods, n_levels, subplot_idx)
-                ax.axis("off")
-                
-                title = f"{method}\n{label} (N={graph.N})" if level_idx == 0 else f"{label}\n(N={graph.N})"
-                ax.set_title(title, fontsize=10)
-                
-                [x, y] = graph.coords.T
-                
-                # Plot edges
-                for eIdx in range(edges.shape[1]):
-                    ax.plot(
-                        x[edges[:, eIdx]],
-                        y[edges[:, eIdx]],
-                        color="k",
-                        alpha=alpha,
-                        linewidth=edge_width,
-                    )
-                
-                # Plot nodes
-                ax.scatter(x, y, c="k", s=node_size, alpha=alpha)
-    
-    fig.tight_layout()
-    return fig
-
-
-
-################################################################################
-# General coarsening utility functions
-################################################################################
-
-
 def coarsen_vector(x, C):
     return (C.power(2)).dot(x)
-
-
-def lift_vector(x, C):
-    # Pinv = C.T; Pinv[Pinv>0] = 1
-    D = sp.sparse.diags(np.array(1 / np.sum(C, 0))[0])
-    Pinv = (C.dot(D)).T
-    return Pinv.dot(x)
 
 
 def coarsen_matrix(W, C):
@@ -393,11 +163,6 @@ def coarsen_matrix(W, C):
     D = sp.sparse.diags(np.array(1 / np.sum(C, 0))[0])
     Pinv = (C.dot(D)).T
     return (Pinv.T).dot(W.dot(Pinv))
-
-
-def lift_matrix(W, C):
-    P = C.power(2)
-    return (P.T).dot(W.dot(P))
 
 
 def get_coarsening_matrix(G, partitioning):
@@ -445,399 +210,6 @@ def get_coarsening_matrix(G, partitioning):
 
     return C
 
-
-def coarsening_quality(G, C, kmax=30, Uk=None, lk=None):
-    """
-    Measures how good is a coarsening.
-
-    Parameters
-    ----------
-    G : pygsp Graph
-    C : np.array(n,N)
-        The coarsening matrix
-    kmax : int
-        Until which eigenvalue we are interested in.
-
-    Returns
-    -------
-    metric : dictionary
-        Contains all relevant metrics for coarsening quality:
-        * error_eigenvalue : np.array(kmax)
-        * error_subspace : np.array(kmax)
-        * error_sintheta : np.array(kmax)
-        * angle_matrix : np.array(kmax)
-        * rss constants : np.array(kmax)
-        as well as some general properties of Gc:
-        * r : int
-            reduction ratio
-        * m : int
-            number of edges
-    """
-    N = G.N
-    I = np.eye(N)
-
-    if (Uk is not None) and (lk is not None) and (len(lk) >= kmax):
-        U, l = Uk, lk
-    elif hasattr(G, "U"):
-        U, l = G.U, G.e
-    else:
-        l, U = sp.sparse.linalg.eigsh(G.L, k=kmax, which="SM", tol=1e-3)
-
-    l[0] = 1
-    linv = l ** (-0.5)
-    linv[0] = 0
-    # l[0] = 0 # avoids divide by 0
-
-    # below here, everything is C specific
-    n = C.shape[0]
-    Pi = C.T @ C
-    S = graph_utils.get_S(G).T
-    Lc = C.dot((G.L).dot(C.T))
-    Lp = Pi @ G.L @ Pi
-
-    if kmax > n / 2:
-        [Uc, lc] = graph_utils.eig(Lc.toarray())
-    else:
-        lc, Uc = sp.sparse.linalg.eigsh(Lc, k=kmax, which="SM", tol=1e-3)
-
-    if not sp.sparse.issparse(Lc):
-        pass  # Lc should be sparse
-
-    metrics = {"r": 1 - n / N, "m": int((Lc.nnz - n) / 2)}
-
-    kmax = np.clip(kmax, 1, n)
-
-    # eigenvalue relative error
-    metrics["error_eigenvalue"] = np.abs(l[:kmax] - lc[:kmax]) / l[:kmax]
-    metrics["error_eigenvalue"][0] = 0
-
-    # angles between eigenspaces
-    metrics["angle_matrix"] = U.T @ C.T @ Uc
-
-    # rss constants
-    #    metrics['rss'] = np.diag(U.T @ Lp @ U)/l - 1
-    #    metrics['rss'][0] = 0
-
-    # other errors
-    kmax = np.clip(kmax, 2, n)
-
-    error_subspace = np.zeros(kmax)
-    error_subspace_bound = np.zeros(kmax)
-    error_sintheta = np.zeros(kmax)
-
-    M = S @ Pi @ U @ np.diag(linv)
-    #    M_bound = S @ (I - Pi) @ U @ np.diag(linv)
-
-    for kIdx in range(1, kmax):
-        error_subspace[kIdx] = np.abs(np.linalg.norm(M[:, : kIdx + 1], ord=2) - 1)
-        #        error_subspace_bound[kIdx] = np.linalg.norm( M_bound[:,:kIdx + 1], ord=2)
-        error_sintheta[kIdx] = (
-            np.linalg.norm(metrics["angle_matrix"][0 : kIdx + 1, kIdx + 1 :], ord="fro")
-            ** 2
-        )
-
-    metrics["error_subspace"] = error_subspace
-    # metrics['error_subspace_bound'] = error_subspace_bound
-    metrics["error_sintheta"] = error_sintheta
-
-    return metrics
-
-
-def plot_coarsening(
-    Gall, Call, size=3, edge_width=0.8, node_size=20, alpha=0.55, title="", entropies=None
-):
-    """
-    Plot a (hierarchical) coarsening
-
-    Parameters
-    ----------
-    G_all : list of pygsp Graphs
-    Call  : list of np.arrays
-
-    Returns
-    -------
-    fig : matplotlib figure
-    """
-    # colors signify the size of a coarsened subgraph ('k' is 1, 'g' is 2, 'b' is 3, and so on)
-    colors = ["k", "g", "b", "r", "y"]
-
-    n_levels = len(Gall) - 1
-    if n_levels == 0:
-        return None
-    fig = plt.figure(figsize=(n_levels * size * 3, size * 2))
-
-    for level in range(n_levels):
-
-        G = Gall[level]
-        edges = np.array(G.get_edge_list()[0:2])
-
-        Gc = Gall[level + 1]
-        #         Lc = C.dot(G.L.dot(C.T))
-        #         Wc = sp.sparse.diags(Lc.diagonal(), 0) - Lc;
-        #         Wc = (Wc + Wc.T) / 2
-        #         Gc = gsp.graphs.Graph(Wc, coords=(C.power(2)).dot(G.coords))
-        edges_c = np.array(Gc.get_edge_list()[0:2])
-        C = Call[level]
-        C = C.toarray()
-
-        if G.coords.shape[1] == 2:
-            ax = fig.add_subplot(1, n_levels + 1, level + 1)
-            ax.axis("off")
-            if entropies:
-                ax.set_title(f"{title} | level = {level}, N = {G.N}\nEntropy = {entropies[level]:.4f}")
-            else:
-                ax.set_title(f"{title} | level = {level}, N = {G.N}")
-                
-            [x, y] = G.coords.T
-            for eIdx in range(0, edges.shape[1]):
-                ax.plot(
-                    x[edges[:, eIdx]],
-                    y[edges[:, eIdx]],
-                    color="k",
-                    alpha=alpha,
-                    linewidth=edge_width,
-                )
-            for i in range(Gc.N):
-                subgraph = np.arange(G.N)[C[i, :] > 0]
-                ax.scatter(
-                    x[subgraph],
-                    y[subgraph],
-                    c=colors[np.clip(len(subgraph) - 1, 0, 4)],
-                    s=node_size * len(subgraph),
-                    alpha=alpha,
-                )
-
-        elif G.coords.shape[1] == 3:
-            ax = fig.add_subplot(1, n_levels + 1, level + 1, projection="3d")
-            ax.axis("off")
-
-            [x, y, z] = G.coords.T
-            for eIdx in range(0, edges.shape[1]):
-                ax.plot(
-                    x[edges[:, eIdx]],
-                    y[edges[:, eIdx]],
-                    zs=z[edges[:, eIdx]],
-                    color="k",
-                    alpha=alpha,
-                    linewidth=edge_width,
-                )
-            for i in range(Gc.N):
-                subgraph = np.arange(G.N)[C[i, :] > 0]
-                ax.scatter(
-                    x[subgraph],
-                    y[subgraph],
-                    z[subgraph],
-                    c=colors[np.clip(len(subgraph) - 1, 0, 4)],
-                    s=node_size * len(subgraph),
-                    alpha=alpha,
-                )
-
-    # the final graph
-    Gc = Gall[-1]
-    edges_c = np.array(Gc.get_edge_list()[0:2])
-
-    if G.coords.shape[1] == 2:
-        ax = fig.add_subplot(1, n_levels + 1, n_levels + 1)
-        ax.axis("off")
-        [x, y] = Gc.coords.T
-        ax.scatter(x, y, c="k", s=node_size, alpha=alpha)
-        for eIdx in range(0, edges_c.shape[1]):
-            ax.plot(
-                x[edges_c[:, eIdx]],
-                y[edges_c[:, eIdx]],
-                color="k",
-                alpha=alpha,
-                linewidth=edge_width,
-            )
-
-    elif G.coords.shape[1] == 3:
-        ax = fig.add_subplot(1, n_levels + 1, n_levels + 1, projection="3d")
-        ax.axis("off")
-        [x, y, z] = Gc.coords.T
-        ax.scatter(x, y, z, c="k", s=node_size, alpha=alpha)
-        for eIdx in range(0, edges_c.shape[1]):
-            ax.plot(
-                x[edges_c[:, eIdx]],
-                y[edges_c[:, eIdx]],
-                z[edges_c[:, eIdx]],
-                color="k",
-                alpha=alpha,
-                linewidth=edge_width,
-            )
-
-    if entropies:
-        ax.set_title(f"{title} | level = {n_levels}, n = {Gc.N}\nEntropy = {entropies[-1]:.4f}")
-    else:
-        ax.set_title(f"{title} | level = {n_levels}, n = {Gc.N}")
-    fig.tight_layout()
-    return fig
-
-
-def plot_graph(G, size=3, edge_width=0.8, node_size=20, alpha=0.55, title=""):
-    """
-    Plot a single graph using PyGSP visualization style.
-    Works with both PyGSP and NetworkX graphs.
-    
-    Parameters
-    ----------
-    G : pygsp Graph or networkx Graph
-        The graph to visualize
-    size : int
-        Size multiplier for the figure
-    edge_width : float
-        Width of the edges
-    node_size : int
-        Size of the nodes
-    alpha : float
-        Transparency level
-    title : str
-        Title of the plot
-        
-    Returns
-    -------
-    fig : matplotlib figure
-    """
-    # Create figure
-    fig = plt.figure(figsize=(size * 3, size * 2))
-    
-    # Check graph type and get edges appropriately
-    if hasattr(G, 'get_edge_list'):  # PyGSP graph
-        edges = np.array(G.get_edge_list()[0:2])
-    else:  # NetworkX graph
-        edges = np.array(list(G.edges())).T
-    
-    # Handle coordinates
-    if hasattr(G, 'coords'):  # PyGSP graph
-        coords = G.coords
-    else:  # NetworkX graph
-        # Generate positions if they don't exist
-        pos = nx.spring_layout(G)
-        coords = np.array([pos[i] for i in range(len(G))])
-    
-    if coords.shape[1] == 2:
-        # 2D plot
-        ax = fig.add_subplot(111)
-        ax.axis("off")
-        
-        [x, y] = coords.T
-        # Plot edges
-        for i in range(edges.shape[1] if len(edges.shape) > 1 else len(edges)):
-            if len(edges.shape) > 1:
-                edge = edges[:, i]
-            else:
-                edge = edges[i]
-            ax.plot(
-                [x[edge[0]], x[edge[1]]],
-                [y[edge[0]], y[edge[1]]],
-                color="k",
-                alpha=alpha,
-                linewidth=edge_width,
-            )
-        # Plot nodes
-        ax.scatter(x, y, c="k", s=node_size, alpha=alpha)
-        
-    elif coords.shape[1] == 3:
-        # 3D plot
-        ax = fig.add_subplot(111, projection="3d")
-        ax.axis("off")
-        
-        [x, y, z] = coords.T
-        # Plot edges
-        for i in range(edges.shape[1] if len(edges.shape) > 1 else len(edges)):
-            if len(edges.shape) > 1:
-                edge = edges[:, i]
-            else:
-                edge = edges[i]
-            ax.plot(
-                [x[edge[0]], x[edge[1]]],
-                [y[edge[0]], y[edge[1]]],
-                [z[edge[0]], z[edge[1]]],
-                color="k",
-                alpha=alpha,
-                linewidth=edge_width,
-            )
-        # Plot nodes
-        ax.scatter(x, y, z, c="k", s=node_size, alpha=alpha)
-    
-    if title:
-        ax.set_title(f"{title} | N = {len(G)}")
-    fig.tight_layout()
-    return fig
-
-################################################################################
-# My coarsing plot
-################################################################################
-
-def plot_coarsening_vertical(Gall, algorithm, figsize=(15, 20), graph_height=4, info_width_ratio=0.3, 
-                           edge_width=0.8, node_size=20, alpha=0.55, title=""):
-    """Plot coarsening graphs vertically with metadata - NetworkX version"""
-    n_graphs = len(Gall)
-    fig = plt.figure(figsize=figsize)
-    gs = gridspec.GridSpec(n_graphs, 2, width_ratios=[1-info_width_ratio, info_width_ratio])
-    
-    for idx, G in enumerate(Gall):
-        # Graph subplot
-        ax_graph = fig.add_subplot(gs[idx, 0])
-        ax_graph.axis('off')
-        
-        # Generate layout for NetworkX graph
-        pos = nx.spring_layout(G)
-        
-        # Draw the graph
-        nx.draw_networkx_edges(G, pos, alpha=alpha, width=edge_width, ax=ax_graph)
-        nx.draw_networkx_nodes(G, pos, node_size=node_size, alpha=alpha, ax=ax_graph)
-        
-        ax_graph.set_title(f"Level {idx} | N = {len(G)}")
-        
-        # Metadata subplot
-        ax_info = fig.add_subplot(gs[idx, 1])
-        ax_info.axis('off')
-        
-        if algorithm == "Lempel-Ziv":
-            metadata = get_entropy_metadata(G)
-        if algorithm == "Arithmetic Encoding":
-            metadata = get_entropy_metadata_aritmethicEncoding(G)
-        if algorithm == "Theoretic Encoding":
-            metadata = get_entropy_metadata_theoreticEncoding(G)
-    
-        text = "\n".join([f"{k}: {v}" for k,v in metadata.items()])
-        ax_info.text(0.1, 0.5, text, transform=ax_info.transAxes,
-                    verticalalignment='center')
-    
-    if title:
-        fig.suptitle(title, y=0.92)
-    fig.tight_layout()
-    return fig
-
-def get_entropy_metadata(G):
-    """Calculate entropy metrics for a graph and its random counterpart"""
-    n = len(G)
-    e = G.number_of_edges()
-    
-    # Create Erdos-Renyi random graph with same n,e
-    p = (2.0 * e) / (n * (n-1)) if n > 1 else 0
-    G_random = nx.erdos_renyi_graph(n, p)
-    
-    # Calculate entropy using new_Entropia
-    lempev_Ziv_grafo, lempev_Ziv_B1, lempev_Ziv_B2, lempev_Ziv_grafo_r, lempev_Ziv_B1_r, lempev_Ziv_B2_r = ce.new_Entropia(G, G_random)
-    
-    # The function new_Entropia already prints detailed information about LZ76 values
-    # We'll return the normalized entropy
-    return {
-        "Entropy Normalizado": (lempev_Ziv_grafo)/(lempev_Ziv_grafo_r),
-        "Entropy Normalizado B1": (lempev_Ziv_B1)/(lempev_Ziv_B1_r),
-        "Entropy Normalizado B2": (lempev_Ziv_B2)/(lempev_Ziv_B2_r),
-        "Grafo": (lempev_Ziv_grafo),
-        "Grafo_r": (lempev_Ziv_grafo_r),
-        "B1": (lempev_Ziv_B1),
-        "B1_r": (lempev_Ziv_B1_r),
-        "B2": (lempev_Ziv_B2),
-        "B2_r": (lempev_Ziv_B2_r)
-    }
-
-#####################################################################################
-######   Arithmetic Encoding Entropy Metrics using random graphs to normalize  ######
-#####################################################################################
 
 def get_entropy_metadata_aritmethicEncoding(G):
     """Calculate entropy metrics for a graph and its random counterpart"""
@@ -892,47 +264,7 @@ def get_entropy_metadata_aritmethicEncoding(G):
         
     }
     
-def get_entropy_metadata_theoreticEncoding(G):
-
-    n = len(G)
-    e = G.number_of_edges()
-    
-    # Create Erdos-Renyi random graph with same n,e
-    p = (2.0 * e) / (n * (n-1)) if n > 1 else 0
-    
-    entropiaGrafo = ce.entropiaArithmeticTheoretic(G)
-    
-    # Número de posibles pares de nodos
-    n_choose_2 = (n * (n-1)) / 2
-    
-    # Probabilidad de enlace q
-    q = e / n_choose_2
-    
-    # Calculamos h(q) = -qlog(q) - (1-q)log(1-q)
-    # Manejamos casos extremos para evitar log(0)
-    if q == 0:
-        hq = 0
-    elif q == 1:
-        hq = 0  
-    else:
-        hq = -q * math.log2(q) - (1-q) * math.log2(1-q)
-    
-    # R = (N choose 2)h(q) - NlogN
-    R = (n_choose_2 * hq) - (n * math.log2(n))
-    
-    return {
-        "Entropy Normalizado": (entropiaGrafo)/(R),
-        "Grafo": (entropiaGrafo),
-        "Theoretic Entropy": (R)
-    }
-
-
-################################################################################
-# Variation-based contraction algorithms
-################################################################################
-
-
-def contract_variation_edges(G, A=None, K=10, r=0.5, algorithm="greedy"):
+def contract_variation_edges(G, A=None, K=10, r=0.5):
     """
     Sequential contraction with local variation and edge-based families.
     This is a specialized implementation for the edge-based family, that works
@@ -968,13 +300,8 @@ def contract_variation_edges(G, A=None, K=10, r=0.5, algorithm="greedy"):
     # for e in range(M):
     #    weights[e] = subgraph_cost_old(G, A, edges[:,e])
 
-    if algorithm == "optimal":
-        # identify the minimum weight matching
-        coarsening_list = matching_optimal(G, weights=weights, r=r)
-
-    elif algorithm == "greedy":
-        # find a heavy weight matching
-        coarsening_list = matching_greedy(G, weights=-weights, r=r)
+    # find a heavy weight matching
+    coarsening_list = matching_greedy(G, weights=-weights, r=r)
 
     return coarsening_list
 
@@ -1104,6 +431,49 @@ def contract_variation_linear(G, A=None, K=10, r=0.5, mode="neighborhood"):
 ################################################################################
 # Edge-based contraction algorithms
 ################################################################################
+
+
+def generate_test_vectors(
+    G, num_vectors=10, method="Gauss-Seidel", iterations=5, lambda_cut=0.1
+):
+
+    L = G.L
+    N = G.N
+    X = np.random.randn(N, num_vectors) / np.sqrt(N)
+
+    if method == "GS" or method == "Gauss-Seidel":
+
+        L_upper = sp.sparse.triu(L, 1, format="csc")
+        L_lower_diag = sp.sparse.triu(L, 0, format="csc").T
+
+        for j in range(num_vectors):
+            x = X[:, j]
+            for t in range(iterations):
+                x = -sp.sparse.linalg.spsolve_triangular(L_lower_diag, L_upper @ x)
+            X[:, j] = x
+        return X
+
+    if method == "JC" or method == "Jacobi":
+
+        deg = G.dw.astype(float)
+        D = sp.sparse.diags(deg, 0)
+        deginv = deg ** (-1)
+        deginv[deginv == np.inf] = 0
+        Dinv = sp.sparse.diags(deginv, 0)
+        M = Dinv.dot(D - L)
+
+        for j in range(num_vectors):
+            x = X[:, j]
+            for t in range(iterations):
+                x = 0.5 * x + 0.5 * M.dot(x)
+            X[:, j] = x
+        return X
+
+    elif method == "Chebychev":
+        from pygsp import filters
+
+        f = filters.Filter(G, lambda x: ((x <= lambda_cut) * 1).astype(np.float32))
+        return f.filter(X, method="chebyshev", order=50)
 
 
 def get_proximity_measure(G, name, K=10):
@@ -1262,123 +632,6 @@ def get_proximity_measure(G, name, K=10):
     return proximity
 
 
-def generate_test_vectors(
-    G, num_vectors=10, method="Gauss-Seidel", iterations=5, lambda_cut=0.1
-):
-
-    L = G.L
-    N = G.N
-    X = np.random.randn(N, num_vectors) / np.sqrt(N)
-
-    if method == "GS" or method == "Gauss-Seidel":
-
-        L_upper = sp.sparse.triu(L, 1, format="csc")
-        L_lower_diag = sp.sparse.triu(L, 0, format="csc").T
-
-        for j in range(num_vectors):
-            x = X[:, j]
-            for t in range(iterations):
-                x = -sp.sparse.linalg.spsolve_triangular(L_lower_diag, L_upper @ x)
-            X[:, j] = x
-        return X
-
-    if method == "JC" or method == "Jacobi":
-
-        deg = G.dw.astype(float)
-        D = sp.sparse.diags(deg, 0)
-        deginv = deg ** (-1)
-        deginv[deginv == np.inf] = 0
-        Dinv = sp.sparse.diags(deginv, 0)
-        M = Dinv.dot(D - L)
-
-        for j in range(num_vectors):
-            x = X[:, j]
-            for t in range(iterations):
-                x = 0.5 * x + 0.5 * M.dot(x)
-            X[:, j] = x
-        return X
-
-    elif method == "Chebychev":
-        from pygsp import filters
-
-        f = filters.Filter(G, lambda x: ((x <= lambda_cut) * 1).astype(np.float32))
-        return f.filter(X, method="chebyshev", order=50)
-
-
-def matching_optimal(G, weights, r=0.4):
-    """
-    Generates a matching optimally with the objective of minimizing the total
-    weight of all edges in the matching.
-
-    Parameters
-    ----------
-    G : pygsp graph
-    weights : np.array(M)
-        a weight for each edge
-    ratio : float
-        The desired dimensionality reduction (ratio = 1 - n/N)
-
-    Notes:
-    * The complexity of this is O(N^3)
-    * Depending on G, the algorithm might fail to return ratios>0.3
-    """
-    N = G.N
-
-    # the edge set
-    edges = G.get_edge_list()
-    edges = np.array(edges[0:2])
-    M = edges.shape[1]
-
-    max_weight = 1 * np.max(weights)
-
-    # prepare the input for the minimum weight matching problem
-    edge_list = []
-    for edgeIdx in range(M):
-        [i, j] = edges[:, edgeIdx]
-        if i == j:
-            continue
-        edge_list.append((i, j, max_weight - weights[edgeIdx]))
-
-    assert min(weights) >= 0
-
-    # solve it
-    tmp = np.array(maxWeightMatching.maxWeightMatching(edge_list))
-
-    # format output
-    m = tmp.shape[0]
-    matching = np.zeros((m, 2), dtype=int)
-    matching[:, 0] = range(m)
-    matching[:, 1] = tmp
-
-    # remove null edges and duplicates
-    idx = np.where(tmp != -1)[0]
-    matching = matching[idx, :]
-    idx = np.where(matching[:, 0] > matching[:, 1])[0]
-    matching = matching[idx, :]
-
-    assert matching.shape[0] >= 1
-
-    # if the returned matching is larger than what is requested, select the min weight subset of it
-    matched_weights = np.zeros(matching.shape[0])
-    for mIdx in range(matching.shape[0]):
-        i = matching[mIdx, 0]
-        j = matching[mIdx, 1]
-        eIdx = [
-            e
-            for e, t in enumerate(edges[:, :].T)
-            if ((t == [i, j]).all() or (t == [j, i]).all())
-        ]
-        matched_weights[mIdx] = weights[eIdx]
-
-    keep = min(int(np.ceil(r * N)), matching.shape[0])
-    if keep < matching.shape[0]:
-        idx = np.argpartition(matched_weights, keep)
-        idx = idx[0:keep]
-        matching = matching[idx, :]
-
-    return matching
-
-
 def matching_greedy(G, weights, r=0.4):
     """
     Generates a matching greedily by selecting at each iteration the edge
@@ -1438,319 +691,3 @@ def matching_greedy(G, weights, r=0.4):
             break
 
     return np.array(matching)
-
-
-##############################################################################
-# Sparsification and Kron reduction
-# Most of the code has been adapted from the PyGSP implementation.
-##############################################################################
-def kron_coarsening(G, r=0.5, m=None):
-
-    if not hasattr(G, "coords"):
-        G.set_coordinates(np.random.rand(G.N, 2))  # needed by kron
-
-    n_target = np.floor((1 - r) * G.N)
-    levels = int(np.ceil(np.log2(G.N / n_target)))
-
-    try:
-        Gs = my_graph_multiresolution(
-            G,
-            levels,
-            r=r,
-            sparsify=False,
-            sparsify_eps=None,
-            reduction_method="kron",
-            reg_eps=0.01,
-        )
-        Gk = Gs[-1]
-
-        # sparsify to a target number of edges m
-        if m is not None:
-            M = Gk.Ne  # int(Gk.W.nnz/2)
-            epsilon = min(10 / np.sqrt(G.N), 0.3)  # 1 - m/M
-            Gc = graph_sparsify(Gk, epsilon, maxiter=10)
-            Gc.mr = Gk.mr
-        else:
-            Gc = Gk
-
-        return Gc, Gs[0]
-
-    except:
-        return None, None
-
-
-def kron_quality(G, Gc, kmax=30, Uk=None, lk=None):
-
-    N, n = G.N, Gc.N
-    keep_inds = Gc.mr["idx"]
-
-    metrics = {"r": 1 - n / N, "m": int(Gc.W.nnz / 2), "failed": False}
-    kmax = np.clip(kmax, 1, n)
-
-    if (Uk is not None) and (lk is not None) and (len(lk) >= kmax):
-        U, l = Uk, lk
-    elif hasattr(G, "U"):
-        U, l = G.U, G.e
-    else:
-        l, U = sp.sparse.linalg.eigsh(G.L, k=kmax, which="SM", tol=1e-3)
-
-    l[0] = 1
-    linv = l ** (-0.5)
-    linv[0] = 0
-    # avoids divide by 0
-
-    C = np.eye(N)
-    C = C[keep_inds, :]
-    L = G.L.toarray()
-
-    try:
-        Phi = np.linalg.pinv(L + 0.01 * np.eye(N))
-        Cinv = (Phi @ C.T) @ np.linalg.pinv(C @ Phi @ C.T)
-
-        if kmax > n / 2:
-            [Uc, lc] = graph_utils.eig(Gc.L.toarray())
-        else:
-            lc, Uc = sp.sparse.linalg.eigsh(Gc.L, k=kmax, which="SM", tol=1e-3)
-
-        # eigenvalue relative error
-        metrics["error_eigenvalue"] = np.abs(l[:kmax] - lc[:kmax]) / l[:kmax]
-        metrics["error_eigenvalue"][0] = 0
-
-        # TODO : angles between eigenspaces
-        # metrics['angle_matrix'] = U.T @ C.T @ Uc
-
-        # other errors
-        kmax = np.clip(kmax, 2, n)
-
-        error_subspace = np.zeros(kmax)
-        error_sintheta = np.zeros(kmax)
-
-        # M = (Lsqrtm - sp.linalg.sqrtm(Cinv @ Gc.L.dot(C))) @ U @ np.diag(linv) # is this correct?
-        M = U - sp.linalg.sqrtm(Cinv @ Gc.L.dot(C)) @ U @ np.diag(
-            linv
-        )  # is this correct?
-        for kIdx in range(0, kmax):
-            error_subspace[kIdx] = np.abs(np.linalg.norm(M[:, : kIdx + 1], ord=2) - 1)
-
-        metrics["error_subspace"] = error_subspace
-        metrics["error_sintheta"] = error_sintheta
-
-    except:
-        metrics["failed"] = True
-
-    return metrics
-
-
-def kron_interpolate(G, Gc, x):
-    return np.squeeze(reduction.interpolate(G, x, Gc.mr["idx"]))
-
-
-def my_graph_multiresolution(
-    G,
-    levels,
-    r=0.5,
-    sparsify=True,
-    sparsify_eps=None,
-    downsampling_method="largest_eigenvector",
-    reduction_method="kron",
-    compute_full_eigen=False,
-    reg_eps=0.005,
-):
-    r"""Compute a pyramid of graphs (by Kron reduction).
-
-    'graph_multiresolution(G,levels)' computes a multiresolution of
-    graph by repeatedly downsampling and performing graph reduction. The
-    default downsampling method is the largest eigenvector method based on
-    the polarity of the components of the eigenvector associated with the
-    largest graph Laplacian eigenvalue. The default graph reduction method
-    is Kron reduction followed by a graph sparsification step.
-    *param* is a structure of optional parameters.
-
-    Parameters
-    ----------
-    G : Graph structure
-        The graph to reduce.
-    levels : int
-        Number of level of decomposition
-    lambd : float
-        Stability parameter. It adds self loop to the graph to give the
-        algorithm some stability (default = 0.025). [UNUSED?!]
-    sparsify : bool
-        To perform a spectral sparsification step immediately after
-        the graph reduction (default is True).
-    sparsify_eps : float
-        Parameter epsilon used in the spectral sparsification
-        (default is min(10/sqrt(G.N),.3)).
-    downsampling_method: string
-        The graph downsampling method (default is 'largest_eigenvector').
-    reduction_method : string
-        The graph reduction method (default is 'kron')
-    compute_full_eigen : bool
-        To also compute the graph Laplacian eigenvalues and eigenvectors
-        for every graph in the multiresolution sequence (default is False).
-    reg_eps : float
-        The regularized graph Laplacian is :math:`\bar{L}=L+\epsilon I`.
-        A smaller epsilon may lead to better regularization, but will also
-        require a higher order Chebyshev approximation. (default is 0.005)
-
-    Returns
-    -------
-    Gs : list
-        A list of graph layers.
-
-    Examples
-    --------
-    >>> from pygsp import reduction
-    >>> levels = 5
-    >>> G = graphs.Sensor(N=512)
-    >>> G.compute_fourier_basis()
-    >>> Gs = reduction.graph_multiresolution(G, levels, sparsify=False)
-    >>> for idx in range(levels):
-    ...     Gs[idx].plotting['plot_name'] = 'Reduction level: {}'.format(idx)
-    ...     Gs[idx].plot()
-
-    """
-    if sparsify_eps is None:
-        sparsify_eps = min(10.0 / np.sqrt(G.N), 0.3)
-
-    if compute_full_eigen:
-        G.compute_fourier_basis()
-    else:
-        G.estimate_lmax()
-
-    Gs = [G]
-    Gs[0].mr = {"idx": np.arange(G.N), "orig_idx": np.arange(G.N)}
-
-    n_target = int(np.floor(G.N * (1 - r)))
-
-    for i in range(levels):
-        if downsampling_method == "largest_eigenvector":
-            if hasattr(Gs[i], "_U"):
-                V = Gs[i].U[:, -1]
-            else:
-                V = sp.sparse.linalg.eigs(Gs[i].L, 1)[1][:, 0]
-
-            V *= np.sign(V[0])
-            n = max(int(Gs[i].N / 2), n_target)
-
-            ind = np.argsort(V)  # np.nonzero(V >= 0)[0]
-            ind = np.flip(ind, 0)
-            ind = ind[:n]
-
-        else:
-            raise NotImplementedError("Unknown graph downsampling method.")
-
-        if reduction_method == "kron":
-            Gs.append(reduction.kron_reduction(Gs[i], ind))
-
-        else:
-            raise NotImplementedError("Unknown graph reduction method.")
-
-        if sparsify and Gs[i + 1].N > 2:
-            Gs[i + 1] = reduction.graph_sparsify(
-                Gs[i + 1], min(max(sparsify_eps, 2.0 / np.sqrt(Gs[i + 1].N)), 1.0)
-            )
-
-        if Gs[i + 1].is_directed():
-            W = (Gs[i + 1].W + Gs[i + 1].W.T) / 2
-            Gs[i + 1] = graphs.Graph(W, coords=Gs[i + 1].coords)
-
-        if compute_full_eigen:
-            Gs[i + 1].compute_fourier_basis()
-        else:
-            Gs[i + 1].estimate_lmax()
-
-        Gs[i + 1].mr = {"idx": ind, "orig_idx": Gs[i].mr["orig_idx"][ind], "level": i}
-
-        L_reg = Gs[i].L + reg_eps * sparse.eye(Gs[i].N)
-        Gs[i].mr["K_reg"] = reduction.kron_reduction(L_reg, ind)
-        Gs[i].mr["green_kernel"] = filters.Filter(Gs[i], lambda x: 1.0 / (reg_eps + x))
-
-    return Gs
-
-
-def graph_sparsify(M, epsilon, maxiter=10):
-
-    from pygsp import utils
-    from scipy import sparse, stats
-
-    # Test the input parameters
-    if isinstance(M, graphs.Graph):
-        if not M.lap_type == "combinatorial":
-            raise NotImplementedError
-        L = M.L
-    else:
-        L = M
-
-    N = np.shape(L)[0]
-
-    if not 1.0 / np.sqrt(N) <= epsilon < 1:
-        raise ValueError("GRAPH_SPARSIFY: Epsilon out of required range")
-
-    # Not sparse
-    resistance_distances = utils.resistance_distance(L).toarray()
-    # Get the Weight matrix
-    if isinstance(M, graphs.Graph):
-        W = M.W
-    else:
-        W = np.diag(L.diagonal()) - L.toarray()
-        W[W < 1e-10] = 0
-
-    W = sparse.coo_matrix(W)
-    W.data[W.data < 1e-10] = 0
-    W = W.tocsc()
-    W.eliminate_zeros()
-
-    start_nodes, end_nodes, weights = sparse.find(sparse.tril(W))
-
-    # Calculate the new weights.
-    weights = np.maximum(0, weights)
-    Re = np.maximum(0, resistance_distances[start_nodes, end_nodes])
-    Pe = weights * Re + 1e-4
-    Pe = Pe / np.sum(Pe)
-
-    for i in range(maxiter):
-        # Rudelson, 1996 Random Vectors in the Isotropic Position
-        # (too hard to figure out actual C0)
-        C0 = 1 / 30.0
-        # Rudelson and Vershynin, 2007, Thm. 3.1
-        C = 4 * C0
-        q = round(N * np.log(N) * 9 * C ** 2 / (epsilon ** 2))
-
-        results = stats.rv_discrete(values=(np.arange(np.shape(Pe)[0]), Pe)).rvs(
-            size=int(q)
-        )
-        spin_counts = stats.itemfreq(results).astype(int)
-        per_spin_weights = weights / (q * Pe)
-
-        counts = np.zeros(np.shape(weights)[0])
-        counts[spin_counts[:, 0]] = spin_counts[:, 1]
-        new_weights = counts * per_spin_weights
-
-        sparserW = sparse.csc_matrix(
-            (new_weights, (start_nodes, end_nodes)), shape=(N, N)
-        )
-        sparserW = sparserW + sparserW.T
-        sparserL = sparse.diags(sparserW.diagonal(), 0) - sparserW
-
-    #        if graphs.Graph(W=sparserW).is_connected():
-    #            break
-    #        elif i == maxiter - 1:
-    #            print('Despite attempts to reduce epsilon, sparsified graph is disconnected')
-    #        else:
-    #            epsilon -= (epsilon - 1/np.sqrt(N)) / 2.
-
-    if isinstance(M, graphs.Graph):
-        sparserW = sparse.diags(sparserL.diagonal(), 0) - sparserL
-        if not M.is_directed():
-            sparserW = (sparserW + sparserW.T) / 2.0
-
-        Mnew = graphs.Graph(W=sparserW)
-        # M.copy_graph_attributes(Mnew)
-    else:
-        Mnew = sparse.lil_matrix(sparserL)
-
-    return Mnew
-
-
-##############################################################################

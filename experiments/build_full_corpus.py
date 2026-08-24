@@ -27,8 +27,8 @@ Usage
 
 Output
 ------
-    algorithm/Entropy_Experiments/Real_World_Networks/all_networks.pkl
-        Same schema as undirected_networks.pkl, plus:
+    data/all_networks.pkl
+        One row per retained network, plus:
           was_directed    bool  — flagged Directed in the source metadata
           n_reciprocal    int   — reciprocated pairs found (expected 0, see above)
           reciprocity     float — n_reciprocal / edge count (expected 0)
@@ -45,11 +45,13 @@ import pandas as pd
 import networkx as nx
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OUT_PKL = os.path.join(PROJECT_ROOT, 'algorithm', 'Entropy_Experiments',
-                       'Real_World_Networks', 'all_networks.pkl')
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
+from experiments import common                       # noqa: E402
 
-MIN_NODES = 20
-MIN_EDGES = 30
+OUT_PKL = common.CORPUS_PKL
+MIN_NODES = common.MIN_NODES
+MIN_EDGES = common.MIN_EDGES
 
 
 def symmetrize(row):

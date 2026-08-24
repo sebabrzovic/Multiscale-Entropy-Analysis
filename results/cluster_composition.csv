@@ -1,7 +1,7 @@
-domain,Cluster 1,Cluster 2,Cluster 3
-Biological,89,12,82
-Economic,114,1,7
-Informational,5,5,9
-Social,3,111,10
-Technological,28,4,40
-Transportation,10,2,26
+domain,1,2,3
+Biological,12,91,80
+Social,111,3,10
+Economic,1,114,7
+Technological,4,28,40
+Transportation,2,10,26
+Informational,4,7,8

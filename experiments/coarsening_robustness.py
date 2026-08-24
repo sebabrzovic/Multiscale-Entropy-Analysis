@@ -63,11 +63,9 @@ Outputs
 
 Corpus
 ------
-Defaults to all_networks.pkl (558 networks) when present, falling back to
-undirected_networks.pkl (443) otherwise. The full corpus additionally contains the
-networks flagged Directed in the source metadata; these are safe to include because
-CommunityFitNet stores every edge list as unordered pairs, so no orientation exists to
-discard. Build it with:
+Reads data/all_networks.pkl (558 networks). It includes the networks flagged Directed
+in the source metadata; these are safe to include because CommunityFitNet stores every
+edge list as unordered pairs, so no orientation exists to discard. Build it with:
 
     python experiments/build_full_corpus.py --source data/CommunityFitNet_updated.pickle
 
@@ -95,28 +93,23 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
+from experiments import common                                     # noqa: E402
+from experiments.common import PAPER_STYLE, build_graph            # noqa: E402
 from algorithm.coarsening_utils import coarsen, get_entropy_metadata_aritmethicEncoding
 
 # ── constants ────────────────────────────────────────────────────────────────
-_NET_DIR = os.path.join(PROJECT_ROOT, 'algorithm', 'Entropy_Experiments',
-                        'Real_World_Networks')
-FULL_PKL = os.path.join(_NET_DIR, 'all_networks.pkl')          # 558 networks
-UNDIRECTED_PKL = os.path.join(_NET_DIR, 'undirected_networks.pkl')  # 443 networks
-
-# Prefer the full corpus built by build_full_corpus.py, which additionally contains the
-# networks flagged Directed in the source metadata. Those are safe to include: every edge
-# list in CommunityFitNet is stored as an unordered pair (u <= v), so the flag records a
+# The corpus built by build_full_corpus.py: 558 networks, including those flagged
+# Directed in the source metadata. Those are safe to include -- every edge list in
+# CommunityFitNet is stored as an unordered pair (u <= v), so the flag records a
 # property of the original network rather than of the data, and no orientation is lost.
-# Falls back to the undirected-only corpus if the full one has not been built.
-PKL_PATH = FULL_PKL if os.path.exists(FULL_PKL) else UNDIRECTED_PKL
+PKL_PATH = common.CORPUS_PKL
 
 # Same filtering as run_real_networks_experiment.py, so the samples are comparable.
-MIN_NODES = 20
-MIN_EDGES = 30
+MIN_NODES = common.MIN_NODES
+MIN_EDGES = common.MIN_EDGES
 
-REDUCTION_LEVELS = [80, 60, 40, 20]
-VALID_DOMAINS = ['Biological', 'Social', 'Economic',
-                 'Transportation', 'Technological', 'Informational']
+REDUCTION_LEVELS = common.REDUCTION_LEVELS
+VALID_DOMAINS = common.DOMAINS
 
 # The reference method is listed first: every ARI is computed against it.
 #
@@ -145,19 +138,6 @@ OUT_CSV = os.path.join(PROJECT_ROOT, 'results', 'coarsening_robustness.csv')
 
 
 # ── graph construction (mirrors run_real_networks_experiment.py) ─────────────
-
-def build_graph(row):
-    """Largest connected component of the undirected version, relabelled 0..n-1."""
-    is_directed = 'Directed' in row['graphProperties']
-    G = nx.DiGraph() if is_directed else nx.Graph()
-    G.add_nodes_from(np.array(row['nodes_id']))
-    G.add_edges_from(np.array(row['edges_id']))
-    G = nx.to_undirected(G)
-    if not nx.is_connected(G):
-        G = G.subgraph(max(nx.connected_components(G), key=len)).copy()
-        G = nx.convert_node_labels_to_integers(G)
-    return G
-
 
 def stratified_sample(networks_df, per_domain, seed):
     """Pick `per_domain` networks per domain, spread evenly across the size range.
@@ -388,6 +368,7 @@ def analyze(args):
     import matplotlib
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
+    plt.rcParams.update(PAPER_STYLE)
 
     df = pd.read_csv(OUT_CSV)
     levels = [100, 80, 60, 40, 20]
