@@ -74,10 +74,14 @@ PREDICTORS = [f'H_{lv}' for lv in LEVELS]
 # merge broke or the link-prediction run is incomplete.
 MIN_EXPECTED_N = 550
 
+# Both predictors are reported against both measures of predictability: the
+# distributional one (prediction entropy) and the accuracy one (AUC). Reporting AUC
+# for SEAL but not for Adamic-Adar would leave the obvious comparison unmade.
 TARGETS = {
     'seal_entropy': 'SEAL prediction entropy',
     'seal_auc': 'SEAL AUC',
     'adamic_adar_entropy': 'Adamic-Adar prediction entropy',
+    'adamic_adar_auc': 'Adamic-Adar AUC',
 }
 
 
