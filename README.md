@@ -92,27 +92,7 @@ Figure and table numbers refer to the manuscript.
 | Table 11, Fig. 11 — scaling fits, cost by level | `runtime_benchmark.py --analyze` | `runtime_benchmark.csv` |
 | Tables 5–6 — coarsening robustness | `coarsening_robustness.py --analyze` | `coarsening_robustness.csv` |
 
-Figures are copied into the manuscript by `make sync`. **Table bodies are pasted into
-`body.tex` / `appendix.tex` by hand** — the files in `tables/` are drop-in `tabular`
-environments, so after regenerating them you must re-paste. This is the one manual link
-in the chain, and a stale paste is how one table once drifted out of step with the
-numbers behind it.
 
-### Figures the code does not generate
-
-Twelve raster figures in the paper are static assets with no generator in this
-repository, and no command above regenerates them:
-
-- the six per-domain coarsening panels (Fig. A3) — the network selection was made by hand
-  and survives only as a note beside the images;
-- the two residual panels (Fig. 10) — plotted in a notebook that never called `savefig`,
-  from a 431-network merge that has since been superseded;
-- `experimento2500.png`, `Adamic.png`, `Aritmeticopng.png` and the Figure 1 synthetic
-  panel — produced by notebooks belonging to the earlier version of this project.
-
-Those notebooks and their data were removed when the repository was reduced to the
-reproduction path. They remain in git history at commit `bb806bf` if the earlier analyses
-are ever needed.
 
 ## Method, in brief
 
