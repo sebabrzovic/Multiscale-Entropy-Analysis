@@ -107,6 +107,39 @@ def load_corpus(path=None):
     return pd.read_pickle(path)
 
 
+def spectral_entropy_at_levels(G, reduction_levels=None, K=10, warn=print):
+    """Return {level_pct: normalised compression entropy}, 100 = the uncoarsened graph.
+
+    The heavy imports are deferred to call time: the figure scripts import this module
+    for its constants and must not be made to depend on pygsp or the coarsening code.
+
+    A level that fails to coarsen yields None rather than aborting the network, which
+    is what lets a long run over a heterogeneous corpus finish and report the gaps.
+    """
+    import networkx as nx
+    from pygsp import graphs as pygsp_graphs
+    from algorithm.coarsening_utils import (coarsen,
+                                            get_entropy_metadata_aritmethicEncoding)
+
+    reduction_levels = REDUCTION_LEVELS if reduction_levels is None else reduction_levels
+    Gp = pygsp_graphs.Graph(nx.to_scipy_sparse_array(G))
+    out = {}
+    try:
+        out[100] = get_entropy_metadata_aritmethicEncoding(G)['Entropy Normalizado']
+    except Exception as exc:
+        warn(f'    entropy failed at 100%: {exc}')
+        out[100] = None
+    for r_pct in reduction_levels:
+        try:
+            _, Gc, _, __ = coarsen(Gp, K=K, r=1 - r_pct / 100)
+            G_red = nx.from_scipy_sparse_array(Gc.W)
+            out[r_pct] = get_entropy_metadata_aritmethicEncoding(G_red)['Entropy Normalizado']
+        except Exception as exc:
+            warn(f'    coarsen failed at {r_pct}%: {exc}')
+            out[r_pct] = None
+    return out
+
+
 # ── result loaders ───────────────────────────────────────────────────────────
 def load_trajectories(source='robustness'):
     """Entropy trajectories: one row per network, columns 100/80/60/40/20 + domain.

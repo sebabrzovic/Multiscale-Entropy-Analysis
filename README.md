@@ -54,8 +54,11 @@ data/CommunityFitNet_updated.pickle
         ├─(2b) coarsening_robustness.py ───────►  coarsening_robustness.csv
         │      the same trajectories under a second coarsening algorithm    hours
         │
-        └─(2c) runtime_benchmark.py ───────────►  runtime_benchmark.csv
-               per-stage wall-clock and peak memory                         ~1 hour
+        ├─(2c) runtime_benchmark.py ───────────►  runtime_benchmark.csv
+        │      per-stage wall-clock and peak memory                         ~1 hour
+        │
+        └─(2d) synthetic_families.py ──────────►  synthetic_families.csv
+               entropy of 4 synthetic families (no corpus needed)         ~2 hours
                  │
                  └─(3) rebuild_regression.py, clustering_analysis.py,
                        trajectory_figures.py, runtime_benchmark.py --analyze
@@ -81,6 +84,7 @@ Figure and table numbers refer to the manuscript.
 
 | Paper artifact | Produced by | Reads |
 |---|---|---|
+| Fig. 1 — entropy across synthetic families | `synthetic_families.py --analyze` | `synthetic_families.csv` |
 | Fig. 2 — entropy trajectories by domain | `trajectory_figures.py` | `coarsening_robustness.csv` |
 | Fig. 3 — k-means / PCA clusters | `clustering_analysis.py` | `coarsening_robustness.csv` |
 | Table 2 — cluster composition | `clustering_analysis.py` | `coarsening_robustness.csv` |
@@ -123,4 +127,9 @@ and the ratio diverges — a structural failure that more draws do not fix.
   per-domain file instead, which is useful for resuming a long run.
 - `experiments/common.py` holds the shared constants, paths, figure style and loaders.
   Anything used by more than one script belongs there rather than being copied.
+- `synthetic_families.py` generates its own graphs from a seed, so it is the one
+  stage-2 script that needs no corpus. It reimplements an analysis that used to live in
+  two notebooks (removed in the reduction; still at commit `bb806bf`). The original run
+  was unseeded, so reruns reproduce the shape of the published Figure 1 rather than its
+  exact curves.
 - Third-party code and data are documented in [THIRD_PARTY.md](THIRD_PARTY.md).

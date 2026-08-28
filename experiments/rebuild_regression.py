@@ -188,7 +188,9 @@ def model_ladder(sub, target, label):
     m1, m5 = fitted[1], fitted[5]
     df_num = m5.df_model - m1.df_model
     f_stat = ((m1.ssr - m5.ssr) / df_num) / (m5.ssr / m5.df_resid)
-    f_p = 1 - stats.f.cdf(f_stat, df_num, m5.df_resid)
+    # sf, not 1 - cdf: the latter saturates at ~1e-16 and understates p-values
+    # that are routinely far smaller than that here.
+    f_p = stats.f.sf(f_stat, df_num, m5.df_resid)
 
     # Subsets that matter for the manuscript's claims:
     #   H_40 / H_60 alone  -> the scalability argument in sec:cost
@@ -204,11 +206,33 @@ def model_ladder(sub, target, label):
     cv = cross_val_score(LinearRegression(), sub[PREDICTORS].values, y,
                          cv=KFold(5, shuffle=True, random_state=42), scoring='r2')
 
+    # Is the relationship just network size in disguise? Compare the entropy model
+    # against log-size and density, and report the partial correlation of H_100 with
+    # the target once those two are removed from both sides.
+    ctl = sub.assign(
+        logn=np.log10(sub['n_nodes'].astype(float)),
+        dens=2 * sub['n_edges'].astype(float)
+             / (sub['n_nodes'].astype(float) * (sub['n_nodes'].astype(float) - 1)))
+    ctl = ctl[np.isfinite(ctl[['logn', 'dens']].values).all(axis=1)]
+    Xc = sm.add_constant(ctl[['logn', 'dens']])
+    r2_ctl = sm.OLS(ctl[target], Xc).fit().rsquared
+    r2_both = sm.OLS(ctl[target],
+                     sm.add_constant(ctl[PREDICTORS + ['logn', 'dens']])).fit().rsquared
+    res_y = sm.OLS(ctl[target], Xc).fit().resid
+    res_x = sm.OLS(ctl['H_100'], Xc).fit().resid
+    partial_r = np.corrcoef(res_x, res_y)[0, 1]
+    raw_r = np.corrcoef(ctl['H_100'], ctl[target])[0, 1]
+
     print(f'\n── {label}  (n={len(sub)}) ' + '─' * (46 - len(label)))
     print(f'  Model 1 (H_100 only)      R2={m1.rsquared:.4f}  adj={m1.rsquared_adj:.4f}')
     print(f'  Model 5 (all five scales) R2={m5.rsquared:.4f}  adj={m5.rsquared_adj:.4f}')
     print(f'  F({int(df_num)},{int(m5.df_resid)}) = {f_stat:.2f}   p = {f_p:.3e}')
     print(f'  5-fold CV R2: {cv.mean():.4f} +/- {cv.std():.4f}')
+    print(f'  size/density control:  corr(H_100) {raw_r:+.3f} -> partial {partial_r:+.3f}')
+    print(f'    R2  logn+dens only {r2_ctl:.3f} | entropy only {m5.rsquared:.3f} | '
+          f'both {r2_both:.3f}')
+    print(f'    entropy adds {r2_both - r2_ctl:+.3f} over the controls; '
+          f'controls add {r2_both - m5.rsquared:+.3f} over entropy')
     for k, v in sub_r2.items():
         note = '  (never touches the full graph)' if 'H_100' not in k else ''
         print(f'  {k:22s} R2={v:.4f}{note}')
@@ -237,8 +261,12 @@ def model_ladder(sub, target, label):
     out.attrs['cv_mean'] = cv.mean()
     out.attrs['cv_std'] = cv.std()
     out.attrs['r2_h40'] = m40.rsquared
+    out.attrs['partial_r'] = partial_r
+    out.attrs['raw_r'] = raw_r
+    out.attrs['r2_ctl'] = r2_ctl
+    out.attrs['r2_both'] = r2_both
     out.attrs.update({f'r2_{k}': v for k, v in sub_r2.items()})
-    return out, fitted
+    return out, fitted, ctl
 
 
 def latex_regression_table(out, target, label):
@@ -271,6 +299,57 @@ def latex_regression_table(out, target, label):
     return '\n'.join(lines)
 
 
+def latex_control_table(ctl, target, PRED=None):
+    """Three-model comparison testing whether the entropy result is a size effect.
+
+    Columns: the two coarse descriptors alone, the multiscale entropy model alone,
+    and both together. If entropy were a proxy for how large or how dense a graph is,
+    column 1 would already capture most of what column 2 does, and column 3 would add
+    little over column 1.
+    """
+    import statsmodels.api as sm
+
+    PRED = PREDICTORS if PRED is None else PRED
+
+    def fmt_p(p):
+        if pd.isna(p):
+            return ''
+        if p < 1e-4:
+            return r'{\scriptsize ($<10^{-4}$)}'
+        if p < 1e-3:
+            return r'{\scriptsize ($<10^{-3}$)}'
+        return r'{\scriptsize (%.3f)}' % p
+
+    specs = [('Size only', ['logn', 'dens']),
+             ('Entropy only', list(PRED)),
+             ('Both', list(PRED) + ['logn', 'dens'])]
+    fits = [sm.OLS(ctl[target], sm.add_constant(ctl[cols])).fit() for _, cols in specs]
+
+    rows = ['const'] + list(PRED) + ['logn', 'dens']
+    pretty = {'const': r'$\mathit{const}$', 'logn': r'$\log_{10} n$',
+              'dens': r'$\mathit{density}$'}
+    for c in PRED:
+        pretty[c] = r'$H_{%s}$' % c.split('_')[1]
+
+    lines = [r'\begin{tabular}{lccc}', r'\toprule',
+             r'\textit{Predictors} & \textit{Size only} & \textit{Entropy only} & \textit{Both} \\',
+             r'\midrule']
+    for var in rows:
+        coefs = [('' if var not in f.params else f'{f.params[var]:.4f}') for f in fits]
+        ps = [('' if var not in f.pvalues else fmt_p(f.pvalues[var])) for f in fits]
+        if not any(coefs):
+            continue
+        lines.append(f'{pretty[var]} & ' + ' & '.join(coefs) + r' \\')
+        lines.append(' & ' + ' & '.join(ps) + r' \\')
+    lines.append(r'\midrule')
+    lines.append('N. observations & ' + ' & '.join(str(int(f.nobs)) for f in fits) + r' \\')
+    lines.append(r'$R^2$ & ' + ' & '.join(f'{f.rsquared:.5f}' for f in fits) + r' \\')
+    lines.append(r'$\mathit{Adjusted}~R^2$ & ' +
+                 ' & '.join(f'{f.rsquared_adj:.5f}' for f in fits) + r' \\')
+    lines += [r'\bottomrule', r'\end{tabular}']
+    return '\n'.join(lines)
+
+
 # ── AA baseline repair ───────────────────────────────────────────────────────
 
 def main(args):
@@ -288,10 +367,12 @@ def main(args):
         if len(sub) < 30:
             print(f'\n{label}: only {len(sub)} usable rows — skipped')
             continue
-        out, fitted = model_ladder(sub, target, label)
+        out, fitted, ctl = model_ladder(sub, target, label)
         out.to_csv(os.path.join(RESULTS_DIR, f'regression_{target}.csv'), index=False)
         write_table(f'table_regression_{target}.tex',
                     latex_regression_table(out, target, label).split('\n'))
+        write_table(f'table_controls_{target}.tex',
+                    latex_control_table(ctl, target).split('\n'))
         plot_predicted_vs_actual(sub, target, label, fitted)
 
     print(f'\nLaTeX tables → {TABLES_DIR}/')

@@ -25,7 +25,7 @@ data/all_networks.pkl: data/CommunityFitNet_updated.pickle experiments/build_ful
 	$(PYTHON) experiments/build_full_corpus.py
 
 ## ── stage 2 (expensive) ──────────────────────────────────────────────────────
-compute: compute-entropy compute-robustness compute-runtime  ## All of stage 2 (hours, needs a GPU)
+compute: compute-entropy compute-robustness compute-runtime compute-synthetic  ## All of stage 2 (hours, needs a GPU)
 
 compute-entropy: data/all_networks.pkl  ## Multiscale entropy + SEAL/Adamic-Adar link prediction
 	$(PYTHON) run_real_networks_experiment.py
@@ -36,6 +36,9 @@ compute-robustness: data/all_networks.pkl  ## Second coarsening algorithm, for t
 compute-runtime: data/all_networks.pkl  ## Per-stage runtime and peak memory
 	$(PYTHON) experiments/runtime_benchmark.py --n-networks 50 --repeats 3
 
+compute-synthetic:  ## Figure 1: entropy across synthetic families (no corpus needed)
+	$(PYTHON) experiments/synthetic_families.py
+
 ## ── stage 3 (cheap) ──────────────────────────────────────────────────────────
 figures:  ## Regenerate every figure and table in the paper from results/
 	$(PYTHON) experiments/rebuild_regression.py
@@ -43,6 +46,12 @@ figures:  ## Regenerate every figure and table in the paper from results/
 	$(PYTHON) experiments/trajectory_figures.py
 	$(PYTHON) experiments/runtime_benchmark.py --analyze
 	$(PYTHON) experiments/coarsening_robustness.py --analyze
+	@if [ -f results/synthetic_families.csv ]; then \
+	  $(PYTHON) experiments/synthetic_families.py --analyze; \
+	else \
+	  echo "skipping Fig. 1: results/synthetic_families.csv not present"; \
+	  echo "  build it with 'make compute-synthetic' (~2 h, no GPU needed)"; \
+	fi
 	@echo
 	@echo "figures/ and tables/ are up to date. 'make sync' copies them into the paper."
 
@@ -53,6 +62,7 @@ sync: figures  ## Copy the generated PDFs into the manuscript's image tree
 	cp figures/kmeans_pca_clusters_single.pdf "$(PAPER)/imagenes/correlacion/"
 	cp figures/runtime_scaling.pdf figures/runtime_by_level.pdf "$(PAPER)/imagenes/correlacion/"
 	cp figures/entropy_trajectories_by_domain.pdf "$(PAPER)/imagenes/grafos_Reales/"
+	cp figures/synthetic_families.pdf "$(PAPER)/imagenes/reduccion_grafos_conocidos/"
 	@echo "Figures copied. Table bodies are pasted into body.tex/appendix.tex by hand —"
 	@echo "see tables/*.tex and the README note on keeping them in step."
 
