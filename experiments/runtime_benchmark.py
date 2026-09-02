@@ -491,7 +491,7 @@ def analyze(args):
     # per-panel legends, which at this width cover the data.
     # 5.48 in is the acmsmall text width, so the figure is placed at 1:1 and the
     # 8 pt labels below render at 8 pt rather than being scaled down by LaTeX.
-    fig, axes = plt.subplots(1, 3, figsize=(5.48, 2.15))
+    fig, axes = plt.subplots(1, 2, figsize=(5.48, 2.35))
 
     ax = axes[0]
     handles = []
@@ -526,19 +526,6 @@ def analyze(args):
                       color=STAGE_COLOR[stage])
     ax.set_xlabel('Nodes'); ax.set_ylabel('Peak memory (MB)')
     ax.set_title('Memory by stage')
-
-    ax = axes[2]
-    ax.scatter(sizes.values, sp.values, s=9, alpha=0.6, color='#1d4a60',
-               edgecolors='none')
-    xs = np.logspace(np.log10(sizes.min()), np.log10(sizes.max()), 50)
-    ax.plot(xs, 10 ** c_s * xs ** a_s, '-', lw=1.1, color='#cd7e59')
-    ax.axhline(1.0, color='0.35', lw=0.7, ls='--')
-    ax.axvline(crossover, color='0.35', lw=0.7, ls=':')
-    ax.set_xscale('log'); ax.set_yscale('log')
-    ax.set_xlabel('Nodes'); ax.set_ylabel(r'Speedup ($100\%\!\rightarrow\!40\%$)')
-    # No legend: at this panel width it covers the fit whichever corner it goes in.
-    # The exponent and break-even size are stated in the caption and the text.
-    ax.set_title('End-to-end speedup')
 
     for ax in axes:
         ax.spines[['top', 'right']].set_visible(False)
